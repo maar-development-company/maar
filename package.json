@@ -1,0 +1,78 @@
+{
+  "name": "pssa-app",
+  "version": "0.1.0",
+  "private": true,
+  "repository": "git@github.com:kidayuichi/Pokeka-search-support-app.git",
+  "main": "server.js",
+  "dependencies": {
+    "@google-cloud/vision": "^3.1.3",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "browserify-fs": "^1.0.0",
+    "buffer": "^6.0.3",
+    "cors": "^2.8.5",
+    "crypto-browserify": "^3.12.0",
+    "dotenv": "^16.1.4",
+    "dotenv-webpack": "^8.0.1",
+    "ejs": "^3.1.6",
+    "express": "^4.18.2",
+    "express-pino-logger": "^7.0.0",
+    "fs": "^0.0.1-security",
+    "https-browserify": "^1.0.0",
+    "knex": "^2.4.2",
+    "minimatch": "^9.0.1",
+    "nodemon": "^2.0.22",
+    "os-browserify": "^0.3.0",
+    "pg": "^8.11.0",
+    "querystring": "^0.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.9.0",
+    "react-router-dom": "^6.11.2",
+    "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "slick": "^1.12.2",
+    "slick-carousel": "^1.8.1",
+    "stream-http": "^3.2.0",
+    "underscore": "^1.9.1",
+    "url": "^0.11.0",
+    "web-vitals": "^2.1.4",
+    "webrtc-adapter": "^8.2.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "s-start": "nodemon server.js",
+    "migrate": "knex migrate:latest --knexfile ./knexfile.js",
+    "seed": "knex seed:run --knexfile ./knexfile.js"
+  },
+  "husky": {
+    "pre-commit": "pretty-quick --staged"
+  },
+  "author": "",
+  "license": "ISC",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.10",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "^8.42.0",
+    "husky": "^3.0.1",
+    "mocha": "^6.2.0",
+    "nodemon": "^2.0.22"
+  }
+}
