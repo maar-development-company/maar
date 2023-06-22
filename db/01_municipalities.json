@@ -1,0 +1,22 @@
+[
+  {
+    "municipalitiesName": "maeyama",
+    "numberOfHouse": "100"
+  },
+  {
+    "municipalitiesName": "meiwa",
+    "numberOfHouse": "90"
+  },
+  {
+    "municipalitiesName": "hiroshima",
+    "numberOfHouse": "80"
+  },
+  {
+    "municipalitiesName": "ryujin",
+    "numberOfHouse": "70"
+  },
+  {
+    "municipalitiesName": "shinjuku",
+    "numberOfHouse": "60"
+  }
+]
