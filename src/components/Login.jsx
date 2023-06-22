@@ -9,6 +9,8 @@ export const Login = (props) => {
     setLoginCom,
     municipality,
     setMunicipality,
+    municipalityId,
+    setMunicipalityId,
     emailAddress,
     setEmailAddress,
     password,
@@ -22,7 +24,8 @@ export const Login = (props) => {
 
   const handleCategoryTownChange = (e) => {
     console.log(e.target.value);
-    setMunicipality(e.target.value);
+    setMunicipalityId(e.target.value.id);
+    setMunicipality(e.target.value.name);
     console.log(municipality);
   };
 
@@ -85,10 +88,10 @@ export const Login = (props) => {
         <option value="" disabled>
           町内会名を選択してください
         </option>
-        <option value={"大林町"}>大林町</option>
-        <option value={"聖心町"}>聖心町</option>
-        <option value={"堤"}>堤</option>
-        <option value={"挙母町"}>挙母町</option>
+        <option value={{ id: 1, name: "大林町" }}>大林町</option>
+        <option value={{ id: 2, name: "聖心町" }}>聖心町</option>
+        <option value={{ id: 3, name: "堤" }}>堤</option>
+        <option value={{ id: 4, name: "挙母町" }}>挙母町</option>
       </select>
       <input
         className="mailId"

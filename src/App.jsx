@@ -5,11 +5,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Login } from "./components/Login";
 import { ArticleList } from "./components/Articlelist";
+import { SingleArticle } from "./components/SingleArticle";
+import { AdminMenu } from "./components/AdminMenu";
+import { NewPost } from "./components/NewPost";
 
 function App() {
   // console.log(process.env);
-  const [loginCom, setLoginCom] = useState(1);
-  const [municipality, setMunicipality] = useState("");
+  const [loginCom, setLoginCom] = useState(2);
+  const [municipality, setMunicipality] = useState("大林町");
+  const [municipalityId, setMunicipalityId] = useState("1");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   console.log("loginCom : ", loginCom);
@@ -23,6 +27,8 @@ function App() {
             setLoginCom={setLoginCom}
             municipality={municipality}
             setMunicipality={setMunicipality}
+            municipalityId={municipalityId}
+            setMunicipalityId={setMunicipalityId}
             emailAddress={emailAddress}
             setEmailAddress={setEmailAddress}
             password={password}
@@ -48,28 +54,16 @@ function App() {
                       <Link to="/articlelist">お知らせ</Link>
                     </div>
                     <div className="link">
-                      <Link to="https://www.pokemon-card.com/">
-                        遊び方と<br></br>大会ルール
-                      </Link>
-                    </div>
-                    <div className="link">
-                      <Link to="https://www.pokemon-card.com/">商品情報</Link>
-                    </div>
-                    <div className="link">
-                      <Link to="https://www.pokemon-card.com/">イベント</Link>
-                    </div>
-                    <div className="link">
-                      <Link to="https://www.pokemon-card.com/">お店検索</Link>
-                    </div>
-                    <div className="link">
-                      <Link to="https://www.pokemon-card.com/">カード検索</Link>
-                    </div>
-                    <div className="link">
                       <Link to="https://www.pokemon-card.com/">デッキ構築</Link>
                     </div>
                     <div className="link">
                       <Link to="/AttackSearch">技検</Link>
                     </div>
+                    {loginCom === 2 && (
+                      <div className="link">
+                        <Link to="/AdminMenu">管理者メニュー</Link>
+                      </div>
+                    )}
                   </div>
                 </>
               }
@@ -82,6 +76,37 @@ function App() {
                 </div>
               }
             />
+            <Route
+              path="/SingleArticle"
+              element={
+                <div>
+                  <SingleArticle />
+                </div>
+              }
+            />
+            {loginCom === 2 && (
+              <Route
+                path="/AdminMenu"
+                element={
+                  <div>
+                    <AdminMenu
+                      municipality={municipality}
+                      municipalityId={municipalityId}
+                    />
+                  </div>
+                }
+              />
+            )}
+            {loginCom === 2 && (
+              <Route
+                path="/NewPost"
+                element={
+                  <div>
+                    <NewPost />
+                  </div>
+                }
+              />
+            )}
           </Routes>
         </Router>
       )}
