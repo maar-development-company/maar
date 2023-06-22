@@ -1,0 +1,56 @@
+[
+  {
+    "articleTitleID":1,
+    "householdNameID":1,
+    "readFlag":1,
+    "readTimestamp":"2023-06-21 12:34:56"
+  },
+  {
+    "articleTitleID":1,
+    "householdNameID":2,
+    "readFlag":1,
+    "readTimestamp":"2023-06-21 12:34:56"
+  },
+  {
+    "articleTitleID":1,
+    "householdNameID":3,
+    "readFlag":1,
+    "readTimestamp":"2023-06-21 12:34:56"
+  },
+  {
+    "articleTitleID":2,
+    "householdNameID":1,
+    "readFlag":1,
+    "readTimestamp":"2023-06-21 12:34:56"
+  },
+  {
+    "articleTitleID":2,
+    "householdNameID":2,
+    "readFlag":1,
+    "readTimestamp":"2023-06-21 12:34:56"
+  },
+  {
+    "articleTitleID":2,
+    "householdNameID":3,
+    "readFlag":1,
+    "readTimestamp":"2023-06-21 12:34:56"
+  },
+  {
+    "articleTitleID":3,
+    "householdNameID":1,
+    "readFlag":0,
+    "readTimestamp":"2023-06-21 12:34:56"
+  },
+  {
+    "articleTitleID":3,
+    "householdNameID":2,
+    "readFlag":1,
+    "readTimestamp":"2023-06-21 20:04:56"
+  },
+  {
+    "articleTitleID":3,
+    "householdNameID":3,
+    "readFlag":0,
+    "readTimestamp":"2023-06-21 22:34:56"
+  }
+]

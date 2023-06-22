@@ -1,0 +1,65 @@
+[
+  {
+    "articleTitle":"title1",
+    "articleContent":"content1",
+    "articleTimestamp":"2023-06-21 10:30:00",
+    "municipalitiesID2":1,
+    "articleCategory":"イベント"
+  },
+  {
+    "articleTitle":"title2",
+    "articleContent":"content2",
+    "articleTimestamp":"2023-06-21 10:30:30",
+    "municipalitiesID2":1,
+    "articleCategory":"会議"
+  },
+  {
+    "articleTitle":"title3",
+    "articleContent":"content3",
+    "articleTimestamp":"2023-06-21 10:30:50",
+    "municipalitiesID2":1,
+    "articleCategory":"健康"
+  },
+  {
+    "articleTitle":"title4",
+    "articleContent":"content4",
+    "articleTimestamp":"2023-06-21 10:35:00",
+    "municipalitiesID2":1,
+    "articleCategory":"報告"
+  },
+  {
+    "articleTitle":"title5",
+    "articleContent":"content5",
+    "articleTimestamp":"2023-06-21 10:40:00",
+    "municipalitiesID2":1,
+    "articleCategory":"防災"
+  },
+  {
+    "articleTitle":"title1",
+    "articleContent":"content1",
+    "articleTimestamp":"2023-06-21 10:50:00",
+    "municipalitiesID2":2,
+    "articleCategory":"防災"
+  },
+  {
+    "articleTitle":"title2",
+    "articleContent":"content2",
+    "articleTimestamp":"2023-06-21 11:30:00",
+    "municipalitiesID2":2,
+    "articleCategory":"安全"
+  },
+  {
+    "articleTitle":"title3",
+    "articleContent":"content3",
+    "articleTimestamp":"2023-06-21 11:34:00",
+    "municipalitiesID2":2,
+    "articleCategory":"イベント"
+  },
+  {
+    "articleTitle":"title4",
+    "articleContent":"content4",
+    "articleTimestamp":"2023-06-21 11:45:20",
+    "municipalitiesID2":2,
+    "articleCategory":"イベント"
+  }
+]
