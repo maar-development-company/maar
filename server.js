@@ -103,63 +103,83 @@ app.listen(port, () => {
 });
 
 
+// 記事の表示と登録
+// 記事の表示
+app.get("/maar/articlelist", async (req, res) => {
+  console.log("記事リストのGETリクエスト受信");
+  // クエリから市町村を取得
+  const municipalities = req.query.municipalities;
+
+  // 市区町村データがあるか確認
+  if (municipalities) {
+    console.log(`Municipalities ID: ${municipalities}`);
+
+    // 特定の市町村の記事を取得する関数
+    const getArticles = (municipalities) => {
+      return knex.select("*").from("articleList").where("municipalitiesID2", municipalities);
+    };
+
+    // 記事を取得して応答として送信する
+    const articles = await getArticles(municipalities);
+    console.log('articles: ', articles);
+    console.log("記事一覧の取得が完了しました。");
+    res.status(200).json(articles);
+  } else {
+    // 市区町村データがない時は、エラーを返す
+    res.status(400).json({ error: "市区町村データがありません。" });
+  }
+});
+
+// ##########テスト用コード
 // MunicipalitiesIDResult:  [ { id: 2 } ]
 // MailAdressIDResult:  [ { id: 1 } ]
 // PassIDResult:  [ { id: 1 } ]
 // {"mailadress":"aaaa@mail", "password":"ah29f9d8","municipalities":"meiwa"}
 // 返す形
 // {judge:0or1or2,name:▢▢,role: }
-
-// 記事の表示と登録
-// app.get("/maar/articlelist?municipalities", async (req, res) => {
-// // app.get("/maar/articlelist", async (req, res) => {
-//   console.log("記事の一覧をget受信");
-//   const id = req.query.id;
-//   console.log(id);
-//   const getMyCard = (id) => {
-//     return knex.select("*").from("").where("", id);
-//   };
-//   const myCard = await getMyCard(id);
-//   console.log("getObj完了");
-//   res.status(200).json(myCard);
-// });
+// ダミーコード
+// {"mailadress":"aaaa@mail", "password":"ah29f9d8","municipalities":"meiwa"}
+// ##########テスト用コード
 
 
-// app.get("/maar/articlelist", async (req, res) => {
-//   console.log("Article list GET request received.");
-//   // get municipalities from query parameters
-//   const municipalities = req.query.municipalities;
+// 記事の投稿
+app.post("/maar/articlelist", async (req, res) => {
+  console.log("記事の POST リクエスト受信");
 
-//   // check if municipalities parameter exists
-//   if (municipalities) {
-//     console.log(`Municipalities ID: ${municipalities}`);
+  // ボディから記事データを取得
+  const article = req.body;
 
-//     // Define a function that retrieves articles for a specific municipality
-//     const getArticles = (municipalities) => {
-//       return knex.select("*").from("articlelist").where("municipalitiesID2", municipalities);
-//     };
+  // リクエスト形式をチェック
+  if (article && 
+    article.articleTitle && 
+    article.articleContent && 
+    article.articleTimestamp && 
+    article.municipalitiesID2 && 
+    article.articleCategory) {
+    console.log('article: ', article);
 
-//     // Retrieve articles and send them as a response
-//     const articles = await getArticles(municipalities);
-//     console.log("Article list retrieval completed.");
-//     res.status(200).json(articles);
-//   } else {
-//     // if municipalities parameter does not exist, send an error message
-//     res.status(400).json({ error: "Municipalities parameter is missing from the query." });
-//   }
-// });
+    // 新しい記事を追加する関数
+    const addArticle = (article) => {
+      return knex("articleList").insert(article);
+    };
 
-// app.post('/notes', async (req, res) => {
-//   try {
-//     const { id, title, content, updateDay } = req.body;
-//     const note = await knex('notes').insert({ id, title, content, updateDay }).returning('*');
-//     res.json(note);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// });
+    // 新しい記事を追加し応答として確認を送信
+    await addArticle(article);
+    console.log("新しい記事を追加");
+    res.status(200).json({ message: "新しい記事を追加しました。" });
+  } else {
+    // 正常に投稿できない時は、エラーを返す
+    res.status(400).json({ error: "記事を追加できません。記載内容を確認してください。" });
+  }
+});
 
+// {
+//   "articleTitle":"お祭り",
+//   "articleContent":"来たれ！上郷おいでん祭り",
+//   "articleTimestamp":"2023-06-23 11:34:00",
+//   "municipalitiesID2":1,
+//   "articleCategory":"イベント"
+// }
 
 
 // ここから
