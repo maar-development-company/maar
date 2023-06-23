@@ -54,7 +54,9 @@ articleTimestamp:2023/06/21/15/41}
 
   return (
     <div className="text-center">
-      <h1>{municipality}</h1>
+      <h1 className="sm:text-6xl text-4xl title-font font-medium text-gray-900 mt-4 mb-4">
+        新規お知らせ投稿
+      </h1>
       <input
         className="w-11/12 h-full bg-gray-100 bg-opacity-50 rounded border
         mt-4 ml-2 mr-2
@@ -62,7 +64,7 @@ articleTimestamp:2023/06/21/15/41}
           focus:ring-indigo-200 outline-none text-gray-700 text-4xl
            py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         type="text"
-        placeholder="記事タイトルを入力"
+        placeholder="記事タイトル"
         onChange={handleArticleTitleChange}
         required
       />
@@ -71,16 +73,18 @@ articleTimestamp:2023/06/21/15/41}
         className="w-11/12  bg-gray-100 bg-opacity-50 rounded border 
         mt-4 ml-2 mr-2
          border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
-          focus:ring-indigo-200 h-64 outline-none text-gray-700 2xl:text-4xl sm:text-2xl
-           py-1 px-3 resize-none transition-colors duration-200 ease-in-out leading-relaxed"
+          focus:ring-indigo-200 h-64 outline-none text-gray-700 text-4xl 
+          py-1 px-3 resize-none transition-colors duration-200 ease-in-out leading-relaxed"
         placeholder="記事内容を&#13;入力してください"
         onChange={handleArticleContentChange}
         required
       />
       <br></br>
+      <input type="file"></input>
+      <br></br>
       <div>
         <button
-          className="bg-blue-400 hover:bg-blue-500 text-white rounded px-4 py-2 mt-4"
+          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56"
           onClick={postArticle}
         >
           新規投稿

@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { GrCatalog } from "react-icons/gr";
-import { BsFillPencilFill } from "react-icons/bs";
+import { BsGear } from "react-icons/bs";
 import { BiDownArrowAlt } from "react-icons/bi";
 import { Login } from "./components/Login";
 import { ArticleList } from "./components/Articlelist";
@@ -21,9 +21,9 @@ function App() {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   console.log("loginCom : ", loginCom);
-
+  // flex items-center justify-center h-full
   const menuStyle =
-    "m-4 p-4 border-solid rounded-3xl border-4 border-gray-300 text-center md:text-left";
+    "m-4 p-4 h-44 md:h-28 border-solid rounded-3xl border-4 border-gray-300 text-center md:flex md:flex-row";
   return (
     <div>
       {loginCom === 0 && (
@@ -45,6 +45,7 @@ function App() {
       {loginCom !== 0 && (
         <Router>
           <header className="p-2 bg-gradient-to-b from-blue-500 to-blue-200">
+            <p className="text-4xl text-center">まある</p>
             <p className="text-4xl text-center">{municipality}</p>
             <Link className="homeLink" to="/">
               ホーム
@@ -59,15 +60,14 @@ function App() {
                   <div className="link-container">
                     <Link to="/articlelist">
                       <div className={menuStyle}>
-                        {/* <span className="items-center justify-center text-6xl md:flex md:flex-row"> */}
-                        <div className="items-center justify-center text-6xl sm:flex sm:flex-row">
-                          <GrCatalog />
+                        <div className="flex flex-col items-center justify-center md:flex-row">
+                          <div className="flex items-center justify-center text-6xl md:justify-start">
+                            <GrCatalog />
+                          </div>
+                          <p className="items-center justify-center text-6xl ">
+                            回覧板
+                          </p>
                         </div>
-                        <p className="items-center justify-center text-6xl sm:flex sm:flex-row">
-                          回覧板
-                        </p>
-                        {/* </span> */}
-                        <p className="mt-2">{`${municipality}からのお知らせです`}</p>
                       </div>
                     </Link>
                     <Link to="https://www.pokemon-card.com/">
@@ -78,18 +78,27 @@ function App() {
                     </Link>
                     <Link to="/AttackSearch">
                       <div className={menuStyle}>
-                        <p className="text-4xl">空項目2</p>ß
-                        <p>説明入れる↑アゲアゲ↑</p>
+                        <div className="flex flex-col items-center justify-center md:flex-row">
+                          <div className="flex items-center justify-center text-6xl md:justify-start">
+                            <GrCatalog />
+                          </div>
+                          <p className="text-6xl">回覧板</p>
+                        </div>
+                        {/* </span> */}
+                        <p className="mt-2">{`${municipality}からのお知らせです`}</p>
                       </div>
                     </Link>
                     {loginCom === 2 && (
                       <Link to="/AdminMenu">
                         <div className={menuStyle}>
-                          <span className="p-6 text-6xl flex flex-row">
-                            <BsFillPencilFill />
-                            管理者メニュー
-                          </span>
-                          <p>{`${municipality}からのお知らせ投稿など`}</p>
+                          <div className="flex flex-col items-center justify-center md:flex-row">
+                            <div className="flex items-center justify-center text-6xl md:justify-start">
+                              <BsGear />
+                            </div>
+                            <p className="text-6xl">管理者メニュー</p>
+                          </div>
+                          {/* </span> */}
+                          {/* <p className="mt-2">{`${municipality}からのお知らせです`}</p> */}
                         </div>
                       </Link>
                     )}

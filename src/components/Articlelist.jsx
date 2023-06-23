@@ -59,13 +59,15 @@ export const ArticleList = (props) => {
       {testArticleList.map((ele) => {
         console.log("");
         return (
-          <div className="link">
-            <Link to="/SingleArticle" state={{ articleInfo: ele }}>
-              {ele.title}
-            </Link>
-            <div>{ele.articleTimestamp}</div>
-            <div>{ele.readFlag === 0 ? "未読" : "既読"}</div>
-          </div>
+          <Link to="/SingleArticle" state={{ articleInfo: ele }}>
+            <section className="m-4 p-4 h-44  border-solid rounded-3xl border-4 border-gray-300 text-center flex flex-row">
+              <div className="w-10/12 text-left">
+                <h2 className="text-3xl">{ele.title}</h2>
+                <p className="mt-4">{ele.articleTimestamp}</p>
+              </div>
+              <div className="">{ele.readFlag === 0 ? "未読" : "既読"}</div>
+            </section>
+          </Link>
         );
       })}
     </div>

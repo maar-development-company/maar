@@ -1,10 +1,4 @@
-// export const Article = (props) => {
-//   return (
-//     <div>
-//       <h1>Hello World</h1>
-//     </div>
-//   );
-// };
+
 import { useLocation } from "react-router-dom";
 
 export const SingleArticle = () => {
