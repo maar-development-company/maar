@@ -103,20 +103,57 @@ app.listen(port, () => {
 });
 
 
+
 // 記事の表示と登録
-// 記事の表示
+// 記事の表示（地域名から取得）
 app.get("/maar/articlelist", async (req, res) => {
   console.log("記事リストのGETリクエスト受信");
   // クエリから市町村を取得
   const municipalities = req.query.municipalities;
+  const municipalitiesName = req.query.municipalitiesName;
+
+  // 市区町村データがあるか確認
+  if (municipalitiesName) {
+    console.log(`Municipalities ID: ${municipalities}`);
+    console.log('municipalitiesName: ', municipalitiesName);
+
+    // 特定の市町村の記事を取得する関数
+    const getArticles = (municipalitiesName) => {
+      return knex.select("*")
+                  .from("articleList")
+                  .join('municipalitiesList', 'articleList.municipalitiesID2', 'municipalitiesList.id')
+                  .where("municipalitiesList.municipalitiesName", municipalitiesName);
+    };
+
+    // 記事を取得して応答として送信する
+    const articles = await getArticles(municipalitiesName);
+    console.log('articles: ', articles);
+    console.log("記事一覧の取得が完了しました。");
+    res.status(200).json(articles);
+  } else {
+    // 市区町村データがない時は、エラーを返す
+    res.status(400).json({ error: "市区町村データがありません。" });
+  }
+});
+
+// 記事の表示（地域IDから取得）
+app.get("/maar/articlelist", async (req, res) => {
+  console.log("記事リストのGETリクエスト受信");
+  // クエリから市町村を取得
+  const municipalities = req.query.municipalities;
+  const municipalitiesName = req.query.municipalitiesName;
 
   // 市区町村データがあるか確認
   if (municipalities) {
     console.log(`Municipalities ID: ${municipalities}`);
+    console.log('municipalitiesName: ', municipalitiesName);
 
     // 特定の市町村の記事を取得する関数
-    const getArticles = (municipalities) => {
-      return knex.select("*").from("articleList").where("municipalitiesID2", municipalities);
+    const getArticles = (municipalitiesName) => {
+      return knex.select("*")
+                  .from("articleList")
+                  .join('municipalitiesList', 'articleList.municipalitiesID2', 'municipalitiesList.id')
+                  .where("municipalitiesID2", municipalities);
     };
 
     // 記事を取得して応答として送信する
