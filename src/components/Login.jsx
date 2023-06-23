@@ -86,7 +86,7 @@ export const Login = (props) => {
         municipalities: municipalities,
       };
       console.log("dataの中身　　", data);
-      const res = await fetch("http://localhost:8080/maar/login", {
+      const res = await fetch(`${URL}/maar/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
