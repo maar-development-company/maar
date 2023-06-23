@@ -1,22 +1,22 @@
 [
   {
-    "municipalitiesName": "maeyama",
+    "municipalitiesName": "大林町自治区",
     "numberOfHouse": "100"
   },
   {
-    "municipalitiesName": "meiwa",
+    "municipalitiesName": "聖心町自治区",
     "numberOfHouse": "90"
   },
   {
-    "municipalitiesName": "hiroshima",
+    "municipalitiesName": "堤自治区",
     "numberOfHouse": "80"
   },
   {
-    "municipalitiesName": "ryujin",
+    "municipalitiesName": "挙母町自治区",
     "numberOfHouse": "70"
   },
   {
-    "municipalitiesName": "shinjuku",
+    "municipalitiesName": "前山町自治区",
     "numberOfHouse": "60"
   }
 ]

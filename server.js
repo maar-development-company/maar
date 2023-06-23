@@ -41,37 +41,52 @@ app.post("/maar/login", async (req, res) => {
   //ログイン情報の確認
   const postDataCheckFunc = async () => {
     const checkMunicipalitiesID = async () => {
-      return knex.select("id").from("municipalitiesList").where("municipalitiesName", postData.municipalities);
-    }
+      return knex
+        .select("id")
+        .from("municipalitiesList")
+        .where("municipalitiesName", postData.municipalities);
+    };
     const MunicipalitiesIDResult = await checkMunicipalitiesID();
-    console.log('MunicipalitiesIDResult: ', MunicipalitiesIDResult);
+    console.log("MunicipalitiesIDResult: ", MunicipalitiesIDResult);
 
     const checkmailAdressID = async () => {
-      return knex.select("id").from("householdList").where("householdMail", postData.mailadress);
-    }
+      return knex
+        .select("id")
+        .from("householdList")
+        .where("householdMail", postData.mailadress);
+    };
     const MailAdressIDResult = await checkmailAdressID();
-    console.log('MailAdressIDResult: ', MailAdressIDResult[0].id);
+    console.log("MailAdressIDResult: ", MailAdressIDResult[0].id);
 
     const checkPassID = async () => {
-      return knex.select("id").from("householdPassList").where("householdPass", postData.password);
-    }
+      return knex
+        .select("id")
+        .from("householdPassList")
+        .where("householdPass", postData.password);
+    };
     const PassIDResult = await checkPassID();
-    console.log('PassIDResult: ', PassIDResult); 
+    console.log("PassIDResult: ", PassIDResult);
 
     const checkLoginInfo = async () => {
-      return knex.select("id").from("householdTable").where("householdNameID", MailAdressIDResult[0].id)
-        .andWhere("householdPassID", PassIDResult[0].id)
-    }
+      return knex
+        .select("id")
+        .from("householdTable")
+        .where("householdNameID", MailAdressIDResult[0].id)
+        .andWhere("householdPassID", PassIDResult[0].id);
+    };
     const checkLoginResult = await checkLoginInfo();
-    console.log('checkLoginResult : ', checkLoginResult);
+    console.log("checkLoginResult : ", checkLoginResult);
 
     if (checkLoginResult.length > 0) {
-      console.log('checkLoginResult[0].id: ', checkLoginResult[0].id);
+      console.log("checkLoginResult[0].id: ", checkLoginResult[0].id);
       const getRoleFunc = async () => {
-        return knex.select("roleFlag", "householdName").from("householdList").where("id", checkLoginResult[0].id)
-      }
+        return knex
+          .select("roleFlag", "householdName")
+          .from("householdList")
+          .where("id", checkLoginResult[0].id);
+      };
       const roleResult = await getRoleFunc();
-      console.log('roleResult: ', roleResult);
+      console.log("roleResult: ", roleResult);
 
       let role;
       if (roleResult.length > 0) {
@@ -86,23 +101,21 @@ app.post("/maar/login", async (req, res) => {
 
       const resultObj = {
         judge: role,
-        name: roleResult[0].householdName
+        name: roleResult[0].householdName,
       };
       return resultObj;
     }
-  }
+  };
 
   const postDataCheckResult = await postDataCheckFunc();
   console.log(postDataCheckResult);
-  
+
   res.status(200).json(postDataCheckResult);
 });
 
 app.listen(port, () => {
   console.log(`Server is online on port: ${port}`);
 });
-
-
 
 // 記事の表示と登録
 // 記事の表示（地域名から取得）
@@ -115,19 +128,24 @@ app.get("/maar/articlelist", async (req, res) => {
   // 市区町村データがあるか確認
   if (municipalitiesName) {
     console.log(`Municipalities ID: ${municipalities}`);
-    console.log('municipalitiesName: ', municipalitiesName);
+    console.log("municipalitiesName: ", municipalitiesName);
 
     // 特定の市町村の記事を取得する関数
     const getArticles = (municipalitiesName) => {
-      return knex.select("*")
-                  .from("articleList")
-                  .join('municipalitiesList', 'articleList.municipalitiesID2', 'municipalitiesList.id')
-                  .where("municipalitiesList.municipalitiesName", municipalitiesName);
+      return knex
+        .select("*")
+        .from("articleList")
+        .join(
+          "municipalitiesList",
+          "articleList.municipalitiesID2",
+          "municipalitiesList.id"
+        )
+        .where("municipalitiesList.municipalitiesName", municipalitiesName);
     };
 
     // 記事を取得して応答として送信する
     const articles = await getArticles(municipalitiesName);
-    console.log('articles: ', articles);
+    console.log("articles: ", articles);
     console.log("記事一覧の取得が完了しました。");
     res.status(200).json(articles);
   } else {
@@ -146,19 +164,24 @@ app.get("/maar/articlelist", async (req, res) => {
   // 市区町村データがあるか確認
   if (municipalities) {
     console.log(`Municipalities ID: ${municipalities}`);
-    console.log('municipalitiesName: ', municipalitiesName);
+    console.log("municipalitiesName: ", municipalitiesName);
 
     // 特定の市町村の記事を取得する関数
     const getArticles = (municipalitiesName) => {
-      return knex.select("*")
-                  .from("articleList")
-                  .join('municipalitiesList', 'articleList.municipalitiesID2', 'municipalitiesList.id')
-                  .where("municipalitiesID2", municipalities);
+      return knex
+        .select("*")
+        .from("articleList")
+        .join(
+          "municipalitiesList",
+          "articleList.municipalitiesID2",
+          "municipalitiesList.id"
+        )
+        .where("municipalitiesID2", municipalities);
     };
 
     // 記事を取得して応答として送信する
     const articles = await getArticles(municipalities);
-    console.log('articles: ', articles);
+    console.log("articles: ", articles);
     console.log("記事一覧の取得が完了しました。");
     res.status(200).json(articles);
   } else {
@@ -178,22 +201,42 @@ app.get("/maar/articlelist", async (req, res) => {
 // {"mailadress":"aaaa@mail", "password":"ah29f9d8","municipalities":"meiwa"}
 // ##########テスト用コード
 
-
 // 記事の投稿
 app.post("/maar/articlelist", async (req, res) => {
   console.log("記事の POST リクエスト受信");
 
   // ボディから記事データを取得
   const article = req.body;
-
+  console.log(article);
   // リクエスト形式をチェック
-  if (article && 
-    article.articleTitle && 
-    article.articleContent && 
-    article.articleTimestamp && 
-    article.municipalitiesID2 && 
-    article.articleCategory) {
-    console.log('article: ', article);
+
+  if (
+    article &&
+    article.articleTitle &&
+    article.articleContent &&
+    article.articleTimestamp &&
+    article.municipalitiesName &&
+    article.articleCategory
+  ) {
+    // console.log("if分の中");
+    // console.log(JSON.stringify(article.municipalitiesName));
+    const checkPOSTMunicipalitiesID = async () => {
+      const result = await knex
+        .select("id")
+        .from("municipalitiesList")
+        .where("municipalitiesName", article.municipalitiesName);
+      return result[0].id;
+    };
+
+    const checkPOSTMunicipalitiesIDResult = await checkPOSTMunicipalitiesID();
+    // console.log(
+    //   "checkPOSTMunicipalitiesIDResult: ",
+    //   checkPOSTMunicipalitiesIDResult
+    // );
+
+    article.municipalitiesID2 = checkPOSTMunicipalitiesIDResult;
+    delete article.municipalitiesName;
+    console.log("article: ", article);
 
     // 新しい記事を追加する関数
     const addArticle = (article) => {
@@ -206,7 +249,9 @@ app.post("/maar/articlelist", async (req, res) => {
     res.status(200).json({ message: "新しい記事を追加しました。" });
   } else {
     // 正常に投稿できない時は、エラーを返す
-    res.status(400).json({ error: "記事を追加できません。記載内容を確認してください。" });
+    res
+      .status(400)
+      .json({ error: "記事を追加できません。記載内容を確認してください。" });
   }
 });
 
@@ -217,7 +262,6 @@ app.post("/maar/articlelist", async (req, res) => {
 //   "municipalitiesID2":1,
 //   "articleCategory":"イベント"
 // }
-
 
 // ここから
 // app.post("/maar/articlelist", async (req, res) => {

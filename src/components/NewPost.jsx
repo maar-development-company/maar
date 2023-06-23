@@ -1,50 +1,55 @@
 import { useLocation } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+const URL =
+  process.env.NODE_ENV === "production"
+    ? "https://bb-master-revenge-front.onrender.com"
+    : "http://localhost:8080";
 
 export const NewPost = () => {
   const location = useLocation();
   const { municipality, id } = location.state;
-
-  let postArticleTitle;
-  let postArticleContent;
+  const [postArticleTitle, setPostArticleTitle] = useState("");
+  const [postArticleContent, setPostArticleContent] = useState("");
 
   const handleArticleTitleChange = (e) => {
-    // console.log(e.target.value);
-    postArticleTitle = e.target.value;
-    // console.log(postArticleTitle);
+    setPostArticleTitle(e.target.value);
   };
 
   const handleArticleContentChange = (e) => {
-    // console.log(e.target.value);
-    postArticleContent = e.target.value;
-    // console.log(postArticleContent);
+    setPostArticleContent(e.target.value);
   };
 
-  {
-    /* <投稿作成>
-POST:{title:〇〇,content:△△,
-municipalities:地域名,
-articleTimestamp:2023/06/21/15/41}
-→ステータスコードのみ */
-  }
-
   async function postArticle() {
+    const currentDate = new Date();
+
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const hour = String(currentDate.getHours()).padStart(2, "0");
+    const minute = String(currentDate.getMinutes()).padStart(2, "0");
+    const second = String(currentDate.getSeconds()).padStart(2, "0");
+
+    const formattedTimestamp = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+
     try {
       const data = {
-        title: postArticleTitle,
-        content: postArticleContent,
-        municipalityId: id,
-        articleTimestamp: new Date(),
+        articleTitle: postArticleTitle,
+        articleContent: postArticleContent,
+        municipalitiesName: { municipality },
+        articleTimestamp: formattedTimestamp,
+        articleCategory: "安全",
       };
-      const res = await fetch(
-        `http://localhost:8080/maar/articlelist?municipalities=${municipality}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      console.log(data);
+
+      const res = await fetch(`${URL}/maar/articlelist`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       const result = await res.text();
       console.log(result);
     } catch (error) {
@@ -93,3 +98,13 @@ articleTimestamp:2023/06/21/15/41}
     </div>
   );
 };
+
+//   {
+//     <投稿作成>
+// POST:{title:〇〇,content:△△,
+// municipalities:地域名,
+// articleTimestamp:2023/06/21/15/41}
+// →ステータスコードのみ
+//   }
+// console.log(postArticleTitle);
+// console.log(postArticleContent);

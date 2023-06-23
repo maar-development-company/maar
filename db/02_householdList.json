@@ -5,7 +5,7 @@
     "householdMail": "aaaa@mail",
     "householdAge": 20,
     "familySize": 1,
-    "roleFlag": 0,
+    "roleFlag": 1,
     "block1": "",
     "block2": "",
     "block3": ""
@@ -16,7 +16,7 @@
     "householdMail": "aaab@mail",
     "householdAge": 21,
     "familySize": 2,
-    "roleFlag": 0,
+    "roleFlag": 1,
     "block1": "",
     "block2": "",
     "block3": ""

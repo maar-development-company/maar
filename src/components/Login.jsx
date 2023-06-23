@@ -54,6 +54,7 @@ export const Login = (props) => {
         password: password,
         municipalities: municipality,
       };
+      console.log("dataの中身　　", data);
       const res = await fetch("http://localhost:8080/maar/login", {
         method: "POST",
         headers: {
@@ -79,7 +80,8 @@ export const Login = (props) => {
 
   return (
     <div>
-      <h1>ログイン画面</h1>
+      <h1>ログイン画面 SatoTaro ah29f9d8 aaaa@mail</h1>
+      <br></br>
       <select
         className="inputTown"
         onChange={handleCategoryTownChange}
