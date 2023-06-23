@@ -49,9 +49,10 @@ export const ArticleList = (props) => {
 
   const getArticleList = async () => {
     //データベースにGETする処理
+    const encodedMunicipality = encodeURIComponent(municipality);
     try {
       const response = await fetch(
-        `${URL}/maar/articlelist?municipalitiesName=${municipality}&householdNameID=${municipalityId}`
+        `${URL}/maar/articlelist?municipalitiesName=${encodedMunicipality}&householdNameID=1`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch.");
@@ -87,7 +88,8 @@ export const ArticleList = (props) => {
                   <h2 className="text-3xl">{ele.articleTitle}</h2>
                   <p className="mt-4">{ele.articleTimestamp}</p>
                 </div>
-                <div className="">{ele.readFlag === 0 ? "未読" : "既読"}</div>
+                {/* <div className="">{ele.readFlag === 0 ? "未読" : "既読"}</div> */}
+                <div className="">{ele.readFlag === "1" ? "既読" : "未読"}</div>
               </section>
             </Link>
           );

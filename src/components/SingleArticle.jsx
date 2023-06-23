@@ -1,4 +1,3 @@
-
 import { useLocation } from "react-router-dom";
 
 export const SingleArticle = () => {
@@ -7,8 +6,8 @@ export const SingleArticle = () => {
 
   return (
     <>
-      <h1>{articleInfo.title}</h1>
-      <div>{articleInfo.content}</div>
+      <h1>{articleInfo.articleTitle}</h1>
+      <div>{articleInfo.articleContent}</div>
       <p>{articleInfo.articleTimestamp}</p>
     </>
   );

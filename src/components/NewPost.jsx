@@ -37,7 +37,7 @@ export const NewPost = () => {
       const data = {
         articleTitle: postArticleTitle,
         articleContent: postArticleContent,
-        municipalitiesName: { municipality },
+        municipalitiesName: municipality,
         articleTimestamp: formattedTimestamp,
         articleCategory: "安全",
       };
@@ -85,26 +85,33 @@ export const NewPost = () => {
         required
       />
       <br></br>
-      <input type="file"></input>
+      <br></br>
+      <label className="p-1 bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56 cursor-pointer text-3xl">
+        ファイルを選択
+        <input
+          className="hidden"
+          type="file"
+          // onchange={`$("#fake_text_box").val($(this).val())`}
+        ></input>
+        {/* <input
+            value=""
+            readOnly="readonly"
+            id="fake_text_box"
+            className=""
+            onClick={`$('#file').click()`}
+          ></input> */}
+      </label>
+      <br></br>
       <br></br>
       <div>
         <button
-          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56"
+          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56 mt-2 text-3xl "
           onClick={postArticle}
         >
           新規投稿
         </button>
       </div>
+      <br></br>
     </div>
   );
 };
-
-//   {
-//     <投稿作成>
-// POST:{title:〇〇,content:△△,
-// municipalities:地域名,
-// articleTimestamp:2023/06/21/15/41}
-// →ステータスコードのみ
-//   }
-// console.log(postArticleTitle);
-// console.log(postArticleContent);
