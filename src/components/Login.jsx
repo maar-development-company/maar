@@ -2,6 +2,8 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import { Select, Option } from "@material-tailwind/react";
 
 export const Login = (props) => {
   const {
@@ -23,10 +25,13 @@ export const Login = (props) => {
   const testC = { judge: 2, name: "久場" };
 
   const handleCategoryTownChange = (e) => {
-    console.log(e.target.value);
-    setMunicipalityId(e.target.value.id);
-    setMunicipality(e.target.value.name);
+    const selectValue = JSON.parse(e.target.value);
+    console.log(selectValue.id);
+    console.log(selectValue.name);
+    setMunicipalityId(selectValue.id);
+    setMunicipality(selectValue.name);
     console.log(municipality);
+    console.log(municipalityId);
   };
 
   const handleEmailAddressChange = (e) => {
@@ -79,36 +84,69 @@ export const Login = (props) => {
 
   return (
     <div>
-      <h1>ログイン画面</h1>
+      <header className="p-2 bg-gradient-to-b from-blue-500 to-blue-200 sticky top-0 z-50">
+        <p className="text-4xl text-center">まある</p>
+        <p className="text-4xl text-center">ログイン画面</p>
+      </header>
       <select
-        className="inputTown"
+        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
+        mt-4 ml-2 mr-2 text-3xl"
+        variant="standard"
+        label="町内会名を選択してください"
         onChange={handleCategoryTownChange}
         defaultValue=""
       >
         <option value="" disabled>
-          町内会名を選択してください
+          町内会名を選択
         </option>
-        <option value={{ id: 1, name: "大林町自治区" }}>大林町自治区</option>
-        <option value={{ id: 2, name: "聖心町自治区" }}>聖心町自治区</option>
-        <option value={{ id: 3, name: "堤自治区" }}>堤自治区</option>
-        <option value={{ id: 4, name: "挙母町自治区" }}>挙母町自治区</option>
+        {/* valueは文字列でないといけない。 */}
+        <option value={JSON.stringify({ id: 1, name: "大林町自治区" })}>
+          大林町自治区
+        </option>
+        <option value={JSON.stringify({ id: 2, name: "聖心町自治区" })}>
+          聖心町自治区
+        </option>
+        <option value={JSON.stringify({ id: 3, name: "堤自治区" })}>
+          堤自治区
+        </option>
+        <option value={JSON.stringify({ id: 4, name: "挙母町自治区" })}>
+          挙母町自治区
+        </option>
       </select>
       <input
-        className="mailId"
+        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
+        mt-4 ml-2 mr-2
+         border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
+          focus:ring-indigo-200 outline-none text-gray-700 text-4xl
+           py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         type="text"
-        placeholder="メールアドレスを入力してください。"
+        placeholder="メールアドレス"
         value={emailAddress}
         onChange={handleEmailAddressChange}
       />
       <input
-        className="password"
+        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
+        mt-4 ml-2 mr-2
+         border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
+          focus:ring-indigo-200 outline-none text-gray-700 text-4xl
+           py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         type="password"
-        placeholder="パスワードを入力してください。"
+        placeholder="パスワード"
         value={password}
         onChange={handlePasswordChange}
       />
-      <button onClick={login}>ログイン</button>
-      <button>新規登録</button>
+      <div className="flex flex-row items-center justify-center">
+        <button
+          onClick={login}
+          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 mr-2 text-3xl flex flex-row"
+        >
+          ログイン
+        </button>
+        <button className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row">
+          新規登録
+        </button>
+      </div>
+      <b></b>
     </div>
   );
 };
