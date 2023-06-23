@@ -20,7 +20,7 @@ export const Login = (props) => {
     password,
     setPassword,
   } = props;
-
+  console.log(process.env);
   const [municipalitiesList, setMunicipalitiesList] = useState([]);
   const [municipalities, setMunicipalities] = useState("");
 
