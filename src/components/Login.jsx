@@ -88,10 +88,10 @@ export const Login = (props) => {
         <option value="" disabled>
           町内会名を選択してください
         </option>
-        <option value={{ id: 1, name: "大林町" }}>大林町</option>
-        <option value={{ id: 2, name: "聖心町" }}>聖心町</option>
-        <option value={{ id: 3, name: "堤" }}>堤</option>
-        <option value={{ id: 4, name: "挙母町" }}>挙母町</option>
+        <option value={{ id: 1, name: "大林町自治区" }}>大林町自治区</option>
+        <option value={{ id: 2, name: "聖心町自治区" }}>聖心町自治区</option>
+        <option value={{ id: 3, name: "堤自治区" }}>堤自治区</option>
+        <option value={{ id: 4, name: "挙母町自治区" }}>挙母町自治区</option>
       </select>
       <input
         className="mailId"

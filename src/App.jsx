@@ -3,6 +3,9 @@ import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { GrCatalog } from "react-icons/gr";
+import { BsFillPencilFill } from "react-icons/bs";
+import { BiDownArrowAlt } from "react-icons/bi";
 import { Login } from "./components/Login";
 import { ArticleList } from "./components/Articlelist";
 import { SingleArticle } from "./components/SingleArticle";
@@ -11,13 +14,16 @@ import { NewPost } from "./components/NewPost";
 
 function App() {
   // console.log(process.env);
+  //loginCom = 0 ログインしてない　1:普通ユーザー　2:管理者
   const [loginCom, setLoginCom] = useState(2);
-  const [municipality, setMunicipality] = useState("大林町");
+  const [municipality, setMunicipality] = useState("大林町自治区");
   const [municipalityId, setMunicipalityId] = useState("1");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   console.log("loginCom : ", loginCom);
 
+  const menuStyle =
+    "m-4 p-4 border-solid rounded-3xl border-4 border-gray-300 text-center md:text-left";
   return (
     <div>
       {loginCom === 0 && (
@@ -38,31 +44,54 @@ function App() {
       )}
       {loginCom !== 0 && (
         <Router>
-          <header>CPU町内会</header>
+          <header className="p-2 bg-gradient-to-b from-blue-500 to-blue-200">
+            <p className="text-4xl text-center">{municipality}</p>
+            <Link className="homeLink" to="/">
+              ホーム
+            </Link>
+          </header>
+          {/* <BiDownArrowAlt className="animate-pulse" /> */}
           <Routes>
             <Route
               path="/"
               element={
                 <>
-                  <div className="HomeButton">
-                    <Link className="homeLink" to="/">
-                      ホーム
-                    </Link>
-                  </div>
                   <div className="link-container">
-                    <div className="link">
-                      <Link to="/articlelist">お知らせ</Link>
-                    </div>
-                    <div className="link">
-                      <Link to="https://www.pokemon-card.com/">デッキ構築</Link>
-                    </div>
-                    <div className="link">
-                      <Link to="/AttackSearch">技検</Link>
-                    </div>
-                    {loginCom === 2 && (
-                      <div className="link">
-                        <Link to="/AdminMenu">管理者メニュー</Link>
+                    <Link to="/articlelist">
+                      <div className={menuStyle}>
+                        {/* <span className="items-center justify-center text-6xl md:flex md:flex-row"> */}
+                        <div className="items-center justify-center text-6xl sm:flex sm:flex-row">
+                          <GrCatalog />
+                        </div>
+                        <p className="items-center justify-center text-6xl sm:flex sm:flex-row">
+                          回覧板
+                        </p>
+                        {/* </span> */}
+                        <p className="mt-2">{`${municipality}からのお知らせです`}</p>
                       </div>
+                    </Link>
+                    <Link to="https://www.pokemon-card.com/">
+                      <div className={menuStyle}>
+                        <p className="text-4xl">空項目1</p>
+                        <p>説明入れられる？</p>
+                      </div>
+                    </Link>
+                    <Link to="/AttackSearch">
+                      <div className={menuStyle}>
+                        <p className="text-4xl">空項目2</p>ß
+                        <p>説明入れる↑アゲアゲ↑</p>
+                      </div>
+                    </Link>
+                    {loginCom === 2 && (
+                      <Link to="/AdminMenu">
+                        <div className={menuStyle}>
+                          <span className="p-6 text-6xl flex flex-row">
+                            <BsFillPencilFill />
+                            管理者メニュー
+                          </span>
+                          <p>{`${municipality}からのお知らせ投稿など`}</p>
+                        </div>
+                      </Link>
                     )}
                   </div>
                 </>

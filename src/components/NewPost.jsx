@@ -53,24 +53,39 @@ articleTimestamp:2023/06/21/15/41}
   }
 
   return (
-    <>
+    <div className="text-center">
       <h1>{municipality}</h1>
       <input
-        className="postArticleTitle"
+        className="w-11/12 h-full bg-gray-100 bg-opacity-50 rounded border
+        mt-4 ml-2 mr-2
+         border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
+          focus:ring-indigo-200 outline-none text-gray-700 text-4xl
+           py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         type="text"
-        placeholder="記事タイトルを入力してください。"
+        placeholder="記事タイトルを入力"
         onChange={handleArticleTitleChange}
         required
       />
       <br></br>
       <textarea
-        className="postArticleContent"
-        placeholder="記事内容を入力してください。"
+        className="w-11/12  bg-gray-100 bg-opacity-50 rounded border 
+        mt-4 ml-2 mr-2
+         border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
+          focus:ring-indigo-200 h-64 outline-none text-gray-700 2xl:text-4xl sm:text-2xl
+           py-1 px-3 resize-none transition-colors duration-200 ease-in-out leading-relaxed"
+        placeholder="記事内容を&#13;入力してください"
         onChange={handleArticleContentChange}
         required
       />
       <br></br>
-      <button onClick={postArticle}>新規投稿</button>
-    </>
+      <div>
+        <button
+          className="bg-blue-400 hover:bg-blue-500 text-white rounded px-4 py-2 mt-4"
+          onClick={postArticle}
+        >
+          新規投稿
+        </button>
+      </div>
+    </div>
   );
 };
