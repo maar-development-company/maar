@@ -1,7 +1,11 @@
 import { Button } from "@mui/material";
-import axios from "axios";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+
+const URL =
+  process.env.NODE_ENV === "production"
+    ? "https://bb-master-revenge-front.onrender.com"
+    : "http://localhost:8080";
 
 export const Login = (props) => {
   const {
@@ -17,16 +21,43 @@ export const Login = (props) => {
     setPassword,
   } = props;
 
+  const [municipalitiesList, setMunicipalitiesList] = useState([]);
+  const [municipalities, setMunicipalities] = useState("");
+
+  useEffect(() => {
+    getMunicipalitiesFunc();
+  }, []);
+
+  const getMunicipalitiesFunc = async () => {
+    try {
+      const response = await fetch(`${URL}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch.");
+      }
+      const municipalitiesObj = await response.json();
+      console.log(municipalitiesObj);
+      if (municipalitiesObj.length !== municipalitiesList.length) {
+        setMunicipalitiesList(municipalitiesObj);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   //0:NG 1:user 2:admin
   const testA = { judge: 0, name: "森" };
   const testB = { judge: 1, name: "福島" };
   const testC = { judge: 2, name: "久場" };
 
   const handleCategoryTownChange = (e) => {
-    console.log(e.target.value);
-    setMunicipalityId(e.target.value.id);
-    setMunicipality(e.target.value.name);
-    console.log(municipality);
+    const selectedId = parseInt(e.target.value);
+    const selectedTown = municipalitiesList.find(
+      (town) => town.id === selectedId
+    );
+    console.log("26行目  ", selectedTown.municipalitiesName);
+    setMunicipalityId(selectedTown.id);
+    setMunicipality(selectedTown.municipalitiesName);
+    setMunicipalities(selectedTown.municipalitiesName);
   };
 
   const handleEmailAddressChange = (e) => {
@@ -52,7 +83,7 @@ export const Login = (props) => {
       const data = {
         mailadress: emailAddress,
         password: password,
-        municipalities: municipality,
+        municipalities: municipalities,
       };
       console.log("dataの中身　　", data);
       const res = await fetch("http://localhost:8080/maar/login", {
@@ -90,10 +121,11 @@ export const Login = (props) => {
         <option value="" disabled>
           町内会名を選択してください
         </option>
-        <option value={{ id: 1, name: "大林町自治区" }}>大林町自治区</option>
-        <option value={{ id: 2, name: "聖心町自治区" }}>聖心町自治区</option>
-        <option value={{ id: 3, name: "堤自治区" }}>堤自治区</option>
-        <option value={{ id: 4, name: "挙母町自治区" }}>挙母町自治区</option>
+        {municipalitiesList.map((item) => (
+          <option key={item.id} value={item.id}>
+            {item.municipalitiesName}
+          </option>
+        ))}
       </select>
       <input
         className="mailId"

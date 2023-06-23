@@ -91,9 +91,9 @@ app.post("/maar/login", async (req, res) => {
       let role;
       if (roleResult.length > 0) {
         if (roleResult[0].roleFlag === "0") {
-          role = 2;
-        } else {
           role = 1;
+        } else {
+          role = 2;
         }
       } else {
         role = 0;
@@ -225,6 +225,7 @@ app.post("/maar/articlelist", async (req, res) => {
         .select("id")
         .from("municipalitiesList")
         .where("municipalitiesName", article.municipalitiesName);
+      console.log(result);
       return result[0].id;
     };
 
