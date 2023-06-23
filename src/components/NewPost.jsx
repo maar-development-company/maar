@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const URL =
   process.env.NODE_ENV === "production"
-    ? "https://bb-master-revenge-front.onrender.com"
+    ? "https://maar-front.onrender.com/"
     : "http://localhost:8080";
 
 export const NewPost = () => {
