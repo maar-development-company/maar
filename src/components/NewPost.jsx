@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import dayjs from "dayjs";
 import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -59,6 +60,7 @@ export const NewPost = () => {
 
   return (
     <div className="text-center">
+      {/* <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> */}
       <h1 className="sm:text-6xl text-4xl title-font font-medium text-gray-900 mt-4 mb-4">
         新規お知らせ投稿
       </h1>
@@ -76,7 +78,7 @@ export const NewPost = () => {
       <br></br>
       <textarea
         className="w-11/12  bg-gray-100 bg-opacity-50 rounded border 
-        mt-4 ml-2 mr-2
+        mt-4 ml-2 mr-2 mb-2
          border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
           focus:ring-indigo-200 h-64 outline-none text-gray-700 text-4xl 
           py-1 px-3 resize-none transition-colors duration-200 ease-in-out leading-relaxed"
