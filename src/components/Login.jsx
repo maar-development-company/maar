@@ -26,12 +26,13 @@ export const Login = (props) => {
 
   useEffect(() => {
     console.log("useEffectの中");
+    console.log(URL);
     getMunicipalitiesFunc();
   }, []);
 
   const getMunicipalitiesFunc = async () => {
     try {
-      const response = await fetch(`${URL}`);
+      const response = await fetch(URL);
       if (!response.ok) {
         throw new Error("Failed to fetch.");
       }
