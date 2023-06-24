@@ -19,8 +19,8 @@ function App() {
   // console.log(process.env);
   //loginCom = 0 ログインしてない　1:普通ユーザー　2:管理者
   const [loginCom, setLoginCom] = useState(0);
-  const [municipality, setMunicipality] = useState("");
-  const [municipalityId, setMunicipalityId] = useState("");
+  const [municipality, setMunicipality] = useState("meiwa");
+  const [municipalityId, setMunicipalityId] = useState("1");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [history, setHistory] = useState("");
@@ -107,7 +107,10 @@ function App() {
               path="/articlelist"
               element={
                 <div>
-                  <ArticleList />
+                  <ArticleList
+                    municipalityId={municipalityId}
+                    municipality={municipality}
+                  />
                 </div>
               }
             />
@@ -137,7 +140,10 @@ function App() {
                 path="/NewPost"
                 element={
                   <div>
-                    <NewPost />
+                    <NewPost
+                      municipalityId={municipalityId}
+                      municipality={municipality}
+                    />
                   </div>
                 }
               />

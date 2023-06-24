@@ -1,6 +1,4 @@
 import { Button } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { singleArticle } from "./SingleArticle";
@@ -10,6 +8,13 @@ import ja from "dayjs/locale/ja";
 dayjs.locale(ja);
 
 const now = dayjs().format("YYYY年MM月DD日");
+import { useLocation } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+
+const URL =
+  process.env.NODE_ENV === "production"
+    ? "https://bb-master-revenge-front.onrender.com"
+    : "http://localhost:8080";
 
 const testArticleList = [
   {
@@ -42,30 +47,38 @@ const testArticleList = [
 ];
 
 export const ArticleList = (props) => {
-  const { municipalities } = props;
+  const { municipalityId, municipality } = props;
+  const [ArticleList, setArticleList] = useState([]);
+  const [elementsArr, setElementsArr] = useState([]);
+  const [ID, setID] = useState(2);
 
-  // const getArticleList = async () => {
+  useEffect(() => {
+    getArticleList();
+  }, [ArticleList]);
 
-  //データベースにPOSTする処理
-  // try {
-  //   const res = await fetch(`http://localhost:8080/maar/articlelost?municipalities=${municipalities}`, {
-  //     method: "GET",
-  //   });
-  //   const result = await res.body();
-  //   console.log(result);
-  //   return result
-  // } catch (error) {
-  //   console.error(error);
-  // }
-  // };
-  // getArticleList()
-
-  //  [{articleTitleID:☆☆,title:〇〇,content:△△,readflag:0or1,
-  //   readTimestamp:2023/06/21/15/41,articleTimestamp:2023/06/21/15/41}......]
+  const getArticleList = async () => {
+    //データベースにGETする処理
+    try {
+      const response = await fetch(
+        `${URL}/maar/articlelist?municipalitiesName=${municipality}&householdNameID=${municipalityId}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch.");
+      }
+      const articleObj = await response.json();
+      console.log(articleObj);
+      if (articleObj.length !== ArticleList.length) {
+        setArticleList(articleObj);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  getArticleList();
 
   return (
     <div>
-      {testArticleList.map((ele) => {
+      {ArticleList.map((ele) => {
         console.log("");
         return (
           <Link to="/SingleArticle" state={{ articleInfo: ele }}>

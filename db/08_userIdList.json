@@ -1,0 +1,73 @@
+[
+  {
+    "userName": "Taro Sato",
+    "userTel": "08011111111",
+    "userMail": "taro@example.com",
+    "userAge": 28,
+    "householdNameID": 1
+  },
+  {
+    "userName": "Kazumi Suzuki",
+    "userTel": "08022222222",
+    "userMail": "kazumi@example.com",
+    "userAge": 35,
+    "householdNameID": 1
+  },
+  {
+    "userName": "Hanako Yamada",
+    "userTel": "08033333333",
+    "userMail": "hanako@example.com",
+    "userAge": 42,
+    "householdNameID": 2
+  },
+  {
+    "userName": "Kenta Tanaka",
+    "userTel": "08044444444",
+    "userMail": "kenta@example.com",
+    "userAge": 31,
+    "householdNameID": 2
+  },
+  {
+    "userName": "Sakura Nakamura",
+    "userTel": "08055555555",
+    "userMail": "sakura@example.com",
+    "userAge": 27,
+    "householdNameID": 3
+  },
+  {
+    "userName": "Mitsuo Kobayashi",
+    "userTel": "08066666666",
+    "userMail": "mitsuo@example.com",
+    "userAge": 39,
+    "householdNameID": 3
+  },
+  {
+    "userName": "Mika Ito",
+    "userTel": "08077777777",
+    "userMail": "mika@example.com",
+    "userAge": 36,
+    "householdNameID": 3
+  },
+  {
+    "userName": "Ryuji Watanabe",
+    "userTel": "08088888888",
+    "userMail": "ryuji@example.com",
+    "userAge": 45,
+    "householdNameID": 3
+  },
+  {
+    "userName": "Yumiko Kimura",
+    "userTel": "08099999999",
+    "userMail": "yumiko@example.com",
+    "userAge": 33,
+    "householdNameID": 4
+  },
+  {
+    "userName": "Kentaro Yamaguchi",
+    "userTel": "08010101010",
+    "userMail": "kentaro@example.com",
+    "userAge": 29,
+    "householdNameID": 4
+  }
+]
+
