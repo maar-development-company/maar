@@ -32,7 +32,7 @@ export const Login = (props) => {
 
   const getMunicipalitiesFunc = async () => {
     try {
-      const response = await fetch(URL);
+      const response = await fetch(`${URL}/muni`);
       if (!response.ok) {
         throw new Error("Failed to fetch.");
       }

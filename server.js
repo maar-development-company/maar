@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cors());
 
 // ページ表示時に地域を返す
-app.get("/", async (req, res) => {
+app.get("/muni", async (req, res) => {
   console.log("地域表示の為のget受信");
   const AllMunicipalitiesfunc = () => {
     return knex.select("*").from("municipalitiesList");
