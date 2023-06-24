@@ -147,9 +147,9 @@ app.get("/maar/articlelist", async (req, res) => {
         .where(
           "articleList.municipalitiesID2",
           getMunicipalitiesIDResultObj[0].id
-        )
-        .join("readFlagList", "articleList.id", "readFlagList.articleTitleID")
-        .andWhere("readFlagList.householdNameID", householdNameID);
+        );
+      // .join("readFlagList", "articleList.id", "readFlagList.articleTitleID")
+      // .andWhere("readFlagList.householdNameID", householdNameID);
     };
 
     // 記事を取得して応答として送信する
