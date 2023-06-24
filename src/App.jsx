@@ -14,10 +14,6 @@ import { SingleArticle } from "./components/SingleArticle";
 import { AdminMenu } from "./components/AdminMenu";
 import { NewPost } from "./components/NewPost";
 import dayjs from "dayjs";
-import { SlBubble } from "react-icons/sl";
-import { AiOutlineHome } from "react-icons/ai";
-import { IoReturnDownBackOutline } from "react-icons/io5";
-// import dayjs from "dayjs";
 
 function App() {
   // console.log(process.env);
