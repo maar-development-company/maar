@@ -9,11 +9,12 @@ import { BsPen } from "react-icons/bs";
 import { GrGroup } from "react-icons/gr";
 import { MdHearing } from "react-icons/md";
 import { RiOrganizationChart } from "react-icons/ri";
+import dayjs from "dayjs";
 
 export const AdminMenu = (props) => {
   const { municipality, municipalityId } = props;
   const menuStyle =
-    "m-4 p-4 h-44 md:h-28 border-solid rounded-3xl border-4 border-gray-300 text-center md:flex md:flex-row";
+    "m-4 p-4 h-44 flex items-center justify-center md:h-28 border-solid rounded-3xl border-4 border-gray-300 md:flex md:flex-row md:justify-start";
   return (
     <div>
       <div>
@@ -26,7 +27,7 @@ export const AdminMenu = (props) => {
               <div className="flex items-center justify-center text-6xl md:justify-start">
                 <BsPen />
               </div>
-              <p className="items-center justify-center text-6xl ">
+              <p className="items-center justify-center text-3xl ">
                 お知らせ新規投稿
               </p>
             </div>
@@ -43,8 +44,8 @@ export const AdminMenu = (props) => {
               <div className="flex items-center justify-center text-6xl md:justify-start">
                 <GrGroup />
               </div>
-              <p className="items-center justify-center text-6xl ">
-                管理者メンバー設定（工事中）
+              <p className="items-center justify-center text-3xl ">
+                管理者メンバー設定
               </p>
             </div>
           </div>
@@ -60,8 +61,8 @@ export const AdminMenu = (props) => {
               <div className="flex items-center justify-center text-6xl md:justify-start">
                 <MdHearing />
               </div>
-              <p className="items-center justify-center text-6xl ">
-                アンケート作（工事中）
+              <p className="items-center justify-center text-3xl ">
+                アンケート作成
               </p>
             </div>
           </div>
@@ -77,8 +78,8 @@ export const AdminMenu = (props) => {
               <div className="flex items-center justify-center text-6xl md:justify-start">
                 <RiOrganizationChart />
               </div>
-              <p className="items-center justify-center text-6xl ">
-                自治区組織設定（工事中）
+              <p className="items-center justify-center text-3xl ">
+                自治区組織設定
               </p>
             </div>
           </div>
