@@ -102,6 +102,7 @@ app.post("/maar/login", async (req, res) => {
       const resultObj = {
         judge: role,
         name: roleResult[0].householdName,
+        houseHoldNameID: checkLoginResult[0].id,
       };
       return resultObj;
     }

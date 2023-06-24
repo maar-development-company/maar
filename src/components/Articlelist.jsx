@@ -56,12 +56,27 @@ export const ArticleList = (props) => {
     getArticleList();
   }, [ArticleList]);
 
+  const writeToSessionStorage = (key, value) => {
+    sessionStorage.setItem(key, JSON.stringify(value));
+  };
+  const readFromSessionStorage = (key) => {
+    const value = sessionStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+  };
+
   const getArticleList = async () => {
     //データベースにGETする処理
     const encodedMunicipality = encodeURIComponent(municipality);
+    const encodedhouseholdNameID =
+      readFromSessionStorage("loginResultInfo").houseHoldNameID;
+
+    // console.log(
+    //   "ちぇっくしたいやつ",
+    //   readFromSessionStorage("loginResultInfo").houseHoldNameID
+    // );
     try {
       const response = await fetch(
-        `${URL}/maar/articlelist?municipalitiesName=${encodedMunicipality}&householdNameID=1`
+        `${URL}/maar/articlelist?municipalitiesName=${encodedMunicipality}&householdNameID=${encodedhouseholdNameID}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch.");

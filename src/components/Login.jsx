@@ -31,6 +31,14 @@ export const Login = (props) => {
     getMunicipalitiesFunc();
   }, []);
 
+  const writeToSessionStorage = (key, value) => {
+    sessionStorage.setItem(key, JSON.stringify(value));
+  };
+  const readFromSessionStorage = (key) => {
+    const value = sessionStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+  };
+
   const getMunicipalitiesFunc = async () => {
     try {
       const response = await fetch(`${URL}/muni`);
@@ -48,9 +56,9 @@ export const Login = (props) => {
   };
 
   //0:NG 1:user 2:admin
-  const testA = { judge: 0, name: "森" };
-  const testB = { judge: 1, name: "福島" };
-  const testC = { judge: 2, name: "久場" };
+  // const testA = { judge: 0, name: "森" };
+  // const testB = { judge: 1, name: "福島" };
+  // const testC = { judge: 2, name: "久場" };
 
   const handleCategoryTownChange = (e) => {
     //木田さんも解決してくれたのでとりあえずコメントアウト
@@ -66,7 +74,6 @@ export const Login = (props) => {
     const selectedTown = municipalitiesList.find(
       (town) => town.id === selectedId
     );
-    console.log("26行目  ", selectedTown.municipalitiesName);
     setMunicipalityId(selectedTown.id);
     setMunicipality(selectedTown.municipalitiesName);
     setMunicipalities(selectedTown.municipalitiesName);
@@ -107,6 +114,10 @@ export const Login = (props) => {
       });
       const result = await res.json();
       console.log(result);
+
+      writeToSessionStorage("loginInfo", data);
+      writeToSessionStorage("loginResultInfo", result);
+
       if (result.judge === 0) {
         window.alert("町内会名又はEmailAddress又はpasswordが間違っています");
       } else if (result.judge === 1) {
