@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cors());
 
 // ページ表示時に地域を返す
-app.get("/", async (req, res) => {
+app.get("/muni", async (req, res) => {
   console.log("地域表示の為のget受信");
   const AllMunicipalitiesfunc = () => {
     return knex.select("*").from("municipalitiesList");
@@ -122,29 +122,38 @@ app.listen(port, () => {
 app.get("/maar/articlelist", async (req, res) => {
   console.log("記事リストのGETリクエスト受信");
   // クエリから市町村を取得
-  const municipalities = req.query.municipalities;
-  const municipalitiesName = req.query.municipalitiesName;
-
+  const householdNameID = req.query.householdNameID;
+  const municipalitiesName = decodeURIComponent(req.query.municipalitiesName);
+  console.log(municipalitiesName);
   // 市区町村データがあるか確認
   if (municipalitiesName) {
-    console.log(`Municipalities ID: ${municipalities}`);
+    console.log(`Municipalities ID: ${householdNameID}`);
     console.log("municipalitiesName: ", municipalitiesName);
 
     // 特定の市町村の記事を取得する関数
-    const getArticles = (municipalitiesName) => {
+    const getArticles = async (municipalitiesName, householdNameID) => {
+      const getMunicipalitiesIDFunc = () => {
+        return knex
+          .select("id")
+          .from("municipalitiesList")
+          .where("municipalitiesName", municipalitiesName);
+      };
+      const getMunicipalitiesIDResultObj = await getMunicipalitiesIDFunc();
+      console.log(getMunicipalitiesIDResultObj[0].id);
+
       return knex
         .select("*")
         .from("articleList")
-        .join(
-          "municipalitiesList",
+        .where(
           "articleList.municipalitiesID2",
-          "municipalitiesList.id"
+          getMunicipalitiesIDResultObj[0].id
         )
-        .where("municipalitiesList.municipalitiesName", municipalitiesName);
+        .join("readFlagList", "articleList.id", "readFlagList.articleTitleID")
+        .andWhere("readFlagList.householdNameID", householdNameID);
     };
 
     // 記事を取得して応答として送信する
-    const articles = await getArticles(municipalitiesName);
+    const articles = await getArticles(municipalitiesName, householdNameID);
     console.log("articles: ", articles);
     console.log("記事一覧の取得が完了しました。");
     res.status(200).json(articles);

@@ -5,7 +5,7 @@ import { Select, Option } from "@material-tailwind/react";
 import React, { useState, useEffect, useRef } from "react";
 const URL =
   process.env.NODE_ENV === "production"
-    ? "https://bb-master-revenge-front.onrender.com"
+    ? "https://maar-front.onrender.com"
     : "http://localhost:8080";
 
 export const Login = (props) => {
@@ -21,17 +21,19 @@ export const Login = (props) => {
     password,
     setPassword,
   } = props;
-
+  console.log(process.env);
   const [municipalitiesList, setMunicipalitiesList] = useState([]);
   const [municipalities, setMunicipalities] = useState("");
 
   useEffect(() => {
+    console.log("useEffectの中");
+    console.log(URL);
     getMunicipalitiesFunc();
   }, []);
 
   const getMunicipalitiesFunc = async () => {
     try {
-      const response = await fetch(`${URL}`);
+      const response = await fetch(`${URL}/muni`);
       if (!response.ok) {
         throw new Error("Failed to fetch.");
       }
@@ -97,7 +99,7 @@ export const Login = (props) => {
         municipalities: municipalities,
       };
       console.log("dataの中身　　", data);
-      const res = await fetch("http://localhost:8080/maar/login", {
+      const res = await fetch(`${URL}/maar/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

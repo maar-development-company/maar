@@ -1,8 +1,8 @@
 {
-  "name": "pssa-app",
+  "name": "maar-app",
   "version": "0.1.0",
   "private": true,
-  "repository": "git@github.com:kidayuichi/Pokeka-search-support-app.git",
+  "repository": "git@github.com:maar-development-company/maar.git",
   "main": "server.js",
   "dependencies": {
     "@emotion/react": "^11.10.0",
@@ -76,7 +76,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.10",
     "autoprefixer": "^10.4.14",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",

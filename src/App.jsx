@@ -14,18 +14,23 @@ import { SingleArticle } from "./components/SingleArticle";
 import { AdminMenu } from "./components/AdminMenu";
 import { NewPost } from "./components/NewPost";
 import dayjs from "dayjs";
+import { SlBubble } from "react-icons/sl";
+import { AiOutlineHome } from "react-icons/ai";
+import { IoReturnDownBackOutline } from "react-icons/io5";
+// import dayjs from "dayjs";
 
 function App() {
   // console.log(process.env);
   //loginCom = 0 ログインしてない　1:普通ユーザー　2:管理者
   const [loginCom, setLoginCom] = useState(0);
-  const [municipality, setMunicipality] = useState("meiwa");
-  const [municipalityId, setMunicipalityId] = useState("1");
+  const [municipality, setMunicipality] = useState("");
+  const [municipalityId, setMunicipalityId] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [history, setHistory] = useState("");
   console.log("loginCom : ", loginCom);
 
+  // flex items-center justify-center h-full
   const menuStyle =
     "m-4 p-4 h-44 flex items-center justify-center md:h-28 border-solid rounded-3xl border-4 border-gray-300 md:flex md:flex-row md:justify-start";
   return (

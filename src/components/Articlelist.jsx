@@ -13,7 +13,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 const URL =
   process.env.NODE_ENV === "production"
-    ? "https://bb-master-revenge-front.onrender.com"
+    ? "https://maar-front.onrender.com"
     : "http://localhost:8080";
 
 const testArticleList = [
@@ -58,9 +58,10 @@ export const ArticleList = (props) => {
 
   const getArticleList = async () => {
     //データベースにGETする処理
+    const encodedMunicipality = encodeURIComponent(municipality);
     try {
       const response = await fetch(
-        `${URL}/maar/articlelist?municipalitiesName=${municipality}&householdNameID=${municipalityId}`
+        `${URL}/maar/articlelist?municipalitiesName=${encodedMunicipality}&householdNameID=1`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch.");
@@ -77,7 +78,16 @@ export const ArticleList = (props) => {
   getArticleList();
 
   return (
+
     <div>
+          <div>
+        <button
+          onClick={getArticleList}
+          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56"
+        >
+          更新
+        </button>
+      </div>
       {ArticleList.map((ele) => {
         console.log("");
         return (
@@ -103,5 +113,34 @@ export const ArticleList = (props) => {
         );
       })}
     </div>
+
+//     <>
+//       <div>
+//         <button
+//           onClick={getArticleList}
+//           className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56"
+//         >
+//           更新
+//         </button>
+//       </div>
+//       <div>
+//         {ArticleList.map((ele) => {
+//           console.log("");
+//           return (
+//             <Link to="/SingleArticle" state={{ articleInfo: ele }}>
+//               <section className="m-4 p-4 h-44  border-solid rounded-3xl border-4 border-gray-300 text-center flex flex-row">
+//                 <div className="w-10/12 text-left">
+//                   <h2 className="text-3xl">{ele.articleTitle}</h2>
+//                   <p className="mt-4">{ele.articleTimestamp}</p>
+//                 </div>
+//                 {/* <div className="">{ele.readFlag === 0 ? "未読" : "既読"}</div> */}
+//                 <div className="">{ele.readFlag === "1" ? "既読" : "未読"}</div>
+//               </section>
+//             </Link>
+//           );
+//         })}
+//       </div>
+//     </>
+
   );
 };

@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const URL =
   process.env.NODE_ENV === "production"
-    ? "https://bb-master-revenge-front.onrender.com"
+    ? "https://maar-front.onrender.com"
     : "http://localhost:8080";
 
 export const NewPost = () => {
@@ -38,7 +38,7 @@ export const NewPost = () => {
       const data = {
         articleTitle: postArticleTitle,
         articleContent: postArticleContent,
-        municipalitiesName: { municipality },
+        municipalitiesName: municipality,
         articleTimestamp: formattedTimestamp,
         articleCategory: "安全",
       };
@@ -96,12 +96,12 @@ export const NewPost = () => {
           // onchange={`$("#fake_text_box").val($(this).val())`}
         ></input>
         {/* <input
-          value=""
-          readOnly="readonly"
-          id="fake_text_box"
-          className=""
-          onClick={`$('#file').click()`}
-        ></input> */}
+            value=""
+            readOnly="readonly"
+            id="fake_text_box"
+            className=""
+            onClick={`$('#file').click()`}
+          ></input> */}
       </label>
       <br></br>
       <br></br>
@@ -117,13 +117,3 @@ export const NewPost = () => {
     </div>
   );
 };
-
-//   {
-//     <投稿作成>
-// POST:{title:〇〇,content:△△,
-// municipalities:地域名,
-// articleTimestamp:2023/06/21/15/41}
-// →ステータスコードのみ
-//   }
-// console.log(postArticleTitle);
-// console.log(postArticleContent);
