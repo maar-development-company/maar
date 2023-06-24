@@ -25,6 +25,7 @@ export const Login = (props) => {
   const [municipalities, setMunicipalities] = useState("");
 
   useEffect(() => {
+    console.log("useEffectの中");
     getMunicipalitiesFunc();
   }, []);
 
