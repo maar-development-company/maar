@@ -53,15 +53,14 @@ export const Login = (props) => {
   const testC = { judge: 2, name: "久場" };
 
   const handleCategoryTownChange = (e) => {
-
-//木田さんも解決してくれたのでとりあえずコメントアウト
-//     const selectValue = JSON.parse(e.target.value);
-//     console.log(selectValue.id);
-//     console.log(selectValue.name);
-//     setMunicipalityId(selectValue.id);
-//     setMunicipality(selectValue.name);
-//     console.log(municipality);
-//     console.log(municipalityId);
+    //木田さんも解決してくれたのでとりあえずコメントアウト
+    //     const selectValue = JSON.parse(e.target.value);
+    //     console.log(selectValue.id);
+    //     console.log(selectValue.name);
+    //     setMunicipalityId(selectValue.id);
+    //     setMunicipality(selectValue.name);
+    //     console.log(municipality);
+    //     console.log(municipalityId);
 
     const selectedId = parseInt(e.target.value);
     const selectedTown = municipalitiesList.find(
@@ -137,27 +136,13 @@ export const Login = (props) => {
         onChange={handleCategoryTownChange}
         defaultValue=""
       >
-//木田さんがデータベースからとってきたデータでセレクトタグ作成してくれたのでコメントアウト
-//         <option value="" disabled>
-//           町内会名を選択
-//         </option>
-//         {/* valueは文字列でないといけない。 */}
-//         <option value={JSON.stringify({ id: 1, name: "大林町自治区" })}>
-//           大林町自治区
-//         </option>
-//         <option value={JSON.stringify({ id: 2, name: "聖心町自治区" })}>
-//           聖心町自治区
-//         </option>
-//         <option value={JSON.stringify({ id: 3, name: "堤自治区" })}>
-//           堤自治区
-//         </option>
-//         <option value={JSON.stringify({ id: 4, name: "挙母町自治区" })}>
-//           挙母町自治区
+        <option value="" disabled>
+          町内会名を選択
         </option>
         {municipalitiesList.map((item) => (
           <option key={item.id} value={item.id}>
             {item.municipalitiesName}
-        </option>
+          </option>
         ))}
       </select>
       <input
