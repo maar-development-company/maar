@@ -117,9 +117,8 @@ export const ArticleList = (props) => {
                 {ele.readFlag === 0 ? "よんでね" : "よんだ"}
               </div>
               <br></br>
-              <br></br>
               <div className="w-full text-left">
-                <h2 className="text-3xl">{ele.title}</h2>
+                <h2 className="text-3xl">{ele.articleTitle}</h2>
                 <p className="mt-4">{ele.articleTimestamp}</p>
               </div>
             </section>
