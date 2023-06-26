@@ -201,7 +201,7 @@ export const Login = (props) => {
         defaultValue=""
       >
         <option value="" disabled>
-          町内会名を選択
+          町内会名を選択。
         </option>
         {municipalitiesList.map((item) => (
           <option key={item.id} value={item.id}>
