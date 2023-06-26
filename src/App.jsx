@@ -19,12 +19,30 @@ function App() {
   // console.log(process.env);
   //loginCom = 0 ログインしてない　1:普通ユーザー　2:管理者
   const [loginCom, setLoginCom] = useState(0);
+  const [userName, setUserName] = useState("");
   const [municipality, setMunicipality] = useState("");
   const [municipalityId, setMunicipalityId] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [history, setHistory] = useState("");
   console.log("loginCom : ", loginCom);
+
+  // ログイン状態を確認する。
+  useEffect(() => {
+    const data = sessionStorage.getItem("loginInfo");
+    const user = sessionStorage.getItem("loginResultInfo");
+    data
+      ? setMunicipality(JSON.parse(data).municipalities)
+      : setMunicipality("");
+    user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
+    user ? setUserName(JSON.parse(user).name) : setLoginCom("");
+  }, []);
+
+  const logout = () => {
+    sessionStorage.removeItem("loginInfo");
+    sessionStorage.removeItem("loginResultInfo");
+    setLoginCom(0);
+  };
 
   // flex items-center justify-center h-full
   const menuStyle =
@@ -52,7 +70,7 @@ function App() {
           <header className="p-2 bg-gradient-to-b from-blue-500 to-blue-200 sticky top-0 z-50">
             <p className="text-4xl text-center">まある</p>
             <p className="text-4xl text-left">{municipality}</p>
-            <p className="text-4xl text-left">太田 フサ子さん</p>
+            <p className="text-4xl text-left">{userName}さん</p>
           </header>
           {/* <BiDownArrowAlt className="animate-pulse" /> */}
           <Routes>
@@ -157,12 +175,22 @@ function App() {
             </button>
             <button
               onClick={() => (location.href = "/")}
-              className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
+              className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 mr-5 text-3xl flex flex-row"
             >
-              <div className="flex items-center justify-center md:justify-start">
+              <div
+                className="flex items-center justify-center md:justify-start"
+                onClick={() => console.log(loginCom)}
+              >
                 <AiOutlineHome />
               </div>
               <span>ホーム</span>
+            </button>
+            <button
+              className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-50 mt-2 mr-5 text-3xl flex flex-row"
+              onClick={logout}
+            >
+              <IoReturnDownBackOutline />
+              <span>ログアウト</span>
             </button>
           </footer>
         </Router>

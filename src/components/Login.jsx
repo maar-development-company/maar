@@ -95,7 +95,7 @@ export const Login = (props) => {
 
   const login = async () => {
     //バリデーション
-    if (emailAddress === null || password === null || municipality === null) {
+    if (emailAddress === "" || password === "" || municipality === "") {
       return window.alert("未入力の項目があります");
     }
     //データベースにPOSTする処理
