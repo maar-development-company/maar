@@ -35,7 +35,7 @@ function App() {
       ? setMunicipality(JSON.parse(data).municipalities)
       : setMunicipality("");
     user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
-    user ? setUserName(JSON.parse(user).name) : setLoginCom("");
+    user ? setUserName(JSON.parse(user).name) : setUserName("");
   }, []);
 
   const logout = () => {
@@ -54,6 +54,7 @@ function App() {
           <Login
             loginCom={loginCom}
             setLoginCom={setLoginCom}
+            setUserName={setUserName}
             municipality={municipality}
             setMunicipality={setMunicipality}
             municipalityId={municipalityId}
@@ -169,27 +170,23 @@ function App() {
             )}
           </Routes>
           <footer className="fixed bottom-0 flex flex-row items-center justify-center">
-            <button className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 mr-5 text-3xl flex flex-row">
-              <IoReturnDownBackOutline />
+            <button className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-30 mt-2 mr-3 text-xl flex flex-row">
               <span>戻る</span>
             </button>
             <button
               onClick={() => (location.href = "/")}
-              className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 mr-5 text-3xl flex flex-row"
+              className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-30 mt-2 mr-3 text-xl flex flex-row"
             >
               <div
                 className="flex items-center justify-center md:justify-start"
                 onClick={() => console.log(loginCom)}
-              >
-                <AiOutlineHome />
-              </div>
+              ></div>
               <span>ホーム</span>
             </button>
             <button
-              className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-50 mt-2 mr-5 text-3xl flex flex-row"
+              className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-fit mt-2 text-xl flex flex-row"
               onClick={logout}
             >
-              <IoReturnDownBackOutline />
               <span>ログアウト</span>
             </button>
           </footer>

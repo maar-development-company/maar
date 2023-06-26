@@ -14,6 +14,7 @@ export const Login = (props) => {
   const {
     loginCom,
     setLoginCom,
+    setUserName,
     municipality,
     setMunicipality,
     municipalityId,
@@ -125,9 +126,11 @@ export const Login = (props) => {
         window.alert("町内会名又はEmailAddress又はpasswordが間違っています");
       } else if (result.judge === 1) {
         setLoginCom(1);
+        setUserName(result.name);
         window.alert(`ようこそ${result.name}さん`);
       } else if (result.judge === 2) {
         setLoginCom(2);
+        setUserName(result.name);
         window.alert(`ようこそ管理者の${result.name}さん`);
       }
     } catch (error) {
@@ -190,7 +193,6 @@ export const Login = (props) => {
     <div>
       <header className="p-2 bg-gradient-to-b from-blue-500 to-blue-200 sticky top-0 z-50">
         <p className="text-4xl text-center">まある</p>
-        <h1>ログイン画面 SatoTaro ah29f9d8 aaaa@mail</h1>
         <p className="text-4xl text-center">ログイン画面</p>
       </header>
       <select
