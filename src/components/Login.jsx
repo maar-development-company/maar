@@ -190,7 +190,6 @@ export const Login = (props) => {
     <div>
       <header className="p-2 bg-gradient-to-b from-blue-500 to-blue-200 sticky top-0 z-50">
         <p className="text-4xl text-center">まある</p>
-        <h1>ログイン画面</h1>
         <p className="text-4xl text-center">ログイン画面</p>
       </header>
       <select
