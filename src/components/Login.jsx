@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { Select, Option } from "@material-tailwind/react";
 import React, { useState, useEffect, useRef } from "react";
+import bcrypt from "bcryptjs";
+
 const URL =
   process.env.NODE_ENV === "production"
     ? "https://maar-front.onrender.com"
@@ -100,6 +102,7 @@ export const Login = (props) => {
     console.log("loginボタンが押された");
     try {
       const data = {
+        loginCategory: 0,
         mailadress: emailAddress,
         password: password,
         municipalities: municipalities,
@@ -127,6 +130,57 @@ export const Login = (props) => {
         setLoginCom(2);
         window.alert(`ようこそ管理者の${result.name}さん`);
       }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const newLogin = async () => {
+    //バリデーション
+    if (emailAddress === null || password === null || municipality === null) {
+      return window.alert("未入力の項目があります");
+    }
+    //データベースにPOSTする処理
+    console.log("新規登録ボタンが押された");
+    try {
+      const data = await hashFunc();
+      console.log("dataの中身　　", data);
+      const res = await fetch(`${URL}/maar/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      console.log(result);
+
+      writeToSessionStorage("loginInfo", data);
+      writeToSessionStorage("loginResultInfo", result);
+
+      window.alert(
+        `メールアドレス:${emailAddress}\nパスワード:${password}\n地域名:${municipalities}\nで登録しました。`
+      );
+    } catch (error) {
+      window.alert(`登録に失敗しました。最初からやり直してください。`);
+      console.error(error);
+    }
+  };
+
+  const hashFunc = async () => {
+    const plainPassword = password;
+    const saltRounds = 10;
+
+    try {
+      const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
+      console.log("元のパスワード:", password);
+      console.log("ハッシュ化されたパスワード:", hashedPassword);
+      return {
+        loginCategory: 1,
+        mailadress: emailAddress,
+        password: hashedPassword,
+        municipalities: municipalities,
+      };
     } catch (error) {
       console.error(error);
     }
@@ -185,7 +239,10 @@ export const Login = (props) => {
         >
           ログイン
         </button>
-        <button className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row">
+        <button
+          onClick={newLogin}
+          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
+        >
           新規登録
         </button>
       </div>

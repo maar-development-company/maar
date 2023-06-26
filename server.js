@@ -37,74 +37,151 @@ app.post("/maar/login", async (req, res) => {
   console.log("ログイン情報をPOST受信");
 
   const postData = req.body;
+  console.log("ログインのbodyチェック", postData);
 
   //ログイン情報の確認
   const postDataCheckFunc = async () => {
-    const checkMunicipalitiesID = async () => {
-      return knex
-        .select("id")
-        .from("municipalitiesList")
-        .where("municipalitiesName", postData.municipalities);
-    };
-    const MunicipalitiesIDResult = await checkMunicipalitiesID();
-    console.log("MunicipalitiesIDResult: ", MunicipalitiesIDResult);
-
-    const checkmailAdressID = async () => {
-      return knex
-        .select("id")
-        .from("householdList")
-        .where("householdMail", postData.mailadress);
-    };
-    const MailAdressIDResult = await checkmailAdressID();
-    console.log("MailAdressIDResult: ", MailAdressIDResult[0].id);
-
-    const checkPassID = async () => {
-      return knex
-        .select("id")
-        .from("householdPassList")
-        .where("householdPass", postData.password);
-    };
-    const PassIDResult = await checkPassID();
-    console.log("PassIDResult: ", PassIDResult);
-
-    const checkLoginInfo = async () => {
-      return knex
-        .select("id")
-        .from("householdTable")
-        .where("householdNameID", MailAdressIDResult[0].id)
-        .andWhere("householdPassID", PassIDResult[0].id);
-    };
-    const checkLoginResult = await checkLoginInfo();
-    console.log("checkLoginResult : ", checkLoginResult);
-
-    if (checkLoginResult.length > 0) {
-      console.log("checkLoginResult[0].id: ", checkLoginResult[0].id);
-      const getRoleFunc = async () => {
+    // postDateのloginCategoryで分岐0:通常 1:新規登録
+    if (postData.loginCategory === 1) {
+      console.log("こっちは新規");
+      const checkMunicipalitiesID = async () => {
         return knex
-          .select("roleFlag", "householdName")
+          .select("id")
+          .from("municipalitiesList")
+          .where("municipalitiesName", postData.municipalities);
+      };
+      const MunicipalitiesIDResult = await checkMunicipalitiesID();
+      console.log("新規登録用市ID: ", MunicipalitiesIDResult);
+
+      const insertHouseHoldList = async () => {
+        return knex("householdList")
+          .insert({
+            householdName: 1,
+            householdTel: "77777777777",
+            householdMail: postData.mailadress,
+            householdAge: "20",
+            familySize: "1",
+            roleFlag: "0",
+            block1: "",
+            block2: "",
+            block3: "",
+          })
+          .returning("id")
+          .then((insertedIds) => {
+            const insertedId = insertedIds[0].id;
+            console.log("挿入されたレコードのID1:", insertedId);
+            return insertedId;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+      const insertHouseHoldResult = await insertHouseHoldList();
+      console.log("登録ID1", insertHouseHoldResult);
+
+      const insertHouseHoldPassList = async () => {
+        return knex("householdPassList")
+          .insert({
+            householdPass: postData.password,
+          })
+          .returning("id")
+          .then((insertedIds) => {
+            const insertedPassId = insertedIds[0].id;
+            console.log("挿入されたレコードのID2:", insertedPassId);
+            return insertedPassId;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+      const insertHouseHoldPassResult = await insertHouseHoldPassList();
+      console.log("登録PassID", insertHouseHoldPassResult);
+
+      const insertHouseHoldTable = async (
+        insertHouseHoldResult,
+        insertHouseHoldPassResult
+      ) => {
+        return knex("householdTable").insert({
+          householdNameID: insertHouseHoldResult,
+          householdPassID: insertHouseHoldPassResult,
+        });
+      };
+      const insertHouseHoldTableResult = await insertHouseHoldTable(
+        insertHouseHoldResult,
+        insertHouseHoldPassResult
+      );
+      console.log("登録ID3", insertHouseHoldTableResult);
+
+      return "登録完了";
+      // --------------------------------------------------------------------------------------
+    } else {
+      console.log("こっちはログイン");
+      const checkMunicipalitiesID = async () => {
+        return knex
+          .select("id")
+          .from("municipalitiesList")
+          .where("municipalitiesName", postData.municipalities);
+      };
+      const MunicipalitiesIDResult = await checkMunicipalitiesID();
+      console.log("MunicipalitiesIDResult: ", MunicipalitiesIDResult);
+
+      const checkmailAdressID = async () => {
+        return knex
+          .select("id")
           .from("householdList")
-          .where("id", checkLoginResult[0].id);
+          .where("householdMail", postData.mailadress);
       };
-      const roleResult = await getRoleFunc();
-      console.log("roleResult: ", roleResult);
+      const MailAdressIDResult = await checkmailAdressID();
+      console.log("MailAdressIDResult: ", MailAdressIDResult[0].id);
 
-      let role;
-      if (roleResult.length > 0) {
-        if (roleResult[0].roleFlag === "0") {
-          role = 1;
+      const checkPassID = async () => {
+        return knex
+          .select("id")
+          .from("householdPassList")
+          .where("householdPass", postData.password);
+      };
+      const PassIDResult = await checkPassID();
+      console.log("PassIDResult: ", PassIDResult);
+      // このあたりでハッシュ値をDBから取り出してcompareして比較
+      const checkLoginInfo = async () => {
+        return knex
+          .select("id")
+          .from("householdTable")
+          .where("householdNameID", MailAdressIDResult[0].id)
+          .andWhere("householdPassID", PassIDResult[0].id);
+      };
+      const checkLoginResult = await checkLoginInfo();
+      console.log("checkLoginResult : ", checkLoginResult);
+
+      if (checkLoginResult.length > 0) {
+        console.log("checkLoginResult[0].id: ", checkLoginResult[0].id);
+        const getRoleFunc = async () => {
+          return knex
+            .select("roleFlag", "householdName")
+            .from("householdList")
+            .where("id", checkLoginResult[0].id);
+        };
+        const roleResult = await getRoleFunc();
+        console.log("roleResult: ", roleResult);
+
+        let role;
+        if (roleResult.length > 0) {
+          if (roleResult[0].roleFlag === "0") {
+            role = 1;
+          } else {
+            role = 2;
+          }
         } else {
-          role = 2;
+          role = 0;
         }
-      } else {
-        role = 0;
-      }
 
-      const resultObj = {
-        judge: role,
-        name: roleResult[0].householdName,
-        houseHoldNameID: checkLoginResult[0].id,
-      };
-      return resultObj;
+        const resultObj = {
+          judge: role,
+          name: roleResult[0].householdName,
+          houseHoldNameID: checkLoginResult[0].id,
+        };
+        return resultObj;
+      }
     }
   };
 
