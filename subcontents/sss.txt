@@ -1,0 +1,7 @@
+Environment Variables
+DATABASE_URL：バックエンドからコピー
+NODE_ENV：production
+Build & Deploy
+Branch：main
+Build Command：npm install && npx knex migrate:rollback --knexfile ./knexfile.js && npx knex migrate:latest --knexfile ./knexfile.js && npx knex seed:run --knexfile ./knexfile.js && npm run build
+Start Command：npm run s-start && npm run start
