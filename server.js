@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
@@ -134,21 +135,67 @@ app.post("/maar/login", async (req, res) => {
       const MailAdressIDResult = await checkmailAdressID();
       console.log("MailAdressIDResult: ", MailAdressIDResult[0].id);
 
-      const checkPassID = async () => {
-        return knex
-          .select("id")
-          .from("householdPassList")
-          .where("householdPass", postData.password);
-      };
-      const PassIDResult = await checkPassID();
-      console.log("PassIDResult: ", PassIDResult);
       // このあたりでハッシュ値をDBから取り出してcompareして比較
+      const getDBPassID = async () => {
+        return knex
+          .select("householdPassID")
+          .from("householdTable")
+          .where("householdNameID", MailAdressIDResult[0].id);
+      };
+      const getDBPassIDResult = await getDBPassID();
+      console.log("パスnameのID : ", getDBPassIDResult[0].householdPassID);
+
+      const getDBPass = async () => {
+        return knex
+          .select("householdPass")
+          .from("householdPassList")
+          .where("id", getDBPassIDResult[0].householdPassID);
+      };
+      const getDBPassResult = await getDBPass();
+      console.log("ハッシュパス : ", getDBPassResult[0].householdPass);
+
+      const hashedPassword = getDBPassResult[0].householdPass;
+
+      const passwordMatch = await bcrypt.compare(
+        postData.password,
+        hashedPassword
+      );
+
+      if (passwordMatch) {
+        // パスワードが一致する場合の処理
+        console.log("パスワードが一致しました");
+        // ログイン成功の処理を行う
+      } else {
+        // パスワードが一致しない場合の処理
+        console.log("パスワードが一致しません");
+        // ログイン失敗の処理を行う
+      }
+
+      const checkPass = async () => {
+        return knex
+          .select("householdPass")
+          .from("householdPassList")
+          .where("id", getDBPassIDResult[0].householdPassID);
+      };
+      const checkPassResult = await checkPass();
+      console.log("Password: ", checkPassResult);
+      // ---------------------------------------------------------------------------
+
+      // const checkPassID = async () => {
+      //   return knex
+      //     .select("id")
+      //     .from("householdPassList")
+      //     .where("householdPass", postData.password);
+      // };
+      // const PassIDResult = await checkPassID();
+      // console.log("PassIDResult: ", PassIDResult);
+
       const checkLoginInfo = async () => {
         return knex
           .select("id")
           .from("householdTable")
           .where("householdNameID", MailAdressIDResult[0].id)
-          .andWhere("householdPassID", PassIDResult[0].id);
+          .andWhere("householdPassID", getDBPassIDResult[0].householdPassID);
       };
       const checkLoginResult = await checkLoginInfo();
       console.log("checkLoginResult : ", checkLoginResult);
