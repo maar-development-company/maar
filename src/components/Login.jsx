@@ -250,7 +250,3 @@ export const Login = (props) => {
     </div>
   );
 };
-
-
-
-{loginCategory: 1, mailadress: 'yuichi_kida@mail.toyota.co.jp', password: '$2a$10$tnontL63E6c0CKs8o3Ye.e4jN/GhqkhqCWvXtFyN4PEB4RYcmEopW', municipalities: '前山町自治区'}
