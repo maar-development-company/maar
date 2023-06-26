@@ -193,6 +193,7 @@ export const Login = (props) => {
     <div>
       <header className="p-2 bg-gradient-to-b from-blue-500 to-blue-200 sticky top-0 z-50">
         <p className="text-4xl text-center">まある</p>
+
         <p className="text-4xl text-center">ログイン画面</p>
       </header>
       <select
@@ -252,3 +253,7 @@ export const Login = (props) => {
     </div>
   );
 };
+
+
+
+{loginCategory: 1, mailadress: 'yuichi_kida@mail.toyota.co.jp', password: '$2a$10$tnontL63E6c0CKs8o3Ye.e4jN/GhqkhqCWvXtFyN4PEB4RYcmEopW', municipalities: '前山町自治区'}
