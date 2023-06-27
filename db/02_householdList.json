@@ -9,7 +9,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "1"
   },
   {
     "householdName": "SuzukiKazumi",
@@ -21,7 +21,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "2"
   },
   {
     "householdName": "YamadaHanako",
@@ -33,7 +33,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "3"
   },
   {
     "householdName": "TanakaKenta",
@@ -45,7 +45,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "4"
   },
   {
     "householdName": "NakamuraSakura",
@@ -57,7 +57,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "5"
   },
   {
     "householdName": "KobayashiMitsuo",
@@ -69,7 +69,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "6"
   },
   {
     "householdName": "ItoMika",
@@ -81,7 +81,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "7"
   },
   {
     "householdName": "WatanabeRyuji",
@@ -93,7 +93,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "8"
   },
   {
     "householdName": "KimuraYumiko",
@@ -105,7 +105,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "9"
   },
   {
     "householdName": "YamaguchiKentarou",
@@ -117,7 +117,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "10"
   },
   {
     "householdName": "SaitoSayuri",
@@ -129,7 +129,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "11"
   },
   {
     "householdName": "YoshidaKenichi",
@@ -141,7 +141,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "12"
   },
   {
     "householdName": "InoueMisaki",
@@ -153,7 +153,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "13"
   },
   {
     "householdName": "SasakiYuta",
@@ -165,7 +165,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "14"
   },
   {
     "householdName": "TakahashiMiho",
@@ -177,7 +177,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "15"
   },
   {
     "householdName": "MaedaKengo",
@@ -189,7 +189,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "16"
   },
   {
     "householdName": "TamuraChizuru",
@@ -201,7 +201,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "17"
   },
   {
     "householdName": "KatoHiroko",
@@ -213,7 +213,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "18"
   },
   {
     "householdName": "HayashiTaiichiro",
@@ -225,7 +225,7 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "19"
   },
   {
     "householdName": "ShimizuMika",
@@ -237,6 +237,6 @@
     "block1": "",
     "block2": "",
     "block3": "",
-    "municipalitiesID": ""
+    "municipalitiesID": "20"
   }
 ]

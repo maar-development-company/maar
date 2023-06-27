@@ -18,5 +18,65 @@
   {
     "municipalitiesName": "前山町自治区",
     "numberOfHouse": "60"
+  },
+  {
+    "municipalitiesName": "新田町自治区",
+    "numberOfHouse": "50"
+  },
+  {
+    "municipalitiesName": "東山町自治区",
+    "numberOfHouse": "55"
+  },
+  {
+    "municipalitiesName": "明石町自治区",
+    "numberOfHouse": "60"
+  },
+  {
+    "municipalitiesName": "富士見町自治区",
+    "numberOfHouse": "65"
+  },
+  {
+    "municipalitiesName": "宮本町自治区",
+    "numberOfHouse": "70"
+  },
+  {
+    "municipalitiesName": "中野町自治区",
+    "numberOfHouse": "75"
+  },
+  {
+    "municipalitiesName": "八幡町自治区",
+    "numberOfHouse": "80"
+  },
+  {
+    "municipalitiesName": "桜木町自治区",
+    "numberOfHouse": "85"
+  },
+  {
+    "municipalitiesName": "高崎町自治区",
+    "numberOfHouse": "90"
+  },
+  {
+    "municipalitiesName": "浜松町自治区",
+    "numberOfHouse": "95"
+  },
+  {
+    "municipalitiesName": "上野町自治区",
+    "numberOfHouse": "100"
+  },
+  {
+    "municipalitiesName": "下町町自治区",
+    "numberOfHouse": "105"
+  },
+  {
+    "municipalitiesName": "渋谷町自治区",
+    "numberOfHouse": "110"
+  },
+  {
+    "municipalitiesName": "新宿町自治区",
+    "numberOfHouse": "115"
+  },
+  {
+    "municipalitiesName": "吉祥寺町自治区",
+    "numberOfHouse": "120"
   }
 ]
