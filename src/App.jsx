@@ -13,6 +13,7 @@ import { ArticleList } from "./components/Articlelist";
 import { SingleArticle } from "./components/SingleArticle";
 import { AdminMenu } from "./components/AdminMenu";
 import { NewPost } from "./components/NewPost";
+import { OrganizationSetting } from "./components/OrganizationSetting";
 import dayjs from "dayjs";
 
 function App() {
@@ -164,6 +165,16 @@ function App() {
                       municipalityId={municipalityId}
                       municipality={municipality}
                     />
+                  </div>
+                }
+              />
+            )}
+            {loginCom === 2 && (
+              <Route
+                path="/OrganizationSetting"
+                element={
+                  <div>
+                    <OrganizationSetting />
                   </div>
                 }
               />
