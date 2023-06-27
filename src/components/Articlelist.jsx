@@ -105,9 +105,9 @@ export const ArticleList = (props) => {
 				console.log("");
 				let contentBeginning;
 				const textContent = ele.articleContent;
-				if (textContent.length > 5) {
-					// 表示したい字数を決めたら変更する（仮で「5」）
-					contentBeginning = `${textContent.substr(0, 5)}...`; // 表示したい字数を決めたら変更する（仮で「5」）
+				if (textContent.length > 20) {
+					// 表示したい字数を決めたら変更する（現在：「20」）
+					contentBeginning = `${textContent.substr(0, 20)}...`; // 表示したい字数を決めたら変更する（現在：「20」）
 				} else {
 					contentBeginning = textContent;
 				}
@@ -125,7 +125,9 @@ export const ArticleList = (props) => {
 							<br></br>
 							<div className="w-full text-left">
 								<h2 className="text-3xl">{ele.articleTitle}</h2>
-								<p className="text-2xl mt-4">{contentBeginning}</p>
+								<p className="text-2xl mt-4 text-gray-700">
+									{contentBeginning}
+								</p>
 								<p className="mt-4">{ele.articleTimestamp}</p>
 							</div>
 						</section>
