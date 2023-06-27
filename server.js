@@ -45,14 +45,16 @@ app.post("/maar/login", async (req, res) => {
     // postDateのloginCategoryで分岐0:通常 1:新規登録
     if (postData.loginCategory === 1) {
       console.log("こっちは新規");
-      const checkMunicipalitiesID = async () => {
-        return knex
-          .select("id")
-          .from("municipalitiesList")
-          .where("municipalitiesName", postData.municipalities);
-      };
-      const MunicipalitiesIDResult = await checkMunicipalitiesID();
-      console.log("新規登録用市ID: ", MunicipalitiesIDResult);
+
+      // 地域名取得
+      // const checkMunicipalitiesID = async () => {
+      //   return knex
+      //     .select("id")
+      //     .from("municipalitiesList")
+      //     .where("municipalitiesName", postData.municipalities);
+      // };
+      // const MunicipalitiesIDResult = await checkMunicipalitiesID();
+      // console.log("新規登録用市ID: ", MunicipalitiesIDResult);
 
       const insertHouseHoldList = async () => {
         return knex("householdList")
@@ -117,14 +119,15 @@ app.post("/maar/login", async (req, res) => {
       // --------------------------------------------------------------------------------------
     } else {
       console.log("こっちはログイン");
-      const checkMunicipalitiesID = async () => {
-        return knex
-          .select("id")
-          .from("municipalitiesList")
-          .where("municipalitiesName", postData.municipalities);
-      };
-      const MunicipalitiesIDResult = await checkMunicipalitiesID();
-      console.log("MunicipalitiesIDResult: ", MunicipalitiesIDResult);
+
+      // const checkMunicipalitiesID = async () => {
+      //   return knex
+      //     .select("id")
+      //     .from("municipalitiesList")
+      //     .where("municipalitiesName", postData.municipalities);
+      // };
+      // const MunicipalitiesIDResult = await checkMunicipalitiesID();
+      // console.log("MunicipalitiesIDResult: ", MunicipalitiesIDResult);
 
       const checkmailAdressID = async () => {
         return knex
@@ -204,10 +207,14 @@ app.post("/maar/login", async (req, res) => {
         console.log("checkLoginResult[0].id: ", checkLoginResult[0].id);
         const getRoleFunc = async () => {
           return knex
-            .select("roleFlag", "householdName")
+            .select("householdList.roleFlag", "householdList.householdName", 
+            "householdList.householdTel", "householdList.householdMail", 
+            "householdList.householdAge", "municipalitiesList.municipalitiesName")
             .from("householdList")
-            .where("id", checkLoginResult[0].id);
+            .join("municipalitiesList", "householdList.municipalitiesID", "municipalitiesList.id")
+            .where('householdList.id', checkLoginResult[0].id)
         };
+
         const roleResult = await getRoleFunc();
         console.log("roleResult: ", roleResult);
 
@@ -226,6 +233,11 @@ app.post("/maar/login", async (req, res) => {
           judge: role,
           name: roleResult[0].householdName,
           houseHoldNameID: checkLoginResult[0].id,
+          tel: roleResult[0].householdTel,
+          mail: roleResult[0].householdMail,
+          age: roleResult[0].householdAge,
+          municipalitiesID: roleResult[0].municipalitiesID,
+          municipalitiesName: roleResult[0].municipalitiesName
         };
         return resultObj;
       }

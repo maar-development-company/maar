@@ -9,6 +9,7 @@ exports.up = function(knex) {
       table.string('articleContent');
       table.timestamp('articleTimestamp');
       table.string('articleCategory',128);
+      table.string('fileSavePath');
       table.integer('municipalitiesID2');
       table.foreign('municipalitiesID2').references("id").inTable("municipalitiesList");
     });
