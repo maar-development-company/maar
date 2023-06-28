@@ -249,29 +249,31 @@ export const Login = (props) => {
         >
           新規登録
         </button> */}
-				<button
-					onClick={() => (location.href = "/registration")}
-					className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row">
-					改新規登録
-				</button>
-				<button
-					onClick={() => (location.href = "/newcontract")}
-					className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row">
-					新規自治会契約
-				</button>
+        <button
+          onClick={() => (location.href = "/registration")}
+          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
+        >
+          改新規登録
+        </button>
+        <button
+          onClick={() => (location.href = "/newcontract")}
+          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
+        >
+          新規自治会契約
+        </button>
 
-				<Link to="/registration">
-					<div className="test">
-						<div className="flex flex-col items-center justify-center md:flex-row">
-							<div className="flex items-center justify-center text-6xl md:justify-start"></div>
-							<p className="ml-5 mr-5 items-center justify-center text-3xl ">
-								新規登録のテストだよ
-							</p>
-						</div>
-					</div>
-				</Link>
-			</div>
-			<b></b>
-		</div>
-	);
+        <Link to="/registration">
+          <div className="test">
+            <div className="flex flex-col items-center justify-center md:flex-row">
+              <div className="flex items-center justify-center text-6xl md:justify-start"></div>
+              <p className="ml-5 mr-5 items-center justify-center text-3xl ">
+                新規登録のテストだよ
+              </p>
+            </div>
+          </div>
+        </Link>
+      </div>
+      <b></b>
+    </div>
+  );
 };
