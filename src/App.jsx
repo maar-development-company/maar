@@ -19,6 +19,9 @@ import dayjs from "dayjs";
 import { Registration } from "./components/Registration";
 import { NewContract } from "./components/NewContract";
 import { PiTaxiLight } from "react-icons/pi";
+import { FileUploader } from "./components/FileUploader";
+import { DisplayImage } from "./components/DisplayImage";
+
 const AWS = require("aws-sdk");
 
 AWS.config.update({
@@ -30,7 +33,7 @@ AWS.config.update({
 function App() {
   // console.log(process.env.REACT_APP_AWS_ACCESS_KEY);
   // console.log(process.env.REACT_APP_AWS_SECRET_KEY);
-
+  //S3ファイル一覧取得ー始ーーーーーーーーーーーーーーー
   const s3 = new AWS.S3();
   const bucketName = "article-area";
 
@@ -48,6 +51,7 @@ function App() {
 
   // バケット名を指定してオブジェクト一覧を取得します
   listObjects(bucketName);
+  //S3ファイル一覧取得ー終ーーーーーーーーーーーーーーー
 
   // console.log(process.env);
   //loginCom = 0 ログインしてない　1:普通ユーザー　2:管理者
@@ -124,19 +128,23 @@ loginCom === 0
               <Route
                 path="/"
                 element={
-                  <Login
-                    loginCom={loginCom}
-                    setLoginCom={setLoginCom}
-                    setUserName={setUserName}
-                    municipality={municipality}
-                    setMunicipality={setMunicipality}
-                    municipalityId={municipalityId}
-                    setMunicipalityId={setMunicipalityId}
-                    emailAddress={emailAddress}
-                    setEmailAddress={setEmailAddress}
-                    password={password}
-                    setPassword={setPassword}
-                  />
+                  <>
+                    <Login
+                      loginCom={loginCom}
+                      setLoginCom={setLoginCom}
+                      setUserName={setUserName}
+                      municipality={municipality}
+                      setMunicipality={setMunicipality}
+                      municipalityId={municipalityId}
+                      setMunicipalityId={setMunicipalityId}
+                      emailAddress={emailAddress}
+                      setEmailAddress={setEmailAddress}
+                      password={password}
+                      setPassword={setPassword}
+                    />
+                    <FileUploader />
+                    <DisplayImage />
+                  </>
                 }
               />
               <Route
