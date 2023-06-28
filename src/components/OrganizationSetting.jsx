@@ -8,7 +8,8 @@ export const OrganizationSetting = () => {
 
   const handleBrockNumChange = (e) => {
     console.log(e.target.value);
-    setBrockNum(e.target.value);
+    const value = e.target.value.replace(/\D/g, "");
+    setBrockNum(value);
   };
 
   const onClickInputCreateButton = () => {
@@ -31,7 +32,7 @@ export const OrganizationSetting = () => {
   };
 
   const handleGroupNumChange = (index, e) => {
-    const { value } = e.target;
+    const value = e.target.value.replace(/\D/g, "");
     console.log(groupNumArr);
     setGroupNumArr((prevArr) => {
       const updatedArr = [...prevArr];
@@ -85,7 +86,7 @@ export const OrganizationSetting = () => {
                 key={ele + 100}
                 className="rouded border mt-4 p-1 text-3xl w-12 "
                 placeholder="組の数"
-                value={groupNumArr[index] || 1}
+                value={groupNumArr[index]}
                 onChange={(e) => handleGroupNumChange(index, e)}
               />
               <p className="mt-4 p-1 text-3xl">組ある</p>
