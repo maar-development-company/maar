@@ -14,6 +14,8 @@ exports.up = function(knex) {
       table.string('block1',32);
       table.string('block2',32);
       table.string('block3',32);
+      table.integer('municipalitiesID');
+      table.foreign('municipalitiesID').references("id").inTable("municipalitiesList");
     });
 };
 
