@@ -24,6 +24,7 @@ export const Registration = (props) => {
     setEmailAddress,
     password,
     setPassword,
+    setUserName,
   } = props;
   console.log(process.env);
   const [municipalitiesList, setMunicipalitiesList] = useState([]);
@@ -163,7 +164,9 @@ export const Registration = (props) => {
       // window.alert(
       //   `メールアドレス:${emailAddress}\nパスワード:${password}\n地域名:${municipalities}\nで登録しました。`
       // );
-      setLoginCom(2);
+      setLoginCom(1);
+      setUserName(result.name);
+      setMunicipality(data.municipalities);
     } catch (error) {
       window.alert(`登録に失敗しました。最初からやり直してください。`);
       console.error(error);

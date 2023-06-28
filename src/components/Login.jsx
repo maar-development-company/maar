@@ -244,17 +244,17 @@ export const Login = (props) => {
         >
           ログイン
         </button>
-        <button
+        {/* <button
           onClick={newLogin}
           className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
         >
           新規登録
-        </button>
+        </button> */}
         <button
           onClick={() => (location.href = "/registration")}
           className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
         >
-          新規登録の改
+          改新規登録
         </button>
         <button
           onClick={() => (location.href = "/newcontract")}
