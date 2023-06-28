@@ -262,7 +262,7 @@ export const Login = (props) => {
         >
           新規自治会契約
         </button>
-        {/* 
+
         <Link to="/registration">
           <div className="test">
             <div className="flex flex-col items-center justify-center md:flex-row">
@@ -272,7 +272,7 @@ export const Login = (props) => {
               </p>
             </div>
           </div>
-        </Link> */}
+        </Link>
       </div>
       <b></b>
     </div>
