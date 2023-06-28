@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import { Select, Option } from "@material-tailwind/react";
 import React, { useState, useEffect, useRef } from "react";
 import bcrypt from "bcryptjs";
-import { Registration } from "./Registration";
 import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -13,11 +12,10 @@ const URL =
     ? "https://maar-front.onrender.com"
     : "http://localhost:8080";
 
-export const Login = (props) => {
+export const Registration = (props) => {
   const {
     loginCom,
     setLoginCom,
-    setUserName,
     municipality,
     setMunicipality,
     municipalityId,
@@ -99,7 +97,7 @@ export const Login = (props) => {
 
   const login = async () => {
     //バリデーション
-    if (emailAddress === "" || password === "") {
+    if (emailAddress === "" || password === "" || municipality === "") {
       return window.alert("未入力の項目があります");
     }
     //データベースにPOSTする処理
@@ -126,15 +124,13 @@ export const Login = (props) => {
       writeToSessionStorage("loginResultInfo", result);
 
       if (result.judge === 0) {
-        window.alert("EmailAddress又はpasswordが間違っています");
+        window.alert("町内会名又はEmailAddress又はpasswordが間違っています");
       } else if (result.judge === 1) {
         setLoginCom(1);
-        setUserName(result.name);
-        setMunicipality(data.municipalities);
+        window.alert(`ようこそ${result.name}さん`);
       } else if (result.judge === 2) {
         setLoginCom(2);
-        setUserName(result.name);
-        setMunicipality(data.municipalities);
+        window.alert(`ようこそ管理者の${result.name}さん`);
       }
     } catch (error) {
       console.error(error);
@@ -164,9 +160,10 @@ export const Login = (props) => {
       writeToSessionStorage("loginInfo", data);
       writeToSessionStorage("loginResultInfo", result);
 
-      window.alert(
-        `メールアドレス:${emailAddress}\nパスワード:${password}\n地域名:${municipalities}\nで登録しました。`
-      );
+      // window.alert(
+      //   `メールアドレス:${emailAddress}\nパスワード:${password}\n地域名:${municipalities}\nで登録しました。`
+      // );
+      setLoginCom(2);
     } catch (error) {
       window.alert(`登録に失敗しました。最初からやり直してください。`);
       console.error(error);
@@ -198,7 +195,7 @@ export const Login = (props) => {
         <p className="text-4xl text-center">まある</p>
         <p className="text-4xl text-center">ログイン画面</p>
       </header>
-      {/* <select
+      <select
         className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
         mt-4 ml-2 mr-2 text-3xl"
         variant="standard"
@@ -207,14 +204,14 @@ export const Login = (props) => {
         defaultValue=""
       >
         <option value="" disabled>
-          町内会名を選択。
+          町内会名を選択
         </option>
         {municipalitiesList.map((item) => (
           <option key={item.id} value={item.id}>
             {item.municipalitiesName}
           </option>
         ))}
-      </select> */}
+      </select>
       <input
         className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
         mt-4 ml-2 mr-2
@@ -238,41 +235,15 @@ export const Login = (props) => {
         onChange={handlePasswordChange}
       />
       <div className="flex flex-row items-center justify-center">
-        <button
-          onClick={login}
-          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 mr-2 text-3xl flex flex-row"
-        >
-          ログイン
-        </button>
-        <button
-          onClick={newLogin}
+        <Link
+          to="/"
+          onClick={() => {
+            newLogin();
+          }}
           className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
         >
           新規登録
-        </button>
-        <button
-          onClick={() => (location.href = "/registration")}
-          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
-        >
-          新規登録の改
-        </button>
-        <button
-          onClick={() => (location.href = "/newcontract")}
-          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
-        >
-          新規自治会契約
-        </button>
-        {/* 
-        <Link to="/registration">
-          <div className="test">
-            <div className="flex flex-col items-center justify-center md:flex-row">
-              <div className="flex items-center justify-center text-6xl md:justify-start"></div>
-              <p className="ml-5 mr-5 items-center justify-center text-3xl ">
-                新規登録のテストだよ
-              </p>
-            </div>
-          </div>
-        </Link> */}
+        </Link>
       </div>
       <b></b>
     </div>
