@@ -69,8 +69,8 @@ export const ArticleList = (props) => {
 			<div>
 				<button
 					onClick={getArticleList}
-					className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56">
-					更新
+					className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-fit fixed top-0 right-0">
+					一覧更新
 				</button>
 			</div>
 			{ArticleList.reverse().map((ele) => {
