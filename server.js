@@ -207,12 +207,21 @@ app.post("/maar/login", async (req, res) => {
         console.log("checkLoginResult[0].id: ", checkLoginResult[0].id);
         const getRoleFunc = async () => {
           return knex
-            .select("householdList.roleFlag", "householdList.householdName", 
-            "householdList.householdTel", "householdList.householdMail", 
-            "householdList.householdAge", "municipalitiesList.municipalitiesName")
+            .select(
+              "householdList.roleFlag",
+              "householdList.householdName",
+              "householdList.householdTel",
+              "householdList.householdMail",
+              "householdList.householdAge",
+              "municipalitiesList.municipalitiesName"
+            )
             .from("householdList")
-            .join("municipalitiesList", "householdList.municipalitiesID", "municipalitiesList.id")
-            .where('householdList.id', checkLoginResult[0].id)
+            .join(
+              "municipalitiesList",
+              "householdList.municipalitiesID",
+              "municipalitiesList.id"
+            )
+            .where("householdList.id", checkLoginResult[0].id);
         };
 
         const roleResult = await getRoleFunc();
@@ -237,7 +246,7 @@ app.post("/maar/login", async (req, res) => {
           mail: roleResult[0].householdMail,
           age: roleResult[0].householdAge,
           municipalitiesID: roleResult[0].municipalitiesID,
-          municipalitiesName: roleResult[0].municipalitiesName
+          municipalitiesName: roleResult[0].municipalitiesName,
         };
         return resultObj;
       }
