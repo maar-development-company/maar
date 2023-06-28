@@ -19,8 +19,36 @@ import dayjs from "dayjs";
 import { Registration } from "./components/Registration";
 import { NewContract } from "./components/NewContract";
 import { PiTaxiLight } from "react-icons/pi";
+const AWS = require("aws-sdk");
+
+AWS.config.update({
+  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
+  secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
+  region: "us-east-1",
+});
 
 function App() {
+  // console.log(process.env.REACT_APP_AWS_ACCESS_KEY);
+  // console.log(process.env.REACT_APP_AWS_SECRET_KEY);
+
+  const s3 = new AWS.S3();
+  const bucketName = "article-area";
+
+  async function listObjects(bucketName) {
+    try {
+      const response = await s3.listObjectsV2({ Bucket: bucketName }).promise();
+      console.log("バケット内のオブジェクト一覧:");
+      response.Contents.forEach((obj) => {
+        console.log(obj.Key);
+      });
+    } catch (error) {
+      console.error("オブジェクト一覧の取得に失敗しました:", error);
+    }
+  }
+
+  // バケット名を指定してオブジェクト一覧を取得します
+  listObjects(bucketName);
+
   // console.log(process.env);
   //loginCom = 0 ログインしてない　1:普通ユーザー　2:管理者
   const [loginCom, setLoginCom] = useState(0);
@@ -39,8 +67,8 @@ function App() {
     const user = sessionStorage.getItem("loginResultInfo");
     console.log(data);
     console.log(user);
-    user
-      ? setMunicipality(JSON.parse(user).municipalitiesName)
+    data
+      ? setMunicipality(JSON.parse(data).municipalities)
       : setMunicipality("");
     user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
     user ? setUserName(JSON.parse(user).name) : setUserName("");
