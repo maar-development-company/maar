@@ -69,10 +69,7 @@ export const AdminMenu = (props) => {
         </Link>
       </div>
       <div>
-        <Link
-          to="https://www.city.nagoya.jp/sportsshimin/page/0000149515.html"
-          state={{ test: "test" }}
-        >
+        <Link to="/OrganizationSetting" state={{ test: "test" }}>
           <div className={menuStyle}>
             <div className="flex flex-col items-center justify-center md:flex-row">
               <div className="flex items-center justify-center text-6xl md:justify-start">

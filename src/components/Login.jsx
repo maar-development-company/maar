@@ -14,6 +14,7 @@ export const Login = (props) => {
   const {
     loginCom,
     setLoginCom,
+    setUserName,
     municipality,
     setMunicipality,
     municipalityId,
@@ -95,7 +96,7 @@ export const Login = (props) => {
 
   const login = async () => {
     //バリデーション
-    if (emailAddress === "" || password === "" || municipality === "") {
+    if (emailAddress === "" || password === "") {
       return window.alert("未入力の項目があります");
     }
     //データベースにPOSTする処理
@@ -122,13 +123,15 @@ export const Login = (props) => {
       writeToSessionStorage("loginResultInfo", result);
 
       if (result.judge === 0) {
-        window.alert("町内会名又はEmailAddress又はpasswordが間違っています");
+        window.alert("EmailAddress又はpasswordが間違っています");
       } else if (result.judge === 1) {
         setLoginCom(1);
-        window.alert(`ようこそ${result.name}さん`);
+        setUserName(result.name);
+        setMunicipality(data.municipalities);
       } else if (result.judge === 2) {
         setLoginCom(2);
-        window.alert(`ようこそ管理者の${result.name}さん`);
+        setUserName(result.name);
+        setMunicipality(data.municipalities);
       }
     } catch (error) {
       console.error(error);
@@ -192,7 +195,7 @@ export const Login = (props) => {
         <p className="text-4xl text-center">まある</p>
         <p className="text-4xl text-center">ログイン画面</p>
       </header>
-      <select
+      {/* <select
         className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
         mt-4 ml-2 mr-2 text-3xl"
         variant="standard"
@@ -201,14 +204,14 @@ export const Login = (props) => {
         defaultValue=""
       >
         <option value="" disabled>
-          町内会名を選択
+          町内会名を選択。
         </option>
         {municipalitiesList.map((item) => (
           <option key={item.id} value={item.id}>
             {item.municipalitiesName}
           </option>
         ))}
-      </select>
+      </select> */}
       <input
         className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
         mt-4 ml-2 mr-2
