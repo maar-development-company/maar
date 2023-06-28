@@ -209,7 +209,9 @@ app.post("/maar/login", async (req, res) => {
           return knex
             .select("householdList.roleFlag", "householdList.householdName", 
             "householdList.householdTel", "householdList.householdMail", 
-            "householdList.householdAge", "municipalitiesList.municipalitiesName")
+            "householdList.householdAge", "householdList.municipalitiesID",
+            "householdList.block1", "householdList.block2",
+            "municipalitiesList.municipalitiesName")
             .from("householdList")
             .join("municipalitiesList", "householdList.municipalitiesID", "municipalitiesList.id")
             .where('householdList.id', checkLoginResult[0].id)
@@ -237,7 +239,9 @@ app.post("/maar/login", async (req, res) => {
           mail: roleResult[0].householdMail,
           age: roleResult[0].householdAge,
           municipalitiesID: roleResult[0].municipalitiesID,
-          municipalitiesName: roleResult[0].municipalitiesName
+          municipalitiesName: roleResult[0].municipalitiesName,
+          blockName: roleResult[0].block1,
+          groupNum: roleResult[0].block2,
         };
         return resultObj;
       }
