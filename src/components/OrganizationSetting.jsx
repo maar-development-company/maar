@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 
+const URL =
+  process.env.NODE_ENV === "production"
+    ? "https://maar-front.onrender.com"
+    : "http://localhost:8080";
+
 export const OrganizationSetting = () => {
   const [brockNum, setBrockNum] = useState("");
   const [dummyArr, setDummyArr] = useState([]);
@@ -8,7 +13,8 @@ export const OrganizationSetting = () => {
 
   const handleBrockNumChange = (e) => {
     console.log(e.target.value);
-    setBrockNum(e.target.value);
+    const value = e.target.value.replace(/\D/g, "");
+    setBrockNum(value);
   };
 
   const onClickInputCreateButton = () => {
@@ -31,13 +37,53 @@ export const OrganizationSetting = () => {
   };
 
   const handleGroupNumChange = (index, e) => {
-    const { value } = e.target;
+    const value = e.target.value.replace(/\D/g, "");
     console.log(groupNumArr);
     setGroupNumArr((prevArr) => {
       const updatedArr = [...prevArr];
       updatedArr[index] = value;
       return updatedArr;
     });
+  };
+
+  const organizationSet = async () => {
+    console.log("組織情報登録ボタンが押された");
+    //バリデーション
+    if (
+      brockNum === "" ||
+      brockNameArr.length !== Number(brockNum) ||
+      groupNumArr.length !== Number(brockNum)
+    ) {
+      console.log("ボタン入力を阻止します");
+      window.alert("入力情報に不足があります");
+      return;
+    }
+    const user = sessionStorage.getItem("loginResultInfo");
+
+    //データベースへPOSTする処理
+    try {
+      const data = {
+        municipalitiesID: JSON.parse(user).municipalitiesID,
+        brockNameArray: brockNameArr,
+        groupNumArray: groupNumArr,
+      };
+      console.log("dataの中身　　", data);
+      const res = await fetch(`${URL}/muni`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = res.text();
+      if (result === "組織情報登録完了") {
+        setBrockNameArr([]);
+        setGroupNumArr([]);
+        window.alert("自治区組織の登録が終わりました");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -85,13 +131,19 @@ export const OrganizationSetting = () => {
                 key={ele + 100}
                 className="rouded border mt-4 p-1 text-3xl w-12 "
                 placeholder="組の数"
-                value={groupNumArr[index] || 1}
+                value={groupNumArr[index]}
                 onChange={(e) => handleGroupNumChange(index, e)}
               />
               <p className="mt-4 p-1 text-3xl">組ある</p>
             </div>
           );
         })}
+        <button
+          className="rounded border m-4 p-3 text-3xl"
+          onClick={organizationSet}
+        >
+          組織情報を登録
+        </button>
       </div>
     </>
   );
