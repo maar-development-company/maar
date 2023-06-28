@@ -33,6 +33,32 @@ app.get("/muni", async (req, res) => {
   res.status(200).json(AllMunicipalitiesObj);
 });
 
+// 組織構造の登録
+app.post('/muni', async (req, res) => {
+  const postData = req.body;
+
+    // 文字列から配列に変換
+    postData.groupNumArray = JSON.parse(req.body.groupNumArray);
+    // groupNumArrayの各要素を対象にmap関数を用いて新たな配列を作成
+    postData.groupNumArray = postData.groupNumArray.map(num => Array.from({length: num}, (_, i) => i + 1));
+    console.log('postData.groupNumArray: ', postData.groupNumArray);
+
+  try {
+    await knex('municipalitiesList')
+      .where('id', postData.municipalitiesID)
+      .update({
+        blockNameArray: postData.brockNameArray,
+        // 配列を文字列に変換
+        groupNumArray: JSON.stringify(postData.groupNumArray)  
+      });
+
+    res.status(200).send('組織情報登録完了');
+  } catch (err) {
+    console.error(err);
+    res.status(400).send('サーバーエラー');
+  }
+});
+
 // ログイン機能
 app.post("/maar/login", async (req, res) => {
   console.log("ログイン情報をPOST受信");
@@ -405,6 +431,7 @@ app.post("/maar/articlelist", async (req, res) => {
       .json({ error: "記事を追加できません。記載内容を確認してください。" });
   }
 });
+
 
 // {
 //   "articleTitle":"お祭り",
