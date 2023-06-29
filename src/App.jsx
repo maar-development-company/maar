@@ -35,23 +35,23 @@ function App() {
   // console.log(process.env.REACT_APP_AWS_ACCESS_KEY);
   // console.log(process.env.REACT_APP_AWS_SECRET_KEY);
   //S3ファイル一覧取得ー始ーーーーーーーーーーーーーーー
-  const s3 = new AWS.S3();
-  const bucketName = "article-area";
+  // const s3 = new AWS.S3();
+  // const bucketName = "article-area";
 
-  async function listObjects(bucketName) {
-    try {
-      const response = await s3.listObjectsV2({ Bucket: bucketName }).promise();
-      console.log("バケット内のオブジェクト一覧:");
-      response.Contents.forEach((obj) => {
-        console.log(obj.Key);
-      });
-    } catch (error) {
-      console.error("オブジェクト一覧の取得に失敗しました:", error);
-    }
-  }
+  // async function listObjects(bucketName) {
+  //   try {
+  //     const response = await s3.listObjectsV2({ Bucket: bucketName }).promise();
+  //     console.log("バケット内のオブジェクト一覧:");
+  //     response.Contents.forEach((obj) => {
+  //       console.log(obj.Key);
+  //     });
+  //   } catch (error) {
+  //     console.error("オブジェクト一覧の取得に失敗しました:", error);
+  //   }
+  // }
 
-  // バケット名を指定してオブジェクト一覧を取得します
-  listObjects(bucketName);
+  // // バケット名を指定してオブジェクト一覧を取得します
+  // listObjects(bucketName);
   //S3ファイル一覧取得ー終ーーーーーーーーーーーーーーー
 
   // console.log(process.env);
