@@ -9,7 +9,7 @@ AWS.config.update({
 export const DisplayImage = (props) => {
   const [imageSource, setImageSource] = useState("");
   const [imageUrl, setImageUrl] = useState(
-    "スクリーンショット 2023-06-20 20.20.45.png"
+    "スクリーンショット 2023-06-14 19.14.13.png"
   );
 
   const s3 = new AWS.S3();

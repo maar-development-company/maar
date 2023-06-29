@@ -21,6 +21,7 @@ import { NewContract } from "./components/NewContract";
 import { PiTaxiLight } from "react-icons/pi";
 import { FileUploader } from "./components/FileUploader";
 import { DisplayImage } from "./components/DisplayImage";
+import { TakePicture } from "./components/TakePicture";
 
 const AWS = require("aws-sdk");
 
@@ -142,6 +143,7 @@ loginCom === 0
                       password={password}
                       setPassword={setPassword}
                     />
+                    <TakePicture />
                     <FileUploader />
                     <DisplayImage />
                   </>
