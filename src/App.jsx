@@ -32,27 +32,29 @@ AWS.config.update({
 });
 
 function App() {
-	// console.log(process.env.REACT_APP_AWS_ACCESS_KEY);
-	// console.log(process.env.REACT_APP_AWS_SECRET_KEY);
-	//S3ファイル一覧取得ー始ーーーーーーーーーーーーーーー
-	const s3 = new AWS.S3();
-	const bucketName = "article-area";
 
-	async function listObjects(bucketName) {
-		try {
-			const response = await s3.listObjectsV2({ Bucket: bucketName }).promise();
-			console.log("バケット内のオブジェクト一覧:");
-			response.Contents.forEach((obj) => {
-				console.log(obj.Key);
-			});
-		} catch (error) {
-			console.error("オブジェクト一覧の取得に失敗しました:", error);
-		}
-	}
+  // console.log(process.env.REACT_APP_AWS_ACCESS_KEY);
+  // console.log(process.env.REACT_APP_AWS_SECRET_KEY);
+  //S3ファイル一覧取得ー始ーーーーーーーーーーーーーーー
+  // const s3 = new AWS.S3();
+  // const bucketName = "article-area";
 
-	// バケット名を指定してオブジェクト一覧を取得します
-	listObjects(bucketName);
-	//S3ファイル一覧取得ー終ーーーーーーーーーーーーーーー
+  // async function listObjects(bucketName) {
+  //   try {
+  //     const response = await s3.listObjectsV2({ Bucket: bucketName }).promise();
+  //     console.log("バケット内のオブジェクト一覧:");
+  //     response.Contents.forEach((obj) => {
+  //       console.log(obj.Key);
+  //     });
+  //   } catch (error) {
+  //     console.error("オブジェクト一覧の取得に失敗しました:", error);
+  //   }
+  // }
+
+  // // バケット名を指定してオブジェクト一覧を取得します
+  // listObjects(bucketName);
+  //S3ファイル一覧取得ー終ーーーーーーーーーーーーーーー
+
 
 	// console.log(process.env);
 	//loginCom = 0 ログインしてない　1:普通ユーザー　2:管理者
@@ -65,19 +67,19 @@ function App() {
 	const [history, setHistory] = useState("");
 	console.log("loginCom : ", loginCom);
 
-	// ログイン状態を確認する。
-	useEffect(() => {
-		console.log("合図");
-		const data = sessionStorage.getItem("loginInfo");
-		const user = sessionStorage.getItem("loginResultInfo");
-		console.log(data);
-		console.log(user);
-		data
-			? setMunicipality(JSON.parse(data).municipalities)
-			: setMunicipality("");
-		user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
-		user ? setUserName(JSON.parse(user).name) : setUserName("");
-	}, []);
+
+  // ログイン状態を確認する。
+  useEffect(() => {
+    const data = sessionStorage.getItem("loginInfo");
+    const user = sessionStorage.getItem("loginResultInfo");
+    // console.log(data);
+    // console.log(user);
+    user
+      ? setMunicipality(JSON.parse(user).municipalitiesName)
+      : setMunicipality("");
+    user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
+    user ? setUserName(JSON.parse(user).name) : setUserName("");
+  }, []);
 
 	const logout = () => {
 		sessionStorage.removeItem("loginInfo");
@@ -86,39 +88,6 @@ function App() {
 		location.href = "/";
 	};
 
-	// 木田さんの教え
-	{
-		/* <Router>
-<Routes>
-loginCom === 0
-<Route
-    path="/"
-    element={普通のログインの画面
-      <div>
-        ログインするボタン
-    </div>
-
-    <div>
-      <Link to="/articlelist"></Link>←新規登録画面へ行くボタン
-    </div>
-      }
-
-      />
-  <Route
-    path="/makeAccount"
-    element={新規でログインするために必要な情報記入項目
-      <div>
-      登録ボタン
-    </div>
-
-      }
-
-      />
-</Routes>
-</Router> */
-	}
-
-	// flex items-center justify-center h-full
 	const menuStyle =
 		"m-4 p-4 h-44 flex items-center justify-center md:h-28 border-solid rounded-3xl border-4 border-gray-300 md:flex md:flex-row md:justify-start";
 	return (

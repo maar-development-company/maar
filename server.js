@@ -37,6 +37,8 @@ app.get("/muni", async (req, res) => {
 app.post('/muni', async (req, res) => {
   const postData = req.body;
 
+  postData.municipalitiesID = postData.municipalitiesID.toString();
+
     // 文字列から配列に変換
     postData.groupNumArray = JSON.parse(req.body.groupNumArray);
     // groupNumArrayの各要素を対象にmap関数を用いて新たな配列を作成

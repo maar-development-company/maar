@@ -12,57 +12,57 @@ import { useLocation } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 
 const URL =
-	process.env.NODE_ENV === "production"
-		? "https://maar-front.onrender.com"
-		: "http://localhost:8080";
+  process.env.NODE_ENV === "production"
+    ? "https://maar-front.onrender.com"
+    : "http://localhost:8080";
 
 export const ArticleList = (props) => {
-	const { municipalityId, municipality } = props;
-	const [ArticleList, setArticleList] = useState([]);
-	const [elementsArr, setElementsArr] = useState([]);
-	const [ID, setID] = useState(2);
-	const [number, setNumber] = useState("");
+  const { municipalityId, municipality } = props;
+  const [ArticleList, setArticleList] = useState([]);
+  const [elementsArr, setElementsArr] = useState([]);
+  const [ID, setID] = useState(2);
+  const [number, setNumber] = useState("");
 
-	useEffect(() => {
-		getArticleList();
-	}, [number]);
+  useEffect(() => {
+    getArticleList();
+  }, [number]);
 
-	const writeToSessionStorage = (key, value) => {
-		sessionStorage.setItem(key, JSON.stringify(value));
-	};
-	const readFromSessionStorage = (key) => {
-		const value = sessionStorage.getItem(key);
-		return value ? JSON.parse(value) : null;
-	};
+  const writeToSessionStorage = (key, value) => {
+    sessionStorage.setItem(key, JSON.stringify(value));
+  };
+  const readFromSessionStorage = (key) => {
+    const value = sessionStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+  };
 
-	const getArticleList = async () => {
-		//データベースにGETする処理
-		const encodedMunicipality = encodeURIComponent(municipality);
-		const encodedhouseholdNameID =
-			readFromSessionStorage("loginResultInfo").houseHoldNameID;
+  const getArticleList = async () => {
+    //データベースにGETする処理
+    const encodedMunicipality = encodeURIComponent(municipality);
+    const encodedhouseholdNameID =
+      readFromSessionStorage("loginResultInfo").houseHoldNameID;
 
-		// console.log(
-		//   "ちぇっくしたいやつ",
-		//   readFromSessionStorage("loginResultInfo").houseHoldNameID
-		// );
-		try {
-			const response = await fetch(
-				`${URL}/maar/articlelist?municipalitiesName=${encodedMunicipality}&householdNameID=${encodedhouseholdNameID}`
-			);
-			if (!response.ok) {
-				throw new Error("Failed to fetch.");
-			}
-			const articleObj = await response.json();
-			setNumber(articleObj.length);
-			console.log(articleObj);
-			if (articleObj.length !== ArticleList.length) {
-				setArticleList(articleObj);
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	};
-	getArticleList();
+    // console.log(
+    //   "ちぇっくしたいやつ",
+    //   readFromSessionStorage("loginResultInfo").houseHoldNameID
+    // );
+    try {
+      const response = await fetch(
+        `${URL}/maar/articlelist?municipalitiesName=${encodedMunicipality}&householdNameID=${encodedhouseholdNameID}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch.");
+      }
+      const articleObj = await response.json();
+      setNumber(articleObj.length);
+      console.log(articleObj);
+      if (articleObj.length !== ArticleList.length) {
+        setArticleList(articleObj);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  getArticleList();
 
 	return (
 		<div className="overflow-y-auto fixed top-36 bottom-12 right-0 left-0">
@@ -100,7 +100,9 @@ export const ArticleList = (props) => {
 								<p className="text-2xl mt-4 text-gray-700">
 									{contentBeginning}
 								</p>
-								<p className="mt-4">{ele.articleTimestamp}</p>
+								<p className="mt-4">
+                  {dayjs(ele.articleTimestamp).format("YYYY年MM月DD日")}
+                </p>
 							</div>
 						</section>
 					</Link>
