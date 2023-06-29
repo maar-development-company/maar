@@ -19,17 +19,17 @@ import dayjs from "dayjs";
 import { Registration } from "./components/Registration";
 import { NewContract } from "./components/NewContract";
 import { PiTaxiLight } from "react-icons/pi";
-// import { FileUploader } from "./components/FileUploader";
-// import { DisplayImage } from "./components/DisplayImage";
-// import { TakePicture } from "./components/TakePicture";
+import { FileUploader } from "./components/FileUploader";
+import { DisplayImage } from "./components/DisplayImage";
+import { TakePicture } from "./components/TakePicture";
 
-// const AWS = require("aws-sdk");
+const AWS = require("aws-sdk");
 
-// AWS.config.update({
-//   accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
-//   secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
-//   region: "us-east-1",
-// });
+AWS.config.update({
+  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
+  secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
+  region: "us-east-1",
+});
 
 function App() {
   // console.log(process.env.REACT_APP_AWS_ACCESS_KEY);
@@ -143,9 +143,9 @@ loginCom === 0
                       password={password}
                       setPassword={setPassword}
                     />
-                    {/* <TakePicture /> */}
-                    {/* <FileUploader />
-                    <DisplayImage /> */}
+                    <TakePicture />
+                    <FileUploader />
+                    <DisplayImage />
                   </>
                 }
               />
