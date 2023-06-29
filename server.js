@@ -34,30 +34,32 @@ app.get("/muni", async (req, res) => {
 });
 
 // 組織構造の登録
-app.post('/muni', async (req, res) => {
+app.post("/muni", async (req, res) => {
   const postData = req.body;
-
+  console.log(postData);
   postData.municipalitiesID = postData.municipalitiesID.toString();
 
-    // 文字列から配列に変換
-    postData.groupNumArray = JSON.parse(req.body.groupNumArray);
-    // groupNumArrayの各要素を対象にmap関数を用いて新たな配列を作成
-    postData.groupNumArray = postData.groupNumArray.map(num => Array.from({length: num}, (_, i) => i + 1));
-    console.log('postData.groupNumArray: ', postData.groupNumArray);
-
+  // 文字列から配列に変換
+  // postData.groupNumArray = JSON.parse(req.body.groupNumArray);
+  // groupNumArrayの各要素を対象にmap関数を用いて新たな配列を作成
+  postData.groupNumArray = postData.groupNumArray.map((num) =>
+    Array.from({ length: num }, (_, i) => i + 1)
+  );
+  console.log("postData.groupNumArray: ", postData.groupNumArray);
+  console.log("postData", postData);
   try {
-    await knex('municipalitiesList')
-      .where('id', postData.municipalitiesID)
+    await knex("municipalitiesList")
+      .where("id", postData.municipalitiesID)
       .update({
-        blockNameArray: postData.brockNameArray,
+        blockNameArray: JSON.stringify(postData.blockNameArray),
         // 配列を文字列に変換
-        groupNumArray: JSON.stringify(postData.groupNumArray)  
+        groupNumArray: JSON.stringify(postData.groupNumArray),
       });
 
-    res.status(200).send('組織情報登録完了');
+    res.status(200).send("組織情報登録完了");
   } catch (err) {
     console.error(err);
-    res.status(400).send('サーバーエラー');
+    res.status(400).send("サーバーエラー");
   }
 });
 
@@ -235,11 +237,17 @@ app.post("/maar/login", async (req, res) => {
         console.log("checkLoginResult[0].id: ", checkLoginResult[0].id);
         const getRoleFunc = async () => {
           return knex
-            .select("householdList.roleFlag", "householdList.householdName", 
-            "householdList.householdTel", "householdList.householdMail", 
-            "householdList.householdAge", "householdList.municipalitiesID",
-            "householdList.block1", "householdList.block2",
-            "municipalitiesList.municipalitiesName")
+            .select(
+              "householdList.roleFlag",
+              "householdList.householdName",
+              "householdList.householdTel",
+              "householdList.householdMail",
+              "householdList.householdAge",
+              "householdList.municipalitiesID",
+              "householdList.block1",
+              "householdList.block2",
+              "municipalitiesList.municipalitiesName"
+            )
             .from("householdList")
             .join(
               "municipalitiesList",
@@ -274,7 +282,6 @@ app.post("/maar/login", async (req, res) => {
           municipalitiesName: roleResult[0].municipalitiesName,
           blockName: roleResult[0].block1,
           groupNum: roleResult[0].block2,
-
         };
         return resultObj;
       }
@@ -438,7 +445,6 @@ app.post("/maar/articlelist", async (req, res) => {
       .json({ error: "記事を追加できません。記載内容を確認してください。" });
   }
 });
-
 
 // {
 //   "articleTitle":"お祭り",
