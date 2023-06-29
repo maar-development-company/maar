@@ -76,6 +76,7 @@ export const OrganizationSetting = () => {
         body: JSON.stringify(data),
       });
       const result = res.text();
+      console.log(result);
       if (result === "組織情報登録完了") {
         setBrockNameArr([]);
         setGroupNumArr([]);

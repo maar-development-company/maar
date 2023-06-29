@@ -72,8 +72,8 @@ function App() {
     const user = sessionStorage.getItem("loginResultInfo");
     console.log(data);
     console.log(user);
-    data
-      ? setMunicipality(JSON.parse(data).municipalities)
+    user
+      ? setMunicipality(JSON.parse(user).municipalitiesName)
       : setMunicipality("");
     user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
     user ? setUserName(JSON.parse(user).name) : setUserName("");
