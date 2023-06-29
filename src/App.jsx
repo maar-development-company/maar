@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { GrCatalog } from "react-icons/gr";
 import { BsGear } from "react-icons/bs";
 import { BiDownArrowAlt } from "react-icons/bi";
@@ -32,6 +32,12 @@ AWS.config.update({
 });
 
 function App() {
+	// console.log(process.env.REACT_APP_AWS_ACCESS_KEY);
+	// console.log(process.env.REACT_APP_AWS_SECRET_KEY);
+	//S3ファイル一覧取得ー始ーーーーーーーーーーーーーーー
+	// const s3 = new AWS.S3();
+	// const bucketName = "article-area";
+
 
   // console.log(process.env.REACT_APP_AWS_ACCESS_KEY);
   // console.log(process.env.REACT_APP_AWS_SECRET_KEY);
@@ -56,6 +62,10 @@ function App() {
   //S3ファイル一覧取得ー終ーーーーーーーーーーーーーーー
 
 
+	// // バケット名を指定してオブジェクト一覧を取得します
+	// listObjects(bucketName);
+	//S3ファイル一覧取得ー終ーーーーーーーーーーーーーーー
+
 	// console.log(process.env);
 	//loginCom = 0 ログインしてない　1:普通ユーザー　2:管理者
 	const [loginCom, setLoginCom] = useState(0);
@@ -67,19 +77,18 @@ function App() {
 	const [history, setHistory] = useState("");
 	console.log("loginCom : ", loginCom);
 
-
-  // ログイン状態を確認する。
-  useEffect(() => {
-    const data = sessionStorage.getItem("loginInfo");
-    const user = sessionStorage.getItem("loginResultInfo");
-    // console.log(data);
-    // console.log(user);
-    user
-      ? setMunicipality(JSON.parse(user).municipalitiesName)
-      : setMunicipality("");
-    user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
-    user ? setUserName(JSON.parse(user).name) : setUserName("");
-  }, []);
+	// ログイン状態を確認する。
+	useEffect(() => {
+		const data = sessionStorage.getItem("loginInfo");
+		const user = sessionStorage.getItem("loginResultInfo");
+		// console.log(data);
+		// console.log(user);
+		user
+			? setMunicipality(JSON.parse(user).municipalitiesName)
+			: setMunicipality("");
+		user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
+		user ? setUserName(JSON.parse(user).name) : setUserName("");
+	}, []);
 
 	const logout = () => {
 		sessionStorage.removeItem("loginInfo");
@@ -156,7 +165,7 @@ function App() {
 							element={
 								<>
 									<div className="link-container">
-										<Link to="/articlelist">
+										<Link to="/articlelist" state={{ user: userName }}>
 											<div className={menuStyle}>
 												<div className="flex flex-col items-center justify-center md:flex-row">
 													<div className="flex items-center justify-center text-6xl md:justify-start">
