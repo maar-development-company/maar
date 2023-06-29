@@ -64,52 +64,50 @@ export const ArticleList = (props) => {
   };
   getArticleList();
 
-  return (
-    <div>
-      <div>
-        <button
-          onClick={getArticleList}
-          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-fit fixed top-0 right-0"
-        >
-          一覧更新
-        </button>
-      </div>
-      {ArticleList.reverse().map((ele) => {
-        console.log("");
-        let contentBeginning;
-        const textContent = ele.articleContent;
-        if (textContent.length > 20) {
-          // 表示したい字数を決めたら変更する（現在：「20」）
-          contentBeginning = `${textContent.substr(0, 20)}...`; // 表示したい字数を決めたら変更する（現在：「20」）
-        } else {
-          contentBeginning = textContent;
-        }
-        return (
-          <Link to="/SingleArticle" state={{ articleInfo: ele }}>
-            <section className="m-4 p-4 border-solid rounded-3xl border-4 border-gray-300 text-center h-fit">
-              <div
-                className={
-                  ele.readFlag === 0
-                    ? "p-1 bg-blue-800 text-gray-100 h-12 rounded-3xl text-3xl text-center w-40 float-right"
-                    : "border border-solid border-black h-12 rounded-3xl text-3xl text-center w-40 float-right"
-                }
-              >
-                {ele.readFlag === 0 ? "よんでね" : "よんだ"}
-              </div>
-              <br></br>
-              <div className="w-full text-left">
-                <h2 className="text-3xl">{ele.articleTitle}</h2>
-                <p className="text-2xl mt-4 text-gray-700">
-                  {contentBeginning}
-                </p>
-                <p className="mt-4">
+	return (
+		<div className="overflow-y-auto fixed top-36 bottom-12 right-0 left-0">
+			<div>
+				<button
+					onClick={getArticleList}
+					className="bg-blue-800 border-2 border-white hover:bg-blue-700 text-white rounded px-4 py-2 w-fit fixed top-2 right-2">
+					一覧更新
+				</button>
+			</div>
+			{ArticleList.reverse().map((ele) => {
+				console.log("");
+				let contentBeginning;
+				const textContent = ele.articleContent;
+				if (textContent.length > 20) {
+					// 表示したい字数を決めたら変更する（現在：「20」）
+					contentBeginning = `${textContent.substr(0, 20)}...`; // 表示したい字数を決めたら変更する（現在：「20」）
+				} else {
+					contentBeginning = textContent;
+				}
+				return (
+					<Link to="/SingleArticle" state={{ articleInfo: ele }}>
+						<section className="m-4 p-4 border-solid rounded-3xl border-4 border-gray-300 text-center h-fit">
+							<div
+								className={
+									ele.readFlag === 0
+										? "p-1 bg-blue-800 text-gray-100 h-12 rounded-3xl text-3xl text-center w-40 float-right"
+										: "border border-solid border-black h-12 rounded-3xl text-3xl text-center w-40 float-right"
+								}>
+								{ele.readFlag === 0 ? "よんでね" : "よんだ"}
+							</div>
+							<br></br>
+							<div className="w-full text-left">
+								<h2 className="text-3xl">{ele.articleTitle}</h2>
+								<p className="text-2xl mt-4 text-gray-700">
+									{contentBeginning}
+								</p>
+								<p className="mt-4">
                   {dayjs(ele.articleTimestamp).format("YYYY年MM月DD日")}
                 </p>
-              </div>
-            </section>
-          </Link>
-        );
-      })}
-    </div>
-  );
+							</div>
+						</section>
+					</Link>
+				);
+			})}
+		</div>
+	);
 };
