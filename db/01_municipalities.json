@@ -1,82 +1,122 @@
 [
   {
     "municipalitiesName": "大林町自治区",
-    "numberOfHouse": "100"
+    "numberOfHouse": "100",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "聖心町自治区",
-    "numberOfHouse": "90"
+    "numberOfHouse": "90",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下, 本田]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4],[1,2,3,4,5]]"
   },
   {
     "municipalitiesName": "堤自治区",
-    "numberOfHouse": "80"
+    "numberOfHouse": "80",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "挙母町自治区",
-    "numberOfHouse": "70"
+    "numberOfHouse": "70",
+    "blockNameArray": "[姫島, 宮前, 市場]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7]]"
   },
   {
     "municipalitiesName": "前山町自治区",
-    "numberOfHouse": "60"
+    "numberOfHouse": "60",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "新田町自治区",
-    "numberOfHouse": "50"
+    "numberOfHouse": "50",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "東山町自治区",
-    "numberOfHouse": "55"
+    "numberOfHouse": "55",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "明石町自治区",
-    "numberOfHouse": "60"
+    "numberOfHouse": "60",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "富士見町自治区",
-    "numberOfHouse": "65"
+    "numberOfHouse": "65",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "宮本町自治区",
-    "numberOfHouse": "70"
+    "numberOfHouse": "70",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "中野町自治区",
-    "numberOfHouse": "75"
+    "numberOfHouse": "75",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "八幡町自治区",
-    "numberOfHouse": "80"
+    "numberOfHouse": "80",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "桜木町自治区",
-    "numberOfHouse": "85"
+    "numberOfHouse": "85",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "高崎町自治区",
-    "numberOfHouse": "90"
+    "numberOfHouse": "90",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "浜松町自治区",
-    "numberOfHouse": "95"
+    "numberOfHouse": "95",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "上野町自治区",
-    "numberOfHouse": "100"
+    "numberOfHouse": "100",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "下町町自治区",
-    "numberOfHouse": "105"
+    "numberOfHouse": "105",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "渋谷町自治区",
-    "numberOfHouse": "110"
+    "numberOfHouse": "110",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "新宿町自治区",
-    "numberOfHouse": "115"
+    "numberOfHouse": "115",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   },
   {
     "municipalitiesName": "吉祥寺町自治区",
-    "numberOfHouse": "120"
+    "numberOfHouse": "120",
+    "blockNameArray": "[姫島, 宮前, 市場, 会下]",
+    "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]"
   }
 ]

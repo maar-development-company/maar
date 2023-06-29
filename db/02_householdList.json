@@ -6,8 +6,8 @@
     "householdAge": 39,
     "familySize": 4,
     "roleFlag": 1,
-    "block1": "",
-    "block2": "",
+    "block1": "姫島",
+    "block2": "5",
     "block3": "",
     "municipalitiesID": "1"
   },
@@ -18,8 +18,8 @@
     "householdAge": 21,
     "familySize": 2,
     "roleFlag": 1,
-    "block1": "",
-    "block2": "",
+    "block1": "宮前",
+    "block2": "3",
     "block3": "",
     "municipalitiesID": "2"
   },
@@ -30,8 +30,8 @@
     "householdAge": 22,
     "familySize": 2,
     "roleFlag": 0,
-    "block1": "",
-    "block2": "",
+    "block1": "市場",
+    "block2": "7",
     "block3": "",
     "municipalitiesID": "3"
   },
@@ -42,8 +42,8 @@
     "householdAge": 23,
     "familySize": 3,
     "roleFlag": 0,
-    "block1": "",
-    "block2": "",
+    "block1": "会下",
+    "block2": "4",
     "block3": "",
     "municipalitiesID": "4"
   },

@@ -7,6 +7,8 @@ exports.up = function(knex) {
       table.increments("id").primary();
       table.string('municipalitiesName', 32);
       table.integer('numberOfHouse');
+      table.string('blockNameArray', 128);
+      table.string('groupNumArray', 128);
     });
 };
 
