@@ -65,11 +65,11 @@ export const ArticleList = (props) => {
 	getArticleList();
 
 	return (
-		<div>
+		<div className="overflow-y-auto fixed top-36 bottom-12 right-0 left-0">
 			<div>
 				<button
 					onClick={getArticleList}
-					className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-fit fixed top-0 right-0">
+					className="bg-blue-800 border-2 border-white hover:bg-blue-700 text-white rounded px-4 py-2 w-fit fixed top-2 right-2">
 					一覧更新
 				</button>
 			</div>
