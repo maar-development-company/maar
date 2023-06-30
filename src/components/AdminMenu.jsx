@@ -53,7 +53,7 @@ export const AdminMenu = (props) => {
       </div>
       <div>
         <Link
-          to="https://www.city.nagoya.jp/sportsshimin/page/0000149515.html"
+          to="https://www.google.com/intl/ja_jp/forms/about/"
           state={{ test: "test" }}
         >
           <div className={menuStyle}>
