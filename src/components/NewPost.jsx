@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import dayjs from "dayjs";
 import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { FileUploader } from "./FileUploader";
 
 const URL =
 	process.env.NODE_ENV === "production"
@@ -13,6 +14,7 @@ export const NewPost = () => {
 	const { municipality, id } = location.state;
 	const [postArticleTitle, setPostArticleTitle] = useState("");
 	const [postArticleContent, setPostArticleContent] = useState("");
+	const [DataKey, setDataKey] = useState("");
 
 	const handleArticleTitleChange = (e) => {
 		setPostArticleTitle(e.target.value);
@@ -21,7 +23,7 @@ export const NewPost = () => {
 	const handleArticleContentChange = (e) => {
 		setPostArticleContent(e.target.value);
 	};
-
+	
 	async function postArticle() {
 		const currentDate = new Date();
 
@@ -41,8 +43,9 @@ export const NewPost = () => {
 				municipalitiesName: municipality,
 				articleTimestamp: formattedTimestamp,
 				articleCategory: "安全",
+				fileSavePath: DataKey
 			};
-			console.log(data);
+			console.log("### data ###: ", data);
 
 			const res = await fetch(`${URL}/maar/articlelist`, {
 				method: "POST",
@@ -62,6 +65,11 @@ export const NewPost = () => {
 		setPostArticleTitle("");
 		setPostArticleContent("");
 	};
+
+	const handleDataKey = (e) => {
+		console.log('e: ', e);	
+		setDataKey(e);
+	}
 
 	return (
 		<div className="text-center">
@@ -95,21 +103,7 @@ export const NewPost = () => {
 			/>
 			<br></br>
 			<br></br>
-			<label className="p-1 bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56 cursor-pointer text-3xl">
-				ファイルを選択
-				<input
-					className="hidden"
-					type="file"
-					// onchange={`$("#fake_text_box").val($(this).val())`}
-				></input>
-				{/* <input
-            value=""
-            readOnly="readonly"
-            id="fake_text_box"
-            className=""
-            onClick={`$('#file').click()`}
-          ></input> */}
-			</label>
+			<FileUploader handleDataKey={handleDataKey} />
 			<br></br>
 			<br></br>
 			<div>

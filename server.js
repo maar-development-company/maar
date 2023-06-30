@@ -39,8 +39,6 @@ app.post("/muni", async (req, res) => {
 	console.log(postData);
 	postData.municipalitiesID = postData.municipalitiesID.toString();
 
-	// 文字列から配列に変換
-	// postData.groupNumArray = JSON.parse(req.body.groupNumArray);
 	// groupNumArrayの各要素を対象にmap関数を用いて新たな配列を作成
 	postData.groupNumArray = postData.groupNumArray.map((num) =>
 		Array.from({ length: num }, (_, i) => i + 1)
@@ -52,7 +50,6 @@ app.post("/muni", async (req, res) => {
 			.where("id", postData.municipalitiesID)
 			.update({
 				blockNameArray: JSON.stringify(postData.blockNameArray),
-				// 配列を文字列に変換
 				groupNumArray: JSON.stringify(postData.groupNumArray),
 			});
 
@@ -270,6 +267,18 @@ app.post("/maar/login", async (req, res) => {
 				} else {
 					role = 0;
 				}
+        // ++++++++最終ログイン日時をDBに登録↓
+				const loginTimestamp = postData.loginTimestamp;
+				// dbにupdateを送って最終ログイン日時を更新
+				const updateLoginTimestamp = () => {
+					console.log(
+						`ユーザーID${checkLoginResult[0].id}の最終ログイン日時を${loginTimestamp}に更新します`
+					);
+					return knex("householdList")
+						.update("lastLoginTimestamp", loginTimestamp)
+						.where("id", checkLoginResult[0].id);
+				};
+				// ++++++++最終ログイン日時をDBに登録↑
 
 				const resultObj = {
 					judge: role,
@@ -384,17 +393,6 @@ app.get("/maar/articlelist", async (req, res) => {
 // 	}
 // });
 
-// ##########テスト用コード
-// MunicipalitiesIDResult:  [ { id: 2 } ]
-// MailAdressIDResult:  [ { id: 1 } ]
-// PassIDResult:  [ { id: 1 } ]
-// {"mailadress":"aaaa@mail", "password":"ah29f9d8","municipalities":"meiwa"}
-// 返す形
-// {judge:0or1or2,name:▢▢,role: }
-// ダミーコード
-// {"mailadress":"aaaa@mail", "password":"ah29f9d8","municipalities":"meiwa"}
-// ##########テスト用コード
-
 // 記事の投稿
 app.post("/maar/articlelist", async (req, res) => {
 	console.log("記事の POST リクエスト受信");
@@ -404,16 +402,16 @@ app.post("/maar/articlelist", async (req, res) => {
 	console.log(article);
 	// リクエスト形式をチェック
 
-	if (
-		article &&
-		article.articleTitle &&
-		article.articleContent &&
-		article.articleTimestamp &&
-		article.municipalitiesName &&
-		article.articleCategory
-	) {
-		// console.log("if分の中");
-		// console.log(JSON.stringify(article.municipalitiesName));
+  if (
+    article.hasOwnProperty('articleTitle') &&
+    article.hasOwnProperty('articleContent') &&
+    article.hasOwnProperty('articleTimestamp') &&
+    article.hasOwnProperty('municipalitiesName') &&
+    article.hasOwnProperty('articleCategory') &&
+    article.hasOwnProperty('fileSavePath')
+  ) {
+		console.log("if分の中");
+		console.log(JSON.stringify(article.municipalitiesName));
 		const checkPOSTMunicipalitiesID = async () => {
 			const result = await knex
 				.select("id")
@@ -431,6 +429,8 @@ app.post("/maar/articlelist", async (req, res) => {
 
 		article.municipalitiesID2 = checkPOSTMunicipalitiesIDResult;
 		delete article.municipalitiesName;
+    // 既読情報列に空のobj{}を入れる
+		article.userReadInfo = "{}";
 		console.log("article: ", article);
 
 		// 新しい記事を追加する関数
@@ -445,45 +445,13 @@ app.post("/maar/articlelist", async (req, res) => {
 	} else {
 		// 正常に投稿できない時は、エラーを返す
 		res
-			.status(400)
+			.status(500)
 			.json({ error: "記事を追加できません。記載内容を確認してください。" });
 	}
 });
 
-// {
-//   "articleTitle":"お祭り",
-//   "articleContent":"来たれ！上郷おいでん祭り",
-//   "articleTimestamp":"2023-06-23 11:34:00",
-//   "municipalitiesID2":1,
-//   "articleCategory":"イベント"
-// }
 
 // ここから
-// app.post("/maar/articlelist", async (req, res) => {
-//   console.log("get受信");
-//   const id = req.query.id;
-//   console.log(id);
-//   const getMyCard = (id) => {
-//     return knex.select("*").from("cardPossession").where("userNameID", id);
-//   };
-//   const myCard = await getMyCard(id);
-//   console.log("getObj完了");
-//   res.status(200).json(myCard);
-// });
-
-// 記事を開いた時に既読を投稿する
-// app.post("/maar/readarticle", async (req, res) => {
-//   console.log("get受信");
-//   const id = req.query.id;
-//   console.log(id);
-//   const getMyCard = (id) => {
-//     return knex.select("*").from("cardPossession").where("userNameID", id);
-//   };
-//   const myCard = await getMyCard(id);
-//   console.log("getObj完了");
-//   res.status(200).json(myCard);
-// });
-
 // app.patch("/myCard", async (req, res) => {
 //   console.log("patch受信");
 //   const patchData = req.body;

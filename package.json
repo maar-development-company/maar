@@ -22,6 +22,7 @@
     "browserify-fs": "^1.0.0",
     "buffer": "^6.0.3",
     "cors": "^2.8.5",
+    "crypto": "npm:crypto-browserify",
     "crypto-browserify": "^3.12.0",
     "dayjs": "^1.11.8",
     "dotenv": "^16.1.4",
@@ -33,6 +34,7 @@
     "https-browserify": "^1.0.0",
     "knex": "^2.4.2",
     "minimatch": "^9.0.1",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.22",
     "os-browserify": "^0.3.0",
     "pg": "^8.11.0",
@@ -45,14 +47,13 @@
     "react-slick": "^0.29.0",
     "slick": "^1.12.2",
     "slick-carousel": "^1.8.1",
+    "stream": "npm:stream-browserify",
     "stream-http": "^3.2.0",
     "tailwindcss": "^3.3.2",
     "underscore": "^1.9.1",
     "url": "^0.11.0",
     "web-vitals": "^2.1.4",
-    "webrtc-adapter": "^8.2.2",
-    "crypto": "npm:crypto-browserify",
-    "stream": "npm:stream-browserify"
+    "webrtc-adapter": "^8.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -63,7 +64,7 @@
     "migrate": "knex migrate:latest --knexfile ./knexfile.js",
     "rollback": "knex migrate:rollback --knexfile ./knexfile.js ",
     "seed": "knex seed:run --knexfile ./knexfile.js",
-		"ms": "npm run rollback && npm run migrate && npm run seed"
+    "ms": "npm run rollback && npm run migrate && npm run seed"
   },
   "husky": {
     "pre-commit": "pretty-quick --staged"
