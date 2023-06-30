@@ -105,13 +105,25 @@ export const Login = (props) => {
 		//データベースにPOSTする処理
 		console.log("loginボタンが押された");
 		try {
+			const loginTimestamp = new Date();
+
+			const year = loginTimestamp.getFullYear();
+			const month = String(loginTimestamp.getMonth() + 1).padStart(2, "0");
+			const day = String(loginTimestamp.getDate()).padStart(2, "0");
+			const hour = String(loginTimestamp.getHours()).padStart(2, "0");
+			const minute = String(loginTimestamp.getMinutes()).padStart(2, "0");
+			const second = String(loginTimestamp.getSeconds()).padStart(2, "0");
+
+			const formattedLoginTimestamp = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+
 			const data = {
 				loginCategory: 0,
 				mailadress: emailAddress,
 				password: password,
 				municipalities: municipalities,
+				loginTimestamp: formattedLoginTimestamp,
 			};
-			console.log("dataの中身　　", data);
+			console.log("dataの中身    ", data);
 			const res = await fetch(`${URL}/maar/login`, {
 				method: "POST",
 				headers: {
@@ -249,31 +261,29 @@ export const Login = (props) => {
         >
           新規登録
         </button> */}
-        <button
-          onClick={() => (location.href = "/registration")}
-          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
-        >
-          改新規登録
-        </button>
-        <button
-          onClick={() => (location.href = "/newcontract")}
-          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
-        >
-          新規自治会契約
-        </button>
+				<button
+					onClick={() => (location.href = "/registration")}
+					className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row">
+					改新規登録
+				</button>
+				<button
+					onClick={() => (location.href = "/newcontract")}
+					className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row">
+					新規自治会契約
+				</button>
 
-        <Link to="/registration">
-          <div className="test">
-            <div className="flex flex-col items-center justify-center md:flex-row">
-              <div className="flex items-center justify-center text-6xl md:justify-start"></div>
-              <p className="ml-5 mr-5 items-center justify-center text-3xl ">
-                新規登録のテストだよ
-              </p>
-            </div>
-          </div>
-        </Link>
-      </div>
-      <b></b>
-    </div>
-  );
+				<Link to="/registration">
+					<div className="test">
+						<div className="flex flex-col items-center justify-center md:flex-row">
+							<div className="flex items-center justify-center text-6xl md:justify-start"></div>
+							<p className="ml-5 mr-5 items-center justify-center text-3xl ">
+								新規登録のテストだよ
+							</p>
+						</div>
+					</div>
+				</Link>
+			</div>
+			<b></b>
+		</div>
+	);
 };
