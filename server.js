@@ -354,45 +354,6 @@ app.get("/maar/articlelist", async (req, res) => {
 	}
 });
 
-// 記事の表示（地域IDから取得）
-// app.get("/maar/articlelist", async (req, res) => {
-// 	console.log("記事リストのGETリクエスト受信");
-// 	console.log("2つ目のget");
-
-// 	// クエリから市町村を取得
-// 	const municipalities = req.query.municipalities;
-// 	const municipalitiesName = req.query.municipalitiesName;
-
-// 	// 市区町村データがあるか確認
-// 	if (municipalities) {
-// 		console.log(`Municipalities ID: ${municipalities}`);
-// 		console.log("municipalitiesName: ", municipalitiesName);
-
-// 		// 特定の市町村の記事を取得する関数
-// 		const getArticles = () => {
-// 			return knex
-// 				.select("*")
-// 				.from("articleList")
-// 				.join(
-// 					"municipalitiesList",
-// 					"articleList.municipalitiesID2",
-// 					"municipalitiesList.id"
-// 				)
-// 				.where("articleList.municipalitiesID2", municipalities)
-// 				.orderBy("articleList.id", "asc");
-// 		};
-
-// 		// 記事を取得して応答として送信する
-// 		const articles = await getArticles();
-// 		console.log("articles: ", articles);
-// 		console.log("記事一覧の取得が完了しました。");
-// 		res.status(200).json(articles);
-// 	} else {
-// 		// 市区町村データがない時は、エラーを返す
-// 		res.status(400).json({ error: "市区町村データがありません。" });
-// 	}
-// });
-
 // 記事の投稿
 app.post("/maar/articlelist", async (req, res) => {
 	console.log("記事の POST リクエスト受信");
@@ -445,7 +406,7 @@ app.post("/maar/articlelist", async (req, res) => {
 	} else {
 		// 正常に投稿できない時は、エラーを返す
 		res
-			.status(500)
+			.status(400)
 			.json({ error: "記事を追加できません。記載内容を確認してください。" });
 	}
 });
