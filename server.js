@@ -281,7 +281,7 @@ app.post("/maar/login", async (req, res) => {
 						.update("lastLoginTimestamp", loginTimestamp)
 						.where("id", checkLoginResult[0].id);
 				};
-
+				await updateLoginTimestamp();
 				// ++++++++最終ログイン日時をDBに登録↑
 
 				const resultObj = {
