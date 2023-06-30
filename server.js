@@ -270,6 +270,19 @@ app.post("/maar/login", async (req, res) => {
 				} else {
 					role = 0;
 				}
+				// ++++++++最終ログイン日時をDBに登録↓
+				const loginTimestamp = postData.loginTimestamp;
+				// dbにupdateを送って最終ログイン日時を更新
+				const updateLoginTimestamp = () => {
+					console.log(
+						`ユーザーID${checkLoginResult[0].id}の最終ログイン日時を${loginTimestamp}に更新します`
+					);
+					return knex("householdList")
+						.update("lastLoginTimestamp", loginTimestamp)
+						.where("id", checkLoginResult[0].id);
+				};
+
+				// ++++++++最終ログイン日時をDBに登録↑
 
 				const resultObj = {
 					judge: role,
@@ -431,6 +444,8 @@ app.post("/maar/articlelist", async (req, res) => {
 
 		article.municipalitiesID2 = checkPOSTMunicipalitiesIDResult;
 		delete article.municipalitiesName;
+		// 既読情報列に空のobj{}を入れる
+		article.userReadInfo = "{}";
 		console.log("article: ", article);
 
 		// 新しい記事を追加する関数
