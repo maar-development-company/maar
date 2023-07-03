@@ -8,7 +8,7 @@ AWS.config.update({
 });
 
 export const FileUploader = (props) => {
-  const {handleDataKey} = props
+  const { handleDataKey } = props;
   const [selectedFile, setSelectedFile] = useState(null);
   const [base64Content, setBase64Content] = useState("");
   const [base64Error, setBase64Error] = useState("");

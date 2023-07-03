@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-// import "../styles/CameraComponent.css";
+import * as AWS from "aws-sdk";
+
+AWS.config.update({
+  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
+  secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
+  region: "us-east-1",
+});
 
 export function TakePicture(props) {
   const { onData } = props;
@@ -7,6 +13,8 @@ export function TakePicture(props) {
   const [cameraStarted, setCameraStarted] = useState(false);
   const videoRef = useRef(null);
   const streamRef = useRef(null);
+  const s3 = new AWS.S3();
+  const bucketName = "article-area";
 
   useEffect(() => {
     return () => {
@@ -63,12 +71,28 @@ export function TakePicture(props) {
         videoElement.videoHeight
       );
 
-      const dataURL = canvas.toDataURL("image/jpeg");
+      try {
+        canvas.toBlob(async (blob) => {
+          const keyName = "image.jpg"; // S3上でのファイル名
 
-      // ここで画像のデータを保存する処理を実装します
-      // 例えば、APIリクエストや画像の保存処理を実行します
+          const params = {
+            Bucket: bucketName,
+            Key: keyName,
+            Body: blob,
+            ContentType: "image/jpeg",
+          };
 
-      console.log("キャプチャした画像データ:", dataURL);
+          s3.upload(params, (err, data) => {
+            if (err) {
+              console.error("S3へのアップロードエラー:", err);
+            } else {
+              console.log("S3へのアップロードが成功しました:", data.Key);
+            }
+          });
+        }, "image/jpeg");
+      } catch (error) {
+        console.error("画像の変換エラー:", error);
+      }
     }
   };
 
