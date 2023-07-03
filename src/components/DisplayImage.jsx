@@ -60,7 +60,10 @@ export const DisplayImage = (props) => {
         isPdf ? (
           <embed src={imageSource} type="application/pdf" width="100%" height="600px" />
           ) : (
-          <img src={imageSource} alt="Uploaded Image" />
+          // <img src={imageSource} alt="Uploaded Image" />
+          <a href={imageSource} data-lightbox="group">
+            <img src={imageSource} width="300" alt="Uploaded Image" />
+          </a>
           )
         ) : (
         <p>Loading image...</p>
