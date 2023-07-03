@@ -8,6 +8,7 @@ AWS.config.update({
 });
 
 export const FileUploader = (props) => {
+  const {handleDataKey} = props
   const [selectedFile, setSelectedFile] = useState(null);
   const [base64Content, setBase64Content] = useState("");
   const [base64Error, setBase64Error] = useState("");
@@ -34,6 +35,7 @@ export const FileUploader = (props) => {
           console.error("S3へのアップロードエラー:", err);
         } else {
           console.log("S3へのアップロードが成功しました:", data.Key);
+          handleDataKey(data.key);
         }
       });
     }

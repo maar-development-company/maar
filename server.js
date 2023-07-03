@@ -35,32 +35,29 @@ app.get("/muni", async (req, res) => {
 
 // 組織構造の登録
 app.post("/muni", async (req, res) => {
-  const postData = req.body;
-  console.log(postData);
-  postData.municipalitiesID = postData.municipalitiesID.toString();
+	const postData = req.body;
+	console.log(postData);
+	postData.municipalitiesID = postData.municipalitiesID.toString();
 
-  // 文字列から配列に変換
-  // postData.groupNumArray = JSON.parse(req.body.groupNumArray);
-  // groupNumArrayの各要素を対象にmap関数を用いて新たな配列を作成
-  postData.groupNumArray = postData.groupNumArray.map((num) =>
-    Array.from({ length: num }, (_, i) => i + 1)
-  );
-  console.log("postData.groupNumArray: ", postData.groupNumArray);
-  console.log("postData", postData);
-  try {
-    await knex("municipalitiesList")
-      .where("id", postData.municipalitiesID)
-      .update({
-        blockNameArray: JSON.stringify(postData.blockNameArray),
-        // 配列を文字列に変換
-        groupNumArray: JSON.stringify(postData.groupNumArray),
-      });
+	// groupNumArrayの各要素を対象にmap関数を用いて新たな配列を作成
+	postData.groupNumArray = postData.groupNumArray.map((num) =>
+		Array.from({ length: num }, (_, i) => i + 1)
+	);
+	console.log("postData.groupNumArray: ", postData.groupNumArray);
+	console.log("postData", postData);
+	try {
+		await knex("municipalitiesList")
+			.where("id", postData.municipalitiesID)
+			.update({
+				blockNameArray: JSON.stringify(postData.blockNameArray),
+				groupNumArray: JSON.stringify(postData.groupNumArray),
+			});
 
-    res.status(200).send("組織情報登録完了");
-  } catch (err) {
-    console.error(err);
-    res.status(400).send("サーバーエラー");
-  }
+		res.status(200).send("組織情報登録完了");
+	} catch (err) {
+		console.error(err);
+		res.status(400).send("サーバーエラー");
+	}
 });
 
 // ログイン機能
@@ -282,6 +279,7 @@ app.post("/maar/login", async (req, res) => {
 						.update("lastLoginTimestamp", loginTimestamp)
 						.where("id", checkLoginResult[0].id);
 				};
+
 				await updateLoginTimestamp();
 				// ++++++++最終ログイン日時をDBに登録↑
 
@@ -405,56 +403,6 @@ app.get("/maar/householdList", async (req, res) => {
   }
 });
 
-// 記事の表示（地域IDから取得）
-// app.get("/maar/articlelist", async (req, res) => {
-// 	console.log("記事リストのGETリクエスト受信");
-// 	console.log("2つ目のget");
-
-// 	// クエリから市町村を取得
-// 	const municipalities = req.query.municipalities;
-// 	const municipalitiesName = req.query.municipalitiesName;
-
-// 	// 市区町村データがあるか確認
-// 	if (municipalities) {
-// 		console.log(`Municipalities ID: ${municipalities}`);
-// 		console.log("municipalitiesName: ", municipalitiesName);
-
-// 		// 特定の市町村の記事を取得する関数
-// 		const getArticles = () => {
-// 			return knex
-// 				.select("*")
-// 				.from("articleList")
-// 				.join(
-// 					"municipalitiesList",
-// 					"articleList.municipalitiesID2",
-// 					"municipalitiesList.id"
-// 				)
-// 				.where("articleList.municipalitiesID2", municipalities)
-// 				.orderBy("articleList.id", "asc");
-// 		};
-
-// 		// 記事を取得して応答として送信する
-// 		const articles = await getArticles();
-// 		console.log("articles: ", articles);
-// 		console.log("記事一覧の取得が完了しました。");
-// 		res.status(200).json(articles);
-// 	} else {
-// 		// 市区町村データがない時は、エラーを返す
-// 		res.status(400).json({ error: "市区町村データがありません。" });
-// 	}
-// });
-
-// ##########テスト用コード
-// MunicipalitiesIDResult:  [ { id: 2 } ]
-// MailAdressIDResult:  [ { id: 1 } ]
-// PassIDResult:  [ { id: 1 } ]
-// {"mailadress":"aaaa@mail", "password":"ah29f9d8","municipalities":"meiwa"}
-// 返す形
-// {judge:0or1or2,name:▢▢,role: }
-// ダミーコード
-// {"mailadress":"aaaa@mail", "password":"ah29f9d8","municipalities":"meiwa"}
-// ##########テスト用コード
-
 // 記事の投稿
 app.post("/maar/articlelist", async (req, res) => {
 
@@ -465,16 +413,16 @@ app.post("/maar/articlelist", async (req, res) => {
 	console.log(article);
 	// リクエスト形式をチェック
 
-	if (
-		article &&
-		article.articleTitle &&
-		article.articleContent &&
-		article.articleTimestamp &&
-		article.municipalitiesName &&
-		article.articleCategory
-	) {
-		// console.log("if分の中");
-		// console.log(JSON.stringify(article.municipalitiesName));
+  if (
+    article.hasOwnProperty('articleTitle') &&
+    article.hasOwnProperty('articleContent') &&
+    article.hasOwnProperty('articleTimestamp') &&
+    article.hasOwnProperty('municipalitiesName') &&
+    article.hasOwnProperty('articleCategory') &&
+    article.hasOwnProperty('fileSavePath')
+  ) {
+		console.log("if分の中");
+		console.log(JSON.stringify(article.municipalitiesName));
 		const checkPOSTMunicipalitiesID = async () => {
 			const result = await knex
 				.select("id")
@@ -492,6 +440,7 @@ app.post("/maar/articlelist", async (req, res) => {
 
 		article.municipalitiesID2 = checkPOSTMunicipalitiesIDResult;
 		delete article.municipalitiesName;
+
 		// 既読情報列に空のobj{}を入れる
 		article.userReadInfo = "{}";
 		console.log("article: ", article);
@@ -513,40 +462,8 @@ app.post("/maar/articlelist", async (req, res) => {
 	}
 });
 
-// {
-//   "articleTitle":"お祭り",
-//   "articleContent":"来たれ！上郷おいでん祭り",
-//   "articleTimestamp":"2023-06-23 11:34:00",
-//   "municipalitiesID2":1,
-//   "articleCategory":"イベント"
-// }
 
 // ここから
-// app.post("/maar/articlelist", async (req, res) => {
-//   console.log("get受信");
-//   const id = req.query.id;
-//   console.log(id);
-//   const getMyCard = (id) => {
-//     return knex.select("*").from("cardPossession").where("userNameID", id);
-//   };
-//   const myCard = await getMyCard(id);
-//   console.log("getObj完了");
-//   res.status(200).json(myCard);
-// });
-
-// 記事を開いた時に既読を投稿する
-// app.post("/maar/readarticle", async (req, res) => {
-//   console.log("get受信");
-//   const id = req.query.id;
-//   console.log(id);
-//   const getMyCard = (id) => {
-//     return knex.select("*").from("cardPossession").where("userNameID", id);
-//   };
-//   const myCard = await getMyCard(id);
-//   console.log("getObj完了");
-//   res.status(200).json(myCard);
-// });
-
 // app.patch("/myCard", async (req, res) => {
 //   console.log("patch受信");
 //   const patchData = req.body;
