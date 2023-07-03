@@ -27,14 +27,59 @@ export const Registration = (props) => {
     setUserName,
   } = props;
   console.log(process.env);
-  const [municipalitiesList, setMunicipalitiesList] = useState([]);
-  const [municipalities, setMunicipalities] = useState("");
 
+  const [municipalitiesList, setMunicipalitiesList] = useState([]);
+  const [municipalitiesID, setMunicipalitiesID] = useState("");
+
+  const [municipalities, setMunicipalities] = useState("");
+  const [householdName, setHouseholdName] = useState("");
+  const [householdTel, setHouseholdTel] = useState("");
+  const [householdAge, setHouseholdAge] = useState("");
+  const [familySize, setFamilySize] = useState("");
+  const [block1, setBlock1] = useState("");
+  const [block2, setBlock2] = useState("");
+  const [block3, setBlock3] = useState("");
+  const [blockNameArray, setBlockNameArray] = useState([]);
+  const [isInitialRender, setIsInitialRender] = useState(true);
+  const [groupNumArray, setgroupNumArray] = useState([]);
+
+  const handleEmailAddressChange = (e) => setEmailAddress(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+
+  const handleHouseholdNameChange = (e) => setHouseholdName(e.target.value);
+  const handleHouseholdTelChange = (e) => setHouseholdTel(e.target.value);
+  const handleHouseholdAgeChange = (e) => setHouseholdAge(e.target.value);
+  const handleFamilySizeChange = (e) => setFamilySize(e.target.value);
+  const handleBlock1Change = (e) => setBlock1(e.target.value);
+  const handleBlock2Change = (e) => setBlock2(e.target.value);
+  const handleBlock3Change = (e) => setBlock3(e.target.value);
   useEffect(() => {
     console.log("useEffectの中");
     console.log(URL);
     getMunicipalitiesFunc();
   }, []);
+
+  useEffect(() => {
+    if (isInitialRender) {
+      setIsInitialRender(false);
+    } else {
+      const blockNamesString =
+        municipalitiesList[municipalitiesID]?.blockNameArray;
+      if (blockNamesString) {
+        const blockNames = JSON.parse(blockNamesString);
+        setBlockNameArray(blockNames);
+        console.log("kokokokokokokoko");
+        console.log(blockNames);
+      } else {
+        setBlockNameArray([]);
+        console.error(
+          "Invalid municipalitiesID or uninitialized municipalitiesList:",
+          municipalitiesID,
+          municipalitiesList
+        );
+      }
+    }
+  }, [municipalitiesID, isInitialRender, municipalitiesList]);
 
   const writeToSessionStorage = (key, value) => {
     sessionStorage.setItem(key, JSON.stringify(value));
@@ -54,46 +99,24 @@ export const Registration = (props) => {
       console.log(municipalitiesObj);
       if (municipalitiesObj.length !== municipalitiesList.length) {
         setMunicipalitiesList(municipalitiesObj);
+        console.log(municipalitiesObj);
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  //0:NG 1:user 2:admin
-  // const testA = { judge: 0, name: "森" };
-  // const testB = { judge: 1, name: "福島" };
-  // const testC = { judge: 2, name: "久場" };
-
   const handleCategoryTownChange = (e) => {
-    //木田さんも解決してくれたのでとりあえずコメントアウト
-    //     const selectValue = JSON.parse(e.target.value);
-    //     console.log(selectValue.id);
-    //     console.log(selectValue.name);
-    //     setMunicipalityId(selectValue.id);
-    //     setMunicipality(selectValue.name);
-    //     console.log(municipality);
-    //     console.log(municipalityId);
-
     const selectedId = parseInt(e.target.value);
     const selectedTown = municipalitiesList.find(
       (town) => town.id === selectedId
     );
     setMunicipalityId(selectedTown.id);
+    setMunicipalitiesID(selectedTown.id);
+    console.log(selectedTown.id);
     setMunicipality(selectedTown.municipalitiesName);
-    setMunicipalities(selectedTown.municipalitiesName);
-  };
-
-  const handleEmailAddressChange = (e) => {
-    // console.log(e.target.value);
-    setEmailAddress(e.target.value);
-    // console.log(emailAddress);
-  };
-
-  const handlePasswordChange = (e) => {
-    // console.log(e.target.value);
-    setPassword(e.target.value);
-    // console.log(password);
+    // setMunicipalities(selectedTown.municipalitiesName);
+    setGroupNumArray(selectedTown.groupNumArray);
   };
 
   const login = async () => {
@@ -161,9 +184,6 @@ export const Registration = (props) => {
       writeToSessionStorage("loginInfo", data);
       writeToSessionStorage("loginResultInfo", result);
 
-      // window.alert(
-      //   `メールアドレス:${emailAddress}\nパスワード:${password}\n地域名:${municipalities}\nで登録しました。`
-      // );
       setLoginCom(1);
       setUserName(result.name);
       setMunicipality(data.municipalities);
@@ -237,6 +257,55 @@ export const Registration = (props) => {
         value={password}
         onChange={handlePasswordChange}
       />
+      <input
+        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+        type="text"
+        placeholder="電話番号"
+        value={householdTel}
+        onChange={handleHouseholdTelChange}
+      />
+      <input
+        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+        type="text"
+        placeholder="年齢"
+        value={householdAge}
+        onChange={handleHouseholdAgeChange}
+      />
+      <input
+        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+        type="text"
+        placeholder="家族人数"
+        value={familySize}
+        onChange={handleFamilySizeChange}
+      />
+      <select
+        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+        value={block1}
+        onChange={handleBlock1Change}
+      >
+        <option value="" disabled>
+          丁目やブロック名を選択
+        </option>
+        {blockNameArray.map((item, index) => (
+          <option key={index} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
+      <select
+        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+        value={block3}
+        onChange={handleBlock3Change}
+      >
+        <option value="" disabled>
+          グループ番号を選択
+        </option>
+        {groupNumArray.map((item, index) => (
+          <option key={index} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
       <div className="flex flex-row items-center justify-center">
         <Link
           to="/"
