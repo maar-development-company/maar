@@ -11,6 +11,11 @@ export const AdminAssign = () => {
 	const [municipalityInfo, setMunicipalityInfo] = useState({});
 	const [flag, setFlag] = useState(true);
 
+	const cssTableHead =
+		"p-2 border-collapse border-solid border-2 border-gray-300";
+	const cssInsideTable =
+		"p-2 border-collapse border-solid border-2 border-gray-300";
+
 	const getHouseholdList = async () => {
 		//データベースにGETする処理
 		const municipalitiesID = JSON.parse(user).municipalitiesID;
@@ -49,17 +54,18 @@ export const AdminAssign = () => {
 		return householdList.map((el, index) => {
 			if (el.roleFlag === "1") {
 				return (
-					<tr>
-						<td>{el.block1}</td>
-						<td>{el.block2}</td>
-						<td>{el.householdName}</td>
-						<td>
+					<tr className="border-collapse border-solid border-2 border-gray-300">
+						<td className={cssInsideTable}>{el.block1}</td>
+						<td className={cssInsideTable}>{el.block2}</td>
+						<td className={cssInsideTable}>{el.householdName}</td>
+						<td className={cssInsideTable}>
 							{el.id !== myID && (
 								<button
+									className="bg-blue-100 hover:bg-blue-300 p-1 text-black rounded"
 									onClick={() => {
 										dismissal(index);
 									}}>
-									{index}さんを解任する
+									解任
 								</button>
 							)}
 						</td>
@@ -72,16 +78,17 @@ export const AdminAssign = () => {
 		return householdList.map((el, index) => {
 			if (el.roleFlag === "0") {
 				return (
-					<tr>
-						<td>{el.block1}</td>
-						<td>{el.block2}</td>
-						<td>{el.householdName}</td>
-						<td>
+					<tr className="border-collapse border-solid border-2 border-gray-300">
+						<td className={cssInsideTable}>{el.block1}</td>
+						<td className={cssInsideTable}>{el.block2}</td>
+						<td className={cssInsideTable}>{el.householdName}</td>
+						<td className={cssInsideTable}>
 							<button
+								className="bg-blue-800 hover:bg-blue-700 p-1 text-white rounded"
 								onClick={() => {
 									assign(index);
 								}}>
-								{index}さんを任命する
+								任命
 							</button>
 						</td>
 					</tr>
@@ -133,26 +140,36 @@ export const AdminAssign = () => {
 			console.error(error);
 		}
 	};
-
 	return (
-		<>
-			<div>
-				<h1>現在の管理者リスト</h1>
-				<table>
+		<div className="overflow-y-auto fixed top-36 bottom-12 right-0 left-0">
+			<div className="mx-auto text-center flex flex-col justify-center md:w-3/4">
+				<p className="text-3xl">
+					管理者の任命・解任を設定し登録ボタンを押して下さい。
+				</p>
+				<button
+					className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mx-auto text-3xl"
+					onClick={adminRegistration}>
+					登録
+				</button>
+			</div>
+			<br></br>
+			<div className="mx-auto text-center flex flex-col  justify-center md:w-3/4">
+				<h1 className="text-3xl">管理者リスト</h1>
+				<table className="shadow-lg text-center md:w-full justify-center border-collapse border-solid border-4 border-gray-300">
 					<thead>
-						<tr>
-							<th>丁目やブロック</th>
-							<th>組</th>
-							<th>名前</th>
-							<th>解任ボタン</th>
+						<tr className="border-collapse border-double border-2 border-gray-300 bg-gray-100">
+							<th className={cssTableHead}>丁目/ブロック</th>
+							<th className={cssTableHead}>組</th>
+							<th className={cssTableHead}>名前</th>
+							<th className={cssTableHead}>解任</th>
 						</tr>
 					</thead>
 					<tbody>{renderingAdmin()}</tbody>
 				</table>
 			</div>
 
-			<div className="mt-10">
-				<h1>区民リスト検索</h1>
+			<div className="mx-auto text-center flex flex-col  justify-center md:w-3/4">
+				<h1 className="text-3xl ring-red-400">区民リスト検索</h1>
 				<select>
 					<option value="" disabled>
 						丁目やブロックを選択してください
@@ -161,21 +178,19 @@ export const AdminAssign = () => {
             <option value={index}>{block}</option>;
           })} */}
 				</select>
-				<table>
+				<table className="shadow-lg text-center md:w-full justify-center border-collapse border-solid border-4 border-gray-300">
 					<thead>
-						<tr>
-							<th>丁目やブロック</th>
-							<th>組</th>
-							<th>名前</th>
-							<th>任命ボタン</th>
+						<tr className="border-collapse border-double border-2 border-gray-300 bg-gray-100">
+							<th className={cssTableHead}>丁目/ブロック</th>
+							<th className={cssTableHead}>組</th>
+							<th className={cssTableHead}>名前</th>
+							<th className={cssTableHead}>任命</th>
 						</tr>
 					</thead>
 					<tbody>{renderingMember()}</tbody>
 				</table>
-				<br></br>
-				<p>以上の内容で登録します。よろしければボタンを押して下さい。</p>
-				<button onClick={adminRegistration}>登録</button>
 			</div>
-		</>
+			<br></br>
+		</div>
 	);
 };
