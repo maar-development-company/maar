@@ -1,11 +1,12 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import dayjs from "dayjs";
+import { DisplayImage } from "./DisplayImage";
 
 export const SingleArticle = () => {
   const location = useLocation();
   const { articleInfo } = location.state;
-  console.log(articleInfo);
+  console.log("articleInfoの中身", articleInfo);
   return (
     <>
       <div className="m-4 p-1 h-fit bg-gradient-to-b from-gray-400 to-gray-200 md:h-fit rounded-3xl text-3xl md:flex md:flex-col">
@@ -19,6 +20,7 @@ export const SingleArticle = () => {
               <br />
             </React.Fragment>
           ))}
+          <DisplayImage articleInfo={articleInfo} />
         </div>
         <p className="mr-4 text-2xl text-right">
           配信日時：

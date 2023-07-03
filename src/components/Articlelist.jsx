@@ -25,7 +25,7 @@ export const ArticleList = (props) => {
 	const location = useLocation();
 	const { user } = location.state;
 	let userId;
-
+	const [imagePath, setImagePath] = useState("");
 	useEffect(() => {
 		getArticleList();
 	}, [number]);
