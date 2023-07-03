@@ -2,20 +2,20 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = function(knex) {
-    return knex.schema.createTable('municipalitiesList', function(table) {
-      table.increments("id").primary();
-      table.string('municipalitiesName', 32);
-      table.integer('numberOfHouse');
-      table.string('blockNameArray', 128);
-      table.string('groupNumArray', 128);
-    });
+exports.up = function (knex) {
+  return knex.schema.createTable("municipalitiesList", function (table) {
+    table.increments("id").primary();
+    table.string("municipalitiesName", 32);
+    table.integer("numberOfHouse");
+    table.text("blockNameArray");
+    table.text("groupNumArray");
+  });
 };
 
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = function(knex) {
-    return knex.schema.dropTable('municipalitiesList');
+exports.down = function (knex) {
+  return knex.schema.dropTable("municipalitiesList");
 };
