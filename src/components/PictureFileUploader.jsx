@@ -7,7 +7,7 @@ AWS.config.update({
   region: "us-east-1",
 });
 
-export const FileUploader = (props) => {
+export const PictureFileUploader = (props) => {
   const { handleDataKey } = props;
   const [selectedFile, setSelectedFile] = useState(null);
   const [base64Content, setBase64Content] = useState("");
@@ -72,16 +72,7 @@ export const FileUploader = (props) => {
 
   return (
     <div>
-      <h3>ファイルアップロード</h3>
-      <input type="file" onChange={handleFileSelect} />
-      <button
-        className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56 mt-2 text-3xl"
-        onClick={handleUpload}
-      >
-        Upload
-      </button>
-
-      <h3>BASE64データ送信~~~~テスト用</h3>
+      <h3>BASE64データ送信</h3>
       <input
         type="text"
         placeholder="BASE64コードを入力"
