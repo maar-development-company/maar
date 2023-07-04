@@ -86,3 +86,4 @@ export const AdminMenu = (props) => {
       </div>
     </div>
   );
+};

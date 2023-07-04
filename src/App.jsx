@@ -122,7 +122,7 @@ function App() {
                       password={password}
                       setPassword={setPassword}
                     />
-                    <cognito />
+                    {/* <cognito /> */}
                     {/* <TakePicture />
                     <FileUploader />
                     <DisplayImage /> */}
