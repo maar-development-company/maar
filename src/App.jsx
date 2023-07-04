@@ -23,7 +23,7 @@ import { FileUploader } from "./components/FileUploader";
 import { DisplayImage } from "./components/DisplayImage";
 import { TakePicture } from "./components/TakePicture";
 import { AdminAssign } from "./components/AdminAssign";
-import { cognito } from "./components/cognito";
+import LoginPage from "./components/LoginPage";
 
 const AWS = require("aws-sdk");
 
@@ -122,7 +122,7 @@ function App() {
                       password={password}
                       setPassword={setPassword}
                     />
-                    <cognito />
+                    <LoginPage />
                     {/* <TakePicture />
                     <FileUploader />
                     <DisplayImage /> */}
