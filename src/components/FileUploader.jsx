@@ -72,24 +72,14 @@ export const FileUploader = (props) => {
 
   return (
     <div>
-      <h3>ファイルアップロード</h3>
-      <input type="file" onChange={handleFileSelect} />
+      <h3 className="text-3xl">ファイルアップロード</h3>
+      <input className="text-3xl" type="file" onChange={handleFileSelect} />
       <button
         className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56 mt-2 text-3xl"
         onClick={handleUpload}
       >
         Upload
       </button>
-
-      <h3>BASE64データ送信~~~~テスト用</h3>
-      <input
-        type="text"
-        placeholder="BASE64コードを入力"
-        value={base64Content}
-        onChange={handleBase64InputChange}
-      />
-      <button onClick={handleBase64Submit}>Submit</button>
-      {base64Error && <p style={{ color: "red" }}>{base64Error}</p>}
     </div>
   );
 };

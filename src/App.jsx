@@ -241,6 +241,7 @@ function App() {
                     <AdminMenu
                       municipality={municipality}
                       municipalityId={municipalityId}
+                      userName={userName}
                     />
                   </div>
                 }
@@ -254,6 +255,7 @@ function App() {
                     <NewPost
                       municipalityId={municipalityId}
                       municipality={municipality}
+                      userName={userName}
                     />
                   </div>
                 }

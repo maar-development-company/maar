@@ -11,9 +11,9 @@ const URL =
     ? "https://maar-front.onrender.com"
     : "http://localhost:8080";
 
-export const NewPost = () => {
+export const NewPost = (props) => {
   const location = useLocation();
-  const { municipality, id } = location.state;
+  const { municipality, id, userName } = location.state;
   const [postArticleTitle, setPostArticleTitle] = useState("");
   const [postArticleContent, setPostArticleContent] = useState("");
   const [DataKey, setDataKey] = useState("");
@@ -104,9 +104,8 @@ export const NewPost = () => {
         value={postArticleContent}
       />
       <br></br>
-      <br></br>
-      <FileUploader />
-      <TakePicture2 />
+      <FileUploader handleDataKey={handleDataKey} />
+      <TakePicture2 userName={userName} handleDataKey={handleDataKey} />
       {/* <PictureFileUploader handleDataKey={handleDataKey} /> */}
       <br></br>
       <br></br>
