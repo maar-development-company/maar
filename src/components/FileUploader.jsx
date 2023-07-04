@@ -23,11 +23,24 @@ export const FileUploader = (props) => {
     if (selectedFile) {
       const keyName = selectedFile.name; // S3上でのファイル名
       const fileContent = selectedFile;
+      // console.log('selectedFile.type: ', selectedFile.type);
+
+    // ContentTypeを設定
+    let contentType;
+    if (keyName.endsWith('.pdf')) {
+      contentType = 'application/pdf';
+    } else if (selectedFile.type) {
+      contentType = selectedFile.type;
+    } else {
+      contentType = 'application/octet-stream';
+    }
 
       const params = {
         Bucket: bucketName,
         Key: keyName,
         Body: fileContent,
+        // ContentType: contentType
+        ContentType: selectedFile.type
       };
 
       s3.upload(params, (err, data) => {

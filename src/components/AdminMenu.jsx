@@ -12,6 +12,7 @@ import { RiOrganizationChart } from "react-icons/ri";
 import dayjs from "dayjs";
 
 export const AdminMenu = (props) => {
+
   const { municipality, municipalityId, userName } = props;
   const menuStyle =
     "m-4 p-4 h-44 flex items-center justify-center md:h-28 border-solid rounded-3xl border-4 border-gray-300 md:flex md:flex-row md:justify-start";
@@ -85,4 +86,3 @@ export const AdminMenu = (props) => {
       </div>
     </div>
   );
-};
