@@ -597,3 +597,44 @@ app.patch("/maar/admin_assign", async (req, res) => {
   }
 });
 // ***********************************
+
+
+// ***********************************
+//投稿通知先を配列にして返す 森作
+app.get("/maar/mailaddress/:municipalitiesname", async (req, res) => {
+  console.log("該当地域に所属する世帯のアドレスのGETリクエスト受信");
+  // パスパラメーターから市町村を取得
+  const municipalitiesName = req.params.municipalitiesname;
+  console.log(municipalitiesName);
+  // 市区町村データがあるか確認
+  if (municipalitiesName) {
+    //municipalitiesIdに変換
+    const getMunicipalitiesId = async () => {
+      return knex
+        .select("id")
+        .from("municipalitiesList")
+        .where("municipalitiesName", municipalitiesName)
+    }
+    const municipalitiesIdArrObj = await getMunicipalitiesId()
+    const municipalitiesId = municipalitiesIdArrObj[0].id
+    console.log("IDを出力しますよ〜〜〜〜〜〜〜〜", municipalitiesId);
+    // メールリストを取得する関数
+    const getEmailList = async () => {
+      console.log("世帯リストのセレクト開始");
+      return knex
+        .select("householdMail")
+        .from("householdList")
+        .where("municipalitiesID", municipalitiesId)
+    };
+    // メールアドレスリストを取得して応答として送信する
+    const emailList = await getEmailList();
+    console.log("emailList: ", emailList);
+    console.log("世帯リスト一覧の取得が完了しました。");
+    // メールアドレスリストを応答として送信する
+    res.status(200).send(emailList);
+  } else {
+    // 市区町村データがない時は、エラーを返す
+    res.status(400).json({ error: "市町村のデータがありまへん。" });
+  }
+});
+// ***********************************

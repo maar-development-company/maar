@@ -19,9 +19,6 @@ import dayjs from "dayjs";
 import { Registration } from "./components/Registration";
 import { NewContract } from "./components/NewContract";
 import { PiTaxiLight } from "react-icons/pi";
-import { FileUploader } from "./components/FileUploader";
-import { DisplayImage } from "./components/DisplayImage";
-import { TakePicture } from "./components/TakePicture";
 import { AdminAssign } from "./components/AdminAssign";
 import { cognito } from "./components/cognito";
 
@@ -123,9 +120,6 @@ function App() {
                       setPassword={setPassword}
                     />
                     <cognito />
-                    {/* <TakePicture />
-                    <FileUploader />
-                    <DisplayImage /> */}
                   </>
                 }
               />
