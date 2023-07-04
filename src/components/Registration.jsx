@@ -107,6 +107,7 @@ export const Registration = (props) => {
   };
 
   const handleCategoryTownChange = (e) => {
+    console.log('eの中身を確認: ', e);
     const selectedId = parseInt(e.target.value);
     const selectedTown = municipalitiesList.find(
       (town) => town.id === selectedId
@@ -235,6 +236,13 @@ export const Registration = (props) => {
           </option>
         ))}
       </select>
+      {/* <input
+        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+        type="text"
+        placeholder="氏名"
+        value={householdName}
+        onChange={handleHouseholdNameChange}
+      /> */}
       <input
         className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
         mt-4 ml-2 mr-2
