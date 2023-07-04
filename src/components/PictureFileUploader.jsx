@@ -7,7 +7,7 @@ AWS.config.update({
   region: "us-east-1",
 });
 
-export const FileUploader = (props) => {
+export const PictureFileUploader = (props) => {
   const { handleDataKey } = props;
   const [selectedFile, setSelectedFile] = useState(null);
   const [base64Content, setBase64Content] = useState("");
@@ -23,24 +23,11 @@ export const FileUploader = (props) => {
     if (selectedFile) {
       const keyName = selectedFile.name; // S3上でのファイル名
       const fileContent = selectedFile;
-      // console.log('selectedFile.type: ', selectedFile.type);
-
-    // ContentTypeを設定
-    let contentType;
-    if (keyName.endsWith('.pdf')) {
-      contentType = 'application/pdf';
-    } else if (selectedFile.type) {
-      contentType = selectedFile.type;
-    } else {
-      contentType = 'application/octet-stream';
-    }
 
       const params = {
         Bucket: bucketName,
         Key: keyName,
         Body: fileContent,
-        // ContentType: contentType
-        ContentType: selectedFile.type
       };
 
       s3.upload(params, (err, data) => {
@@ -85,14 +72,15 @@ export const FileUploader = (props) => {
 
   return (
     <div>
-      <h3 className="text-3xl">ファイルアップロード</h3>
-      <input className="text-3xl" type="file" onChange={handleFileSelect} />
-      <button
-        className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56 mt-2 text-3xl"
-        onClick={handleUpload}
-      >
-        Upload
-      </button>
+      <h3>BASE64データ送信</h3>
+      <input
+        type="text"
+        placeholder="BASE64コードを入力"
+        value={base64Content}
+        onChange={handleBase64InputChange}
+      />
+      <button onClick={handleBase64Submit}>Submit</button>
+      {base64Error && <p style={{ color: "red" }}>{base64Error}</p>}
     </div>
   );
 };

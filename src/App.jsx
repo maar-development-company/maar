@@ -207,8 +207,6 @@ function App() {
                             </div>
                             <p className="ml-5 mr-5 text-3xl">管理者メニュー</p>
                           </div>
-                          {/* </span> */}
-                          {/* <p className="mt-2">{`${municipality}からのお知らせです`}</p> */}
                         </div>
                       </Link>
                     )}
@@ -243,6 +241,7 @@ function App() {
                     <AdminMenu
                       municipality={municipality}
                       municipalityId={municipalityId}
+                      userName={userName}
                     />
                   </div>
                 }
@@ -256,6 +255,7 @@ function App() {
                     <NewPost
                       municipalityId={municipalityId}
                       municipality={municipality}
+                      userName={userName}
                     />
                   </div>
                 }
@@ -282,27 +282,6 @@ function App() {
               />
             )}
           </Routes>
-          {/* <footer className="fixed bottom-0 flex flex-row items-center justify-center">
-            <button className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-30 mt-2 mr-3 text-xl flex flex-row">
-              <span>戻る</span>
-            </button>
-            <button
-              onClick={() => (location.href = "/")}
-              className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-30 mt-2 mr-3 text-xl flex flex-row"
-            >
-              <div
-                className="flex items-center justify-center md:justify-start"
-                onClick={() => console.log(loginCom)}
-              ></div>
-              <span>ホーム</span>
-            </button>
-            <button
-              className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-fit mt-2 text-xl flex flex-row"
-              onClick={logout}
-            >
-              <span>ログアウト</span>
-            </button>
-          </footer> */}
 
           <footer className="w-full fixed bottom-0 flex flex-row items-center justify-center bg-gradient-to-b from-blue-200 to-blue-500 ">
             <PageBackButton />
@@ -327,93 +306,6 @@ function App() {
       )}
     </div>
   );
-
-  // 										{loginCom === 2 && (
-  // 											<Link to="/AdminMenu">
-  // 												<div className={menuStyle}>
-  // 													<div className="flex flex-col items-center justify-center md:flex-row">
-  // 														<div className="flex items-center justify-center text-6xl md:justify-start">
-  // 															<BsGear />
-  // 														</div>
-  // 														<p className="ml-5 mr-5 text-3xl">管理者メニュー</p>
-  // 													</div>
-  // 													{/* </span> */}
-  // 													{/* <p className="mt-2">{`${municipality}からのお知らせです`}</p> */}
-  // 												</div>
-  // 											</Link>
-  // 										)}
-  // 									</div>
-  // 								</>
-  // 							}
-  // 						/>
-  // 						<Route
-  // 							path="/articlelist"
-  // 							element={
-  // 								<div>
-  // 									<ArticleList
-  // 										municipalityId={municipalityId}
-  // 										municipality={municipality}
-  // 									/>
-  // 								</div>
-  // 							}
-  // 						/>
-  // 						<Route
-  // 							path="/SingleArticle"
-  // 							element={
-  // 								<div>
-  // 									<SingleArticle />
-  // 								</div>
-  // 							}
-  // 						/>
-  // 						{loginCom === 2 && (
-  // 							<Route
-  // 								path="/AdminMenu"
-  // 								element={
-  // 									<div>
-  // 										<AdminMenu
-  // 											municipality={municipality}
-  // 											municipalityId={municipalityId}
-  // 										/>
-  // 									</div>
-  // 								}
-  // 							/>
-  // 						)}
-  // 						{loginCom === 2 && (
-  // 							<Route
-  // 								path="/NewPost"
-  // 								element={
-  // 									<div>
-  // 										<NewPost
-  // 											municipalityId={municipalityId}
-  // 											municipality={municipality}
-  // 										/>
-  // 									</div>
-  // 								}
-  // 							/>
-  // 						)}
-  // 					</Routes>
-  // <footer className="fixed bottom-0 flex flex-row items-center justify-center">
-  // 	<PageBackButton />
-  // 	<button
-  // 		onClick={() => (location.href = "/")}
-  // 		className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-30 mt-2 mr-3 text-xl flex flex-row">
-  // 		<div
-  // 			className="flex items-center justify-center md:justify-start"
-  // 			onClick={() => console.log(loginCom)}></div>
-  // 		<span>ホーム</span>
-  // 	</button>
-  // 	<button
-  // 		className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-fit mt-2 text-xl flex flex-row"
-  // 		onClick={logout}>
-  // 		<span>ログアウト</span>
-  // 	</button>
-  // </footer>
-  // 				</Router>
-  // 			)}
-  // 		</div>
-  // 	);
 }
-
-// "position: fixed; bottom: 0; width: 100%"
 
 export default App;
