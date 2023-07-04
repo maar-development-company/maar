@@ -85,7 +85,32 @@ export const AdminAssign = () => {
 				console.log("ブロックと組の指定はありません");
 				if (el.roleFlag === "0") {
 					return (
-						<tr className="border-collapse border-solid border-2 border-gray-300">
+						<tr className="border-collapse border-solid border-2 border-gray-300 bg-color-white">
+							<td className={cssInsideTable}>{el.block1}</td>
+							<td className={cssInsideTable}>{el.block2}</td>
+							<td className={cssInsideTable}>{el.householdName}</td>
+							<td className={cssInsideTable}>
+								<button
+									className="bg-blue-800 hover:bg-blue-700 p-1 text-white rounded"
+									onClick={() => {
+										assign(index);
+									}}>
+									任命
+								</button>
+							</td>
+						</tr>
+					);
+				}
+			} else if (blockNameInd !== undefined && groupNumInd === "") {
+				console.log("ブロックだけが指定されました");
+				console.log("ブロック", blockNameArr[Number(blockNameInd)]);
+				if (
+					el.roleFlag === "0" &&
+					el.block1 === blockNameArr[Number(blockNameInd)]
+				) {
+					console.log("ブロックと組の一致がありました");
+					return (
+						<tr className="border-collapse border-solid border-2 border-gray-300 bg-color-white">
 							<td className={cssInsideTable}>{el.block1}</td>
 							<td className={cssInsideTable}>{el.block2}</td>
 							<td className={cssInsideTable}>{el.householdName}</td>
@@ -116,7 +141,7 @@ export const AdminAssign = () => {
 				) {
 					console.log("ブロックと組の一致がありました");
 					return (
-						<tr className="border-collapse border-solid border-2 border-gray-300">
+						<tr className="border-collapse border-solid border-2 border-gray-300 bg-white">
 							<td className={cssInsideTable}>{el.block1}</td>
 							<td className={cssInsideTable}>{el.block2}</td>
 							<td className={cssInsideTable}>{el.householdName}</td>
@@ -203,7 +228,7 @@ export const AdminAssign = () => {
 		}
 	};
 	return (
-		<div className="overflow-y-auto fixed top-36 bottom-12 right-0 left-0">
+		<div className="overflow-y-auto fixed top-24 bottom-12 right-0 left-0">
 			<div className="mx-auto text-center flex flex-col justify-center md:w-3/4">
 				<p className="text-3xl">
 					管理者の任命・解任を設定し登録ボタンを押して下さい。
@@ -214,8 +239,7 @@ export const AdminAssign = () => {
 					登録
 				</button>
 			</div>
-			<br></br>
-			<div className="mx-auto text-center flex flex-col  justify-center md:w-3/4">
+			<div className="mx-auto mt-8 p-4 text-center flex flex-col justify-center md:w-3/4 rounded-3xl border border-blue-800 shadow-lg">
 				<h1 className="text-3xl">管理者リスト</h1>
 				<table className="shadow-lg text-center md:w-full justify-center border-collapse border-solid border-4 border-gray-300">
 					<thead>
@@ -230,39 +254,47 @@ export const AdminAssign = () => {
 				</table>
 			</div>
 
-			<div className="mx-auto text-center flex flex-col  justify-center md:w-3/4">
-				<h1 className="text-3xl ring-red-400">加入者リスト検索</h1>
-				<select value={blockIndex} onChange={handleBlockNameChange}>
-					<option value="" disabled>
-						丁目やブロックを選択してください
-					</option>
-					{blockNameArr.map((block, index) => {
-						return <option value={index}>{block}</option>;
-					})}
-				</select>
-				{/* {groupNumArr[0]} */}
-				*****{blockIndex}*****
-				<select value={groupIndex} onChange={handleGroupNumChange}>
-					<option value="" disabled>
-						組を選択してください
-					</option>
-					{blockIndex !== "" &&
-						groupNumArr[Number(blockIndex)].map((group, index) => {
-							return <option value={index}>{group}</option>;
+			<div className="mx-auto mt-8 p-4 text-center flex flex-col justify-center md:w-3/4 rounded-3xl border border-gray-300 bg-gray-100 shadow-lg">
+				<h1 className="text-3xl">加入者リスト検索</h1>
+				<div className="mx-auto flex flex-row md:w-3/4">
+					<select
+						value={blockIndex}
+						onChange={handleBlockNameChange}
+						className="mx-auto border-2 mr-2">
+						<option value="" disabled>
+							丁目やブロックを選択してください
+						</option>
+						{blockNameArr.map((block, index) => {
+							return <option value={index}>{block}</option>;
 						})}
-				</select>
-				<br></br>
-				<button
-					className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 mx-auto text-xl"
-					onClick={memberFilter}>
-					絞込
-				</button>
-				<button
-					className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 mx-auto text-xl"
-					onClick={memberUnfilter}>
-					解除
-				</button>
-				<br></br>
+					</select>
+					<br></br>
+					<select
+						value={groupIndex}
+						onChange={handleGroupNumChange}
+						className="mx-auto border-2">
+						<option value="" disabled>
+							組を選択してください
+						</option>
+						{blockIndex !== "" &&
+							groupNumArr[Number(blockIndex)].map((group, index) => {
+								return <option value={index}>{group}</option>;
+							})}
+					</select>
+				</div>
+
+				<div className="mx-auto my-1 flex flex-row justify-center md:w-3/4 bg-gray-100">
+					<button
+						className="bg-blue-800 hover:bg-blue-700 text-white rounded p-1 mr-2"
+						onClick={memberFilter}>
+						絞込
+					</button>
+					<button
+						className="bg-blue-800 hover:bg-blue-700 text-white rounded p-1 ml-2"
+						onClick={memberUnfilter}>
+						解除
+					</button>
+				</div>
 				<table className="shadow-lg text-center md:w-full justify-center border-collapse border-solid border-4 border-gray-300">
 					<thead>
 						<tr className="border-collapse border-double border-2 border-gray-300 bg-gray-100">
