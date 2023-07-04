@@ -108,7 +108,7 @@ export const ArticleList = (props) => {
 	};
 
 	return (
-		<div className="overflow-y-auto fixed top-36 bottom-12 right-0 left-0">
+		<div className="overflow-y-auto fixed top-24 bottom-12 right-0 left-0">
 			<div>
 				<button
 					onClick={getArticleList}
@@ -138,12 +138,12 @@ export const ArticleList = (props) => {
 									articleOnClickHandler(articleId);
 								}
 							}}
-							className="m-4 p-4 border-solid rounded-3xl border-4 border-gray-300 text-center h-fit">
+							className="shadow-lg m-4 p-4 border-solid rounded-3xl border bg-gray-100 hover:bg-gray-200 border-gray-300 text-center h-fit">
 							<div
 								className={
 									// ele.readFlag === 0
 									JSON.parse(ele.userReadInfo)[String(userId)] !== undefined
-										? "border border-solid border-black h-12 rounded-3xl text-3xl text-center w-40 float-right"
+										? "border border-solid border-gray-300 h-12 rounded-3xl text-3xl text-center text-gray-700 w-40 float-right"
 										: "p-1 bg-blue-800 text-gray-100 h-12 rounded-3xl text-3xl text-center w-40 float-right"
 								}>
 								{JSON.parse(ele.userReadInfo)[String(userId)] !== undefined
