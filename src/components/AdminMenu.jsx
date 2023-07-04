@@ -14,9 +14,9 @@ import dayjs from "dayjs";
 export const AdminMenu = (props) => {
   const { municipality, municipalityId, userName } = props;
   const menuStyle =
-    "m-4 p-4 h-44 flex items-center justify-center md:h-28 border-solid rounded-3xl border-4 border-gray-300 md:flex md:flex-row md:justify-start";
+    "m-4 p-4 h-44 flex items-center justify-center md:h-28 border-solid rounded-3xl border bg-gray-100 hover:bg-gray-200 border-gray-300 shadow-lg md:flex md:flex-row md:justify-start";
   return (
-    <div>
+    <div className="link-container overflow-y-auto fixed top-24 bottom-12 right-0 left-0">
       <div>
         <Link
           to="/NewPost"
@@ -31,7 +31,7 @@ export const AdminMenu = (props) => {
               <div className="flex items-center justify-center text-6xl md:justify-start">
                 <BsPen />
               </div>
-              <p className="items-center justify-center text-3xl ">
+              <p className="ml-5 mr-5 items-center justify-center text-3xl ">
                 お知らせ新規投稿
               </p>
             </div>
@@ -45,7 +45,7 @@ export const AdminMenu = (props) => {
               <div className="flex items-center justify-center text-6xl md:justify-start">
                 <GrGroup />
               </div>
-              <p className="items-center justify-center text-3xl ">
+              <p className="ml-5 mr-5 items-center justify-center text-3xl ">
                 管理者メンバー設定
               </p>
             </div>
@@ -62,7 +62,7 @@ export const AdminMenu = (props) => {
               <div className="flex items-center justify-center text-6xl md:justify-start">
                 <MdHearing />
               </div>
-              <p className="items-center justify-center text-3xl ">
+              <p className="ml-5 mr-5 items-center justify-center text-3xl ">
                 アンケート作成
               </p>
             </div>
@@ -76,7 +76,7 @@ export const AdminMenu = (props) => {
               <div className="flex items-center justify-center text-6xl md:justify-start">
                 <RiOrganizationChart />
               </div>
-              <p className="items-center justify-center text-3xl ">
+              <p className="ml-5 mr-5 items-center justify-center text-3xl ">
                 自治区組織設定
               </p>
             </div>
