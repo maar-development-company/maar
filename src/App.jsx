@@ -56,7 +56,7 @@ function App() {
   }
 
   // バケット名を指定してオブジェクト一覧を取得します
-  listObjects(bucketName);
+  //   listObjects(bucketName);
   //S3ファイル一覧取得ー終ーーーーーーーーーーーーーーー
 
   // // バケット名を指定してオブジェクト一覧を取得します

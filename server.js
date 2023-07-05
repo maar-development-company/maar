@@ -1,18 +1,18 @@
-// const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
 // ルーティングモジュールをインポート
-const muniRouter = require('./muni');
-const loginRouter = require('./login');
-const uploadRouter = require('./upload');
-const articleRouter = require('./article');
-const householdRouter = require('./household');
-const adminRouter = require('./admin');
+const muniRouter = require("./muni");
+const loginRouter = require("./login");
+const uploadRouter = require("./upload");
+const articleRouter = require("./article");
+const householdRouter = require("./household");
+const adminRouter = require("./admin");
 // knexの設定を分離
-const knex = require('./db'); 
+const knex = require("./db");
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -318,7 +318,6 @@ app.patch("/maar/admin_assign", async (req, res) => {
 });
 // ***********************************
 
-
 // ***********************************
 //投稿通知先を配列にして返す 森作
 app.get("/maar/mailaddress/:municipalitiesname", async (req, res) => {
@@ -333,10 +332,10 @@ app.get("/maar/mailaddress/:municipalitiesname", async (req, res) => {
       return knex
         .select("id")
         .from("municipalitiesList")
-        .where("municipalitiesName", municipalitiesName)
-    }
-    const municipalitiesIdArrObj = await getMunicipalitiesId()
-    const municipalitiesId = municipalitiesIdArrObj[0].id
+        .where("municipalitiesName", municipalitiesName);
+    };
+    const municipalitiesIdArrObj = await getMunicipalitiesId();
+    const municipalitiesId = municipalitiesIdArrObj[0].id;
     console.log("IDを出力しますよ〜〜〜〜〜〜〜〜", municipalitiesId);
     // メールリストを取得する関数
     const getEmailList = async () => {
@@ -344,7 +343,7 @@ app.get("/maar/mailaddress/:municipalitiesname", async (req, res) => {
       return knex
         .select("householdMail")
         .from("householdList")
-        .where("municipalitiesID", municipalitiesId)
+        .where("municipalitiesID", municipalitiesId);
     };
     // メールアドレスリストを取得して応答として送信する
     const emailList = await getEmailList();
@@ -358,33 +357,33 @@ app.get("/maar/mailaddress/:municipalitiesname", async (req, res) => {
   }
 });
 // ***********************************
-  // 参考コード
-  // app.patch("/myCard", async (req, res) => {
-  //   console.log("patch受信");
-  //   const patchData = req.body;
-  //   console.log(patchData);
-  //   const patchDataFunc = async () => {
-  //     const updatedCardNum = patchData.cardNum;
-  //     await knex("cardPossession")
-  //       .where("userNameID", patchData.userNameID)
-  //       .andWhere("possessionCardID", patchData.possessionCardID)
-  //       .update({ cardNum: updatedCardNum });
-  //     return;
-  //   };
-  //   const executionPatch = await patchDataFunc();
-  //   res.sendStatus(200);
-  // });
-  
-  // app.delete("/myCard", async (req, res) => {
-  //   console.log("delete受信");
-  //   const deleteData = req.body;
-  //   console.log(deleteData);
-  //   const deleteDataFunc = async () => {
-  //     await knex("cardPossession")
-  //       .where("possessionCardID", deleteData.possessionCardID)
-  //       .del();
-  //     return;
-  //   };
-  //   const executionDelete = await deleteDataFunc();
-  //   res.sendStatus(200);
-  // });
+// 参考コード
+// app.patch("/myCard", async (req, res) => {
+//   console.log("patch受信");
+//   const patchData = req.body;
+//   console.log(patchData);
+//   const patchDataFunc = async () => {
+//     const updatedCardNum = patchData.cardNum;
+//     await knex("cardPossession")
+//       .where("userNameID", patchData.userNameID)
+//       .andWhere("possessionCardID", patchData.possessionCardID)
+//       .update({ cardNum: updatedCardNum });
+//     return;
+//   };
+//   const executionPatch = await patchDataFunc();
+//   res.sendStatus(200);
+// });
+
+// app.delete("/myCard", async (req, res) => {
+//   console.log("delete受信");
+//   const deleteData = req.body;
+//   console.log(deleteData);
+//   const deleteDataFunc = async () => {
+//     await knex("cardPossession")
+//       .where("possessionCardID", deleteData.possessionCardID)
+//       .del();
+//     return;
+//   };
+//   const executionDelete = await deleteDataFunc();
+//   res.sendStatus(200);
+// });
