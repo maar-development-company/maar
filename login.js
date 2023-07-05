@@ -14,31 +14,14 @@ router.post("/maar/login", async (req, res) => {
     const postDataCheckFunc = async () => {
       // postDateのloginCategoryで分岐0:通常 1:新規登録
       if (postData.loginCategory === 1) {
+        delete postData.loginCategory;
+        delete postData.password;
+
         console.log("こっちは新規");
-  
-        // 地域名取得
-        // const checkMunicipalitiesID = async () => {
-        //   return knex
-        //     .select("id")
-        //     .from("municipalitiesList")
-        //     .where("municipalitiesName", postData.municipalities);
-        // };
-        // const MunicipalitiesIDResult = await checkMunicipalitiesID();
-        // console.log("新規登録用市ID: ", MunicipalitiesIDResult);
-  
+          
         const insertHouseHoldList = async () => {
           return knex("householdList")
-            .insert({
-              householdName: 1,
-              householdTel: "77777777777",
-              householdMail: postData.mailadress,
-              householdAge: "20",
-              familySize: "1",
-              roleFlag: "0",
-              block1: "",
-              block2: "",
-              block3: "",
-            })
+            .insert(postData)
             .returning("id")
             .then((insertedIds) => {
               const insertedId = insertedIds[0].id;
@@ -89,15 +72,6 @@ router.post("/maar/login", async (req, res) => {
         // --------------------------------------------------------------------------------------
       } else {
         console.log("こっちはログイン");
-  
-        // const checkMunicipalitiesID = async () => {
-        //   return knex
-        //     .select("id")
-        //     .from("municipalitiesList")
-        //     .where("municipalitiesName", postData.municipalities);
-        // };
-        // const MunicipalitiesIDResult = await checkMunicipalitiesID();
-        // console.log("MunicipalitiesIDResult: ", MunicipalitiesIDResult);
   
         const checkmailAdressID = async () => {
           return knex
