@@ -93,7 +93,7 @@ export const NewPost = (props) => {
     } catch (error) {
       console.error(error);
     }
-
+    console.log(municipalitiesName);
     try {
       init("5NfbwG0M_nIl2or7_");
       const params = {

@@ -72,6 +72,7 @@ function App() {
   const [municipalityId, setMunicipalityId] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
+  const [taxiPhoneNumber, setTaxiPhoneNumber] = useState("");
   const [history, setHistory] = useState("");
   console.log("loginCom : ", loginCom);
 
@@ -86,6 +87,9 @@ function App() {
       : setMunicipality("");
     user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
     user ? setUserName(JSON.parse(user).name) : setUserName("");
+    user
+      ? setTaxiPhoneNumber(JSON.parse(user).taxiNumber)
+      : setTaxiPhoneNumber("");
   }, []);
 
   const logout = () => {
@@ -185,7 +189,7 @@ function App() {
                         </div>
                       </div>
                     </Link>
-                    <a className={menuStyle} href="tel:000-1234-5678">
+                    <a className={menuStyle} href={taxiPhoneNumber}>
                       <div className="flex flex-col items-center justify-center md:flex-row">
                         <div className="flex items-center justify-center text-6xl md:justify-start">
                           <PiTaxiLight />
