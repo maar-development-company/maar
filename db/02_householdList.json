@@ -29,11 +29,11 @@
     "householdMail": "yumi_yamasaki@mail.toyota.co.jp",
     "householdAge": 22,
     "familySize": 2,
-    "roleFlag": 0,
+    "roleFlag": 1,
     "block1": "市場",
     "block2": "7",
     "block3": "",
-    "municipalitiesID": "3"
+    "municipalitiesID": "2"
   },
   {
     "householdName": "FukushimaMasafumi",
@@ -45,7 +45,7 @@
     "block1": "会下",
     "block2": "4",
     "block3": "",
-    "municipalitiesID": "4"
+    "municipalitiesID": "2"
   },
   {
     "householdName": "森 康平",
@@ -249,7 +249,7 @@
     "block1": "宮前",
     "block2": "1",
     "block3": "",
-    "municipalitiesID": "2"
+    "municipalitiesID": "4"
   },
   {
     "householdName": "松B",
@@ -261,7 +261,7 @@
     "block1": "宮前",
     "block2": "3",
     "block3": "",
-    "municipalitiesID": "2"
+    "municipalitiesID": "3"
   },
   {
     "householdName": "ZamasSatoru",
