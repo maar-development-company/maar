@@ -1,20 +1,18 @@
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
-const knex = require("knex")({
-  client: "pg",
-  connection: process.env.DATABASE_URL || {
-    host: "127.0.0.1",
-    user: "user",
-    password: "user",
-    database: "maardb",
-  },
-});
-// uploadモジュールインポート
-const uploadRouter = require("./upload");
+// ルーティングモジュールをインポート
+const muniRouter = require('./muni');
+const loginRouter = require('./login');
+const uploadRouter = require('./upload');
+const articleRouter = require('./article');
+const householdRouter = require('./household');
+const adminRouter = require('./admin');
+// knexの設定を分離
+const knex = require('./db'); 
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -24,6 +22,7 @@ const buildPath = path.join(__dirname, "./build");
 app.use(express.static(buildPath));
 app.use(express.json());
 app.use(cors());
+
 // uploadモジュール使用
 app.use('/upload', uploadRouter);
 
@@ -312,6 +311,13 @@ app.post("/maar/login", async (req, res) => {
 
   res.status(200).json(postDataCheckResult);
 });
+// ミドルウェア関数をロード
+app.use(muniRouter);
+app.use(loginRouter);
+app.use(uploadRouter);
+app.use(articleRouter);
+app.use(householdRouter);
+app.use(adminRouter);
 
 app.listen(port, () => {
   console.log(`Server is online on port: ${port}`);
@@ -641,3 +647,33 @@ app.get("/maar/mailaddress/:municipalitiesname", async (req, res) => {
   }
 });
 // ***********************************
+  // 参考コード
+  // app.patch("/myCard", async (req, res) => {
+  //   console.log("patch受信");
+  //   const patchData = req.body;
+  //   console.log(patchData);
+  //   const patchDataFunc = async () => {
+  //     const updatedCardNum = patchData.cardNum;
+  //     await knex("cardPossession")
+  //       .where("userNameID", patchData.userNameID)
+  //       .andWhere("possessionCardID", patchData.possessionCardID)
+  //       .update({ cardNum: updatedCardNum });
+  //     return;
+  //   };
+  //   const executionPatch = await patchDataFunc();
+  //   res.sendStatus(200);
+  // });
+  
+  // app.delete("/myCard", async (req, res) => {
+  //   console.log("delete受信");
+  //   const deleteData = req.body;
+  //   console.log(deleteData);
+  //   const deleteDataFunc = async () => {
+  //     await knex("cardPossession")
+  //       .where("possessionCardID", deleteData.possessionCardID)
+  //       .del();
+  //     return;
+  //   };
+  //   const executionDelete = await deleteDataFunc();
+  //   res.sendStatus(200);
+  // });
