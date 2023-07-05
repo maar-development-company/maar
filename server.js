@@ -248,7 +248,8 @@ app.post("/maar/login", async (req, res) => {
               "householdList.municipalitiesID",
               "householdList.block1",
               "householdList.block2",
-              "municipalitiesList.municipalitiesName"
+              "municipalitiesList.municipalitiesName",
+              "municipalitiesList.taxiNumber"
             )
             .from("householdList")
             .join(
@@ -258,6 +259,7 @@ app.post("/maar/login", async (req, res) => {
             )
             .where("householdList.id", checkLoginResult[0].id);
         };
+
 
         const roleResult = await getRoleFunc();
         console.log("roleResult: ", roleResult);
@@ -298,6 +300,7 @@ app.post("/maar/login", async (req, res) => {
           municipalitiesName: roleResult[0].municipalitiesName,
           blockName: roleResult[0].block1,
           groupNum: roleResult[0].block2,
+          taxiNumber: roleResult[0].taxiNumber
         };
         return resultObj;
       }

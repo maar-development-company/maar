@@ -40,6 +40,7 @@ function App() {
   // console.log(process.env.REACT_APP_AWS_ACCESS_KEY);
   // console.log(process.env.REACT_APP_AWS_SECRET_KEY);
   //S3ファイル一覧取得ー始ーーーーーーーーーーーーーーー
+  //　アクセス数が増えるためコメントアウトしておく
   const s3 = new AWS.S3();
   const bucketName = "article-area";
 
@@ -56,7 +57,7 @@ function App() {
   }
 
   // バケット名を指定してオブジェクト一覧を取得します
-  listObjects(bucketName);
+  // listObjects(bucketName);
   //S3ファイル一覧取得ー終ーーーーーーーーーーーーーーー
 
   // // バケット名を指定してオブジェクト一覧を取得します

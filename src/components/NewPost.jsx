@@ -16,6 +16,11 @@ const URL =
     ? "https://maar-front.onrender.com"
     : "http://localhost:8080";
 
+const mailUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://main.d3qoybvs7295uz.amplifyapp.com/"
+    : "http://localhost:3000";
+
 export const NewPost = (props) => {
   const location = useLocation();
   const { municipality, id, userName } = location.state;
@@ -83,8 +88,8 @@ export const NewPost = (props) => {
         emailAddressString = emailAddressString + "," + element.householdMail;
       });
       emailAddressString = emailAddressString.slice(1);
-      emailAddressString = "tomohiro_kuba@mail.toyota.co.jp";
-      console.log(emailAddressString);
+      // emailAddressString = "tomohiro_kuba@mail.toyota.co.jp";
+      // console.log(emailAddressString);
     } catch (error) {
       console.error(error);
     }
@@ -96,8 +101,8 @@ export const NewPost = (props) => {
         municipality: municipalitiesName,
         articleTitle: postArticleTitle,
         articleContent: postArticleContent,
+        url: mailUrl,
       };
-      console.log(111);
       console.log("### params ###: ", params);
 
       await send(serviceID, templateID, params);
