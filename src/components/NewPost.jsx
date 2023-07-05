@@ -4,7 +4,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { FileUploader } from "./FileUploader";
 import { TakePicture2 } from "./TakePicture2";
-import { PictureFileUploader } from "./PictureFileUploader";
+import { init, send } from "@emailjs/browser";
+
+// 必要なIDをそれぞれ環境変数から取得
+const userID = process.env.REACT_APP_USER_ID;
+const serviceID = process.env.REACT_APP_SERVICE_ID;
+const templateID = process.env.REACT_APP_TEMPLATE_ID;
 
 const URL =
   process.env.NODE_ENV === "production"
@@ -62,8 +67,50 @@ export const NewPost = (props) => {
       console.error(error);
     }
   }
+
+  async function sendMailArticle() {
+    const loginResultInfo = sessionStorage.getItem("loginResultInfo");
+    const municipalitiesName = JSON.parse(loginResultInfo).municipalitiesName;
+    const encodedParam = encodeURIComponent(municipalitiesName);
+    let emailAddressString = "";
+    try {
+      const response = await fetch(`${URL}/maar/mailaddress/${encodedParam}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch.");
+      }
+      const emailadressArrObj = await response.json();
+      emailadressArrObj.forEach((element) => {
+        emailAddressString = emailAddressString + "," + element.householdMail;
+      });
+      emailAddressString = emailAddressString.slice(1);
+      emailAddressString = "tomohiro_kuba@mail.toyota.co.jp";
+      console.log(emailAddressString);
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      init("5NfbwG0M_nIl2or7_");
+      const params = {
+        userEmail: emailAddressString,
+        municipality: municipalitiesName,
+        articleTitle: postArticleTitle,
+        articleContent: postArticleContent,
+      };
+      console.log(111);
+      console.log("### params ###: ", params);
+
+      await send(serviceID, templateID, params);
+      console.log("投稿通知送信成功");
+    } catch (error) {
+      // 送信失敗したらalertで表示
+      console.log("投稿通知送信失敗");
+    }
+  }
+
   const postAndClearInput = () => {
     postArticle();
+    sendMailArticle();
     setPostArticleTitle("");
     setPostArticleContent("");
   };
@@ -112,8 +159,8 @@ export const NewPost = (props) => {
       <div>
         <button
           className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56 mt-2 text-3xl "
-          // onClick={postArticle }
           onClick={postAndClearInput}
+          // onClick={sendMailArticle}
           value=""
         >
           新規投稿
