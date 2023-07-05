@@ -31,7 +31,12 @@ export function TakePicture2(props) {
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment" },
+        audio: false,
+        video: {
+          width: 640,
+          height: 480,
+          facingMode: { exact: "environment" },
+        },
       });
       videoRef.current.srcObject = stream;
       streamRef.current = stream;
