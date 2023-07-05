@@ -28,20 +28,43 @@ export function TakePicture2(props) {
     };
   }, []);
 
+  //PC or Mobileを判定する。
+  const isMobileDevice = () => {
+    const userAgent = navigator.userAgent;
+    const mobileDeviceRegex =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    return mobileDeviceRegex.test(userAgent);
+  };
+
   const startCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: {
-          width: 640,
-          height: 480,
-          facingMode: { exact: "environment" },
-        },
-      });
-      videoRef.current.srcObject = stream;
-      streamRef.current = stream;
-      setCameraStarted(true);
-      console.log("カメラ起動しました。");
+      if (isMobileDevice) {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: false,
+          video: {
+            width: 640,
+            height: 480,
+            facingMode: { exact: "environment" },
+          },
+        });
+        videoRef.current.srcObject = stream;
+        streamRef.current = stream;
+        setCameraStarted(true);
+        console.log("カメラ起動しました。");
+      } else {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: false,
+          video: {
+            width: 640,
+            height: 480,
+            facingMode: true,
+          },
+        });
+        videoRef.current.srcObject = stream;
+        streamRef.current = stream;
+        setCameraStarted(true);
+        console.log("カメラ起動しました。");
+      }
     } catch (error) {
       console.error("カメラの起動に失敗しました。", error);
     }
