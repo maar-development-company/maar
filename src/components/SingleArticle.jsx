@@ -13,7 +13,7 @@ export const SingleArticle = () => {
 				<div className="m-1 p-2 h-fit md:h-fit border-b-2 text-3xl">
 					<h1>{articleInfo.articleTitle}</h1>
 				</div>
-				<div className="m-1 mt-3 p-2 h-fit md:h-fit border-solid rounded-2xl text-3xl">
+				<div className="m-1 mt-3 p-2 h-fit md:h-fit border-solid rounded-2xl text-3xl" >
 					{articleInfo.articleContent.split("\n").map((text, index) => (
 						<React.Fragment key={index}>
 							{text}
