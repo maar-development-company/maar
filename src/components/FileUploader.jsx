@@ -88,8 +88,8 @@ export const FileUploader = (props) => {
 
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-    const targetWidth = 0;
-    const targetHeight = 0;
+    let targetWidth = 0;
+    let targetHeight = 0;
 
     if (image.width > image.height) {
       targetWidth = 600;
