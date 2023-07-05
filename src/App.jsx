@@ -40,6 +40,7 @@ function App() {
   // console.log(process.env.REACT_APP_AWS_ACCESS_KEY);
   // console.log(process.env.REACT_APP_AWS_SECRET_KEY);
   //S3ファイル一覧取得ー始ーーーーーーーーーーーーーーー
+  //　アクセス数が増えるためコメントアウトしておく
   const s3 = new AWS.S3();
   const bucketName = "article-area";
 
@@ -56,7 +57,7 @@ function App() {
   }
 
   // バケット名を指定してオブジェクト一覧を取得します
-  //   listObjects(bucketName);
+  // listObjects(bucketName);
   //S3ファイル一覧取得ー終ーーーーーーーーーーーーーーー
 
   // // バケット名を指定してオブジェクト一覧を取得します
@@ -71,6 +72,7 @@ function App() {
   const [municipalityId, setMunicipalityId] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
+  const [taxiPhoneNumber, setTaxiPhoneNumber] = useState("");
   const [history, setHistory] = useState("");
   console.log("loginCom : ", loginCom);
 
@@ -85,6 +87,9 @@ function App() {
       : setMunicipality("");
     user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
     user ? setUserName(JSON.parse(user).name) : setUserName("");
+    user
+      ? setTaxiPhoneNumber(JSON.parse(user).taxiNumber)
+      : setTaxiPhoneNumber("");
   }, []);
 
   const logout = () => {
@@ -184,7 +189,7 @@ function App() {
                         </div>
                       </div>
                     </Link>
-                    <a className={menuStyle} href="tel:000-1234-5678">
+                    <a className={menuStyle} href={taxiPhoneNumber}>
                       <div className="flex flex-col items-center justify-center md:flex-row">
                         <div className="flex items-center justify-center text-6xl md:justify-start">
                           <PiTaxiLight />
