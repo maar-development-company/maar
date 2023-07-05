@@ -31,6 +31,7 @@ export function TakePicture2(props) {
   //PC or Mobileを判定する。
   const isMobileDevice = () => {
     const userAgent = navigator.userAgent;
+    console.log(userAgent);
     const mobileDeviceRegex =
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
     return mobileDeviceRegex.test(userAgent);
@@ -38,7 +39,8 @@ export function TakePicture2(props) {
 
   const startCamera = async () => {
     try {
-      if (isMobileDevice) {
+      if (isMobileDevice()) {
+        console.log("mobile判定");
         const stream = await navigator.mediaDevices.getUserMedia({
           audio: false,
           video: {
@@ -52,13 +54,9 @@ export function TakePicture2(props) {
         setCameraStarted(true);
         console.log("カメラ起動しました。");
       } else {
+        console.log("PC判定");
         const stream = await navigator.mediaDevices.getUserMedia({
-          audio: false,
-          video: {
-            width: 640,
-            height: 480,
-            facingMode: true,
-          },
+          video: true,
         });
         videoRef.current.srcObject = stream;
         streamRef.current = stream;
@@ -122,6 +120,7 @@ export function TakePicture2(props) {
     if (cameraStarted) {
       stopCamera();
     } else {
+      console.log("toggle起動");
       setCameraStarted(true);
       startCamera();
     }
