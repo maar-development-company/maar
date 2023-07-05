@@ -122,10 +122,6 @@ function App() {
                       password={password}
                       setPassword={setPassword}
                     />
-                    <LoginPage />
-                    {/* <TakePicture />
-                    <FileUploader />
-                    <DisplayImage /> */}
                   </>
                 }
               />

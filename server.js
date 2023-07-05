@@ -25,7 +25,7 @@ app.use(express.static(buildPath));
 app.use(express.json());
 app.use(cors());
 // uploadモジュール使用
-app.use('/upload', uploadRouter);
+app.use("/upload", uploadRouter);
 
 // ページ表示時に地域を返す
 app.get("/muni", async (req, res) => {
