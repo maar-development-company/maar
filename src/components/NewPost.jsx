@@ -16,6 +16,11 @@ const URL =
     ? "https://maar-front.onrender.com"
     : "http://localhost:8080";
 
+const mailUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://main.d3qoybvs7295uz.amplifyapp.com/"
+    : "http://localhost:3000";
+
 export const NewPost = (props) => {
   const location = useLocation();
   const { municipality, id, userName } = location.state;
@@ -83,12 +88,12 @@ export const NewPost = (props) => {
         emailAddressString = emailAddressString + "," + element.householdMail;
       });
       emailAddressString = emailAddressString.slice(1);
-      emailAddressString = "tomohiro_kuba@mail.toyota.co.jp";
-      console.log(emailAddressString);
+      // emailAddressString = "tomohiro_kuba@mail.toyota.co.jp";
+      // console.log(emailAddressString);
     } catch (error) {
       console.error(error);
     }
-
+    console.log(municipalitiesName);
     try {
       init("5NfbwG0M_nIl2or7_");
       const params = {
@@ -96,8 +101,8 @@ export const NewPost = (props) => {
         municipality: municipalitiesName,
         articleTitle: postArticleTitle,
         articleContent: postArticleContent,
+        url: mailUrl,
       };
-      console.log(111);
       console.log("### params ###: ", params);
 
       await send(serviceID, templateID, params);
@@ -121,13 +126,13 @@ export const NewPost = (props) => {
   };
 
   return (
-    <div className="text-center">
+    <div className="text-center overflow-y-auto fixed top-24 bottom-14 right-0 left-0">
       {/* <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> */}
       <h1 className="sm:text-6xl text-4xl title-font font-medium text-gray-900 mt-4 mb-4">
         新規お知らせ投稿
       </h1>
       <input
-        className="w-11/12 h-full bg-gray-100 bg-opacity-50 rounded border
+        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
         mt-4 ml-2 mr-2
          border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
           focus:ring-indigo-200 outline-none text-gray-700 text-4xl

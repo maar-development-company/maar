@@ -42,6 +42,7 @@
     "nodemon": "^2.0.22",
     "os-browserify": "^0.3.0",
     "pg": "^8.11.0",
+    "pica": "^9.0.1",
     "querystring": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

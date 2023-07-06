@@ -9,6 +9,7 @@ exports.up = function (knex) {
     table.integer("numberOfHouse");
     table.text("blockNameArray");
     table.text("groupNumArray");
+    table.text("taxiNumber");
   });
 };
 
