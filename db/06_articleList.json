@@ -5,7 +5,7 @@
 		"articleTimestamp": "2023-06-21 10:30:00",
 		"municipalitiesID2": 1,
 		"articleCategory": "イベント",
-		"fileSavePath": "http://",
+		"fileSavePath": "",
 		"userReadInfo": "{}"
 	},
 	{
@@ -14,7 +14,7 @@
 		"articleTimestamp": "2023-06-21 10:30:30",
 		"municipalitiesID2": 1,
 		"articleCategory": "会議",
-		"fileSavePath": "http://",
+		"fileSavePath": "",
 		"userReadInfo": "{}"
 	},
 	{
@@ -23,7 +23,7 @@
 		"articleTimestamp": "2023-06-21 10:30:50",
 		"municipalitiesID2": 1,
 		"articleCategory": "健康",
-		"fileSavePath": "http://",
+		"fileSavePath": "",
 		"userReadInfo": "{}"
 	},
 	{
@@ -32,7 +32,7 @@
 		"articleTimestamp": "2023-06-21 10:35:00",
 		"municipalitiesID2": 1,
 		"articleCategory": "報告",
-		"fileSavePath": "http://",
+		"fileSavePath": "",
 		"userReadInfo": "{}"
 	},
 	{
@@ -41,7 +41,7 @@
 		"articleTimestamp": "2023-06-21 10:40:00",
 		"municipalitiesID2": 1,
 		"articleCategory": "防災",
-		"fileSavePath": "http://",
+		"fileSavePath": "",
 		"userReadInfo": "{}"
 	},
 	{
@@ -50,7 +50,7 @@
 		"articleTimestamp": "2023-06-21 10:50:00",
 		"municipalitiesID2": 2,
 		"articleCategory": "防災",
-		"fileSavePath": "http://",
+		"fileSavePath": "",
 		"userReadInfo": "{}"
 	},
 	{
@@ -59,7 +59,7 @@
 		"articleTimestamp": "2023-06-21 11:30:00",
 		"municipalitiesID2": 2,
 		"articleCategory": "安全",
-		"fileSavePath": "http://",
+		"fileSavePath": "",
 		"userReadInfo": "{}"
 	},
 	{
@@ -68,7 +68,7 @@
 		"articleTimestamp": "2023-06-21 11:34:00",
 		"municipalitiesID2": 2,
 		"articleCategory": "イベント",
-		"fileSavePath": "http://",
+		"fileSavePath": "",
 		"userReadInfo": "{}"
 	},
 	{
@@ -77,7 +77,7 @@
 		"articleTimestamp": "2023-06-21 11:45:20",
 		"municipalitiesID2": 2,
 		"articleCategory": "イベント",
-		"fileSavePath": "http://",
+		"fileSavePath": "",
 		"userReadInfo": "{}"
 	}
 ]
