@@ -20,6 +20,8 @@ import { Registration } from "./components/Registration";
 import { NewContract } from "./components/NewContract";
 import { PiTaxiLight } from "react-icons/pi";
 import { AdminAssign } from "./components/AdminAssign";
+import { NewSurveyPost } from "./components/NewSurveyPost";
+import { SurveyList } from "./components/SurveyList";
 import { cognito } from "./components/cognito";
 import { Header } from "./components/Header";
 
@@ -100,186 +102,393 @@ function App() {
 		location.href = "/";
 	};
 
-	const menuStyle =
-		"m-4 p-4 h-44 flex items-center justify-center md:h-28 border-solid rounded-3xl border bg-gray-100 hover:bg-gray-200 border-gray-300 shadow-lg md:flex md:flex-row md:justify-start";
-	return (
-		<div>
-			{loginCom === 0 && (
-				<Router>
-					<Routes>
-						<>
-							<Route
-								path="/"
-								element={
-									<>
-										<Login
-											loginCom={loginCom}
-											setLoginCom={setLoginCom}
-											setUserName={setUserName}
-											municipality={municipality}
-											setMunicipality={setMunicipality}
-											municipalityId={municipalityId}
-											setMunicipalityId={setMunicipalityId}
-											emailAddress={emailAddress}
-											setEmailAddress={setEmailAddress}
-											password={password}
-											setPassword={setPassword}
-										/>
-										<cognito />
-									</>
-								}
-							/>
-							<Route
-								path="/registration"
-								element={
-									<Registration
-										loginCom={loginCom}
-										setLoginCom={setLoginCom}
-										setUserName={setUserName}
-										municipality={municipality}
-										setMunicipality={setMunicipality}
-										municipalityId={municipalityId}
-										setMunicipalityId={setMunicipalityId}
-										emailAddress={emailAddress}
-										setEmailAddress={setEmailAddress}
-										password={password}
-										setPassword={setPassword}
-									/>
-								}
-							/>
-							<Route path="/newcontract" element={<NewContract />} />
-						</>
-					</Routes>
-				</Router>
-			)}
-			{loginCom !== 0 && (
-				<Router>
-					<Header municipality={municipality} userName={userName} />
-					{/* <BiDownArrowAlt className="animate-pulse" /> */}
-					<Routes>
-						<Route
-							path="/"
-							element={
-								<>
-									<div className="link-container overflow-y-auto fixed top-24 bottom-12 right-0 left-0">
-										<Link to="/articlelist" state={{ user: userName }}>
-											<div className={menuStyle}>
-												<div className="flex flex-col items-center justify-center md:flex-row">
-													<div className="flex items-center justify-center text-6xl md:justify-start">
-														<GrCatalog />
-													</div>
-													<p className="ml-5 mr-5 items-center justify-center text-3xl ">
-														回覧板
-													</p>
-												</div>
-											</div>
-										</Link>
-										<Link to="/">
-											<div className={menuStyle}>
-												<div className="flex flex-col items-center justify-center md:flex-row">
-													<div className="flex items-center justify-center text-6xl md:justify-start">
-														<SlBubble />
-													</div>
-													<p className="ml-5 mr-5 items-center justify-center text-3xl ">
-														アンケート回答
-													</p>
-												</div>
-											</div>
-										</Link>
-										<a className={menuStyle} href={taxiPhoneNumber}>
-											<div className="flex flex-col items-center justify-center md:flex-row">
-												<div className="flex items-center justify-center text-6xl md:justify-start">
-													<PiTaxiLight />
-												</div>
-												<p className="ml-5 mr-5 items-center justify-center text-3xl ">
-													タクシーを呼ぶ
-												</p>
-											</div>
-										</a>
-										{loginCom === 2 && (
-											<Link to="/AdminMenu">
-												<div className={menuStyle}>
-													<div className="flex flex-col items-center justify-center md:flex-row">
-														<div className="flex items-center justify-center text-6xl md:justify-start">
-															<BsGear />
-														</div>
-														<p className="ml-5 mr-5 text-3xl">管理者メニュー</p>
-													</div>
-												</div>
-											</Link>
-										)}
-									</div>
-								</>
-							}
-						/>
-						<Route
-							path="/articlelist"
-							element={
-								<div>
-									<ArticleList
-										municipalityId={municipalityId}
-										municipality={municipality}
-									/>
-								</div>
-							}
-						/>
-						<Route
-							path="/SingleArticle"
-							element={
-								<div>
-									<SingleArticle />
-								</div>
-							}
-						/>
-						{loginCom === 2 && (
-							<Route
-								path="/AdminMenu"
-								element={
-									<div>
-										<AdminMenu
-											municipality={municipality}
-											municipalityId={municipalityId}
-											userName={userName}
-										/>
-									</div>
-								}
-							/>
-						)}
-						{loginCom === 2 && (
-							<Route
-								path="/NewPost"
-								element={
-									<div>
-										<NewPost
-											municipalityId={municipalityId}
-											municipality={municipality}
-											userName={userName}
-										/>
-									</div>
-								}
-							/>
-						)}
-						{loginCom === 2 && (
-							<Route
-								path="/OrganizationSetting"
-								element={
-									<div>
-										<OrganizationSetting />
-									</div>
-								}
-							/>
-						)}
-						{loginCom === 2 && (
-							<Route
-								path="/AdminAssign"
-								element={
-									<div>
-										<AdminAssign />
-									</div>
-								}
-							/>
-						)}
-					</Routes>
+  const menuStyle =
+    "m-4 p-4 h-44 flex items-center justify-center md:h-28 border-solid rounded-3xl border bg-gray-100 hover:bg-gray-200 border-gray-300 shadow-lg md:flex md:flex-row md:justify-start";
+  return (
+    <div>
+      {loginCom === 0 && (
+        <Router>
+          <Routes>
+            <>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Login
+                      loginCom={loginCom}
+                      setLoginCom={setLoginCom}
+                      setUserName={setUserName}
+                      municipality={municipality}
+                      setMunicipality={setMunicipality}
+                      municipalityId={municipalityId}
+                      setMunicipalityId={setMunicipalityId}
+                      emailAddress={emailAddress}
+                      setEmailAddress={setEmailAddress}
+                      password={password}
+                      setPassword={setPassword}
+                    />
+                    <cognito />
+                  </>
+                }
+              />
+              <Route
+                path="/registration"
+                element={
+                  <Registration
+                    loginCom={loginCom}
+                    setLoginCom={setLoginCom}
+                    setUserName={setUserName}
+                    municipality={municipality}
+                    setMunicipality={setMunicipality}
+                    municipalityId={municipalityId}
+                    setMunicipalityId={setMunicipalityId}
+                    emailAddress={emailAddress}
+                    setEmailAddress={setEmailAddress}
+                    password={password}
+                    setPassword={setPassword}
+                  />
+                }
+              />
+              <Route path="/newcontract" element={<NewContract />} />
+            </>
+          </Routes>
+        </Router>
+      )}
+      {loginCom !== 0 && (
+        <Router>
+          <header className="h-24 p-2 bg-blue-800 text-white sticky top-0 z-0">
+            {/* <p className="text-4xl text-center">まある</p> */}
+            <p className="text-4xl text-left">{municipality}</p>
+            <p className="text-4xl text-left">{userName}さん</p>
+          </header>
+          {/* <BiDownArrowAlt className="animate-pulse" /> */}
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <div className="link-container overflow-y-auto fixed top-24 bottom-12 right-0 left-0">
+                    <Link to="/articlelist" state={{ user: userName }}>
+                      <div className={menuStyle}>
+                        <div className="flex flex-col items-center justify-center md:flex-row">
+                          <div className="flex items-center justify-center text-6xl md:justify-start">
+                            <GrCatalog />
+                          </div>
+                          <p className="ml-5 mr-5 items-center justify-center text-3xl ">
+                            回覧板
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                    <Link to="/SurveyList" state={{ user: userName }}>
+                      <div className={menuStyle}>
+                        <div className="flex flex-col items-center justify-center md:flex-row">
+                          <div className="flex items-center justify-center text-6xl md:justify-start">
+                            <SlBubble />
+                          </div>
+                          <p className="ml-5 mr-5 items-center justify-center text-3xl ">
+                            アンケート回答
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                    <a className={menuStyle} href={taxiPhoneNumber}>
+                      <div className="flex flex-col items-center justify-center md:flex-row">
+                        <div className="flex items-center justify-center text-6xl md:justify-start">
+                          <PiTaxiLight />
+                        </div>
+                        <p className="ml-5 mr-5 items-center justify-center text-3xl ">
+                          タクシーを呼ぶ
+                        </p>
+                      </div>
+                    </a>
+                    {loginCom === 2 && (
+                      <Link to="/AdminMenu">
+                        <div className={menuStyle}>
+                          <div className="flex flex-col items-center justify-center md:flex-row">
+                            <div className="flex items-center justify-center text-6xl md:justify-start">
+                              <BsGear />
+                            </div>
+                            <p className="ml-5 mr-5 text-3xl">管理者メニュー</p>
+                          </div>
+                        </div>
+                      </Link>
+                    )}
+                  </div>
+                </>
+              }
+            />
+            <Route
+              path="/articlelist"
+              element={
+                <div>
+                  <ArticleList
+                    municipalityId={municipalityId}
+                    municipality={municipality}
+                  />
+                </div>
+              }
+            />
+            <Route
+              path="/SingleArticle"
+              element={
+                <div>
+                  <SingleArticle />
+                </div>
+              }
+            />
+            <Route
+              path="/SurveyList"
+              element={
+                <div>
+                  <SurveyList
+                    municipalityId={municipalityId}
+                    municipality={municipality}
+                  />
+                </div>
+              }
+            />
+            {loginCom === 2 && (
+              <Route
+                path="/AdminMenu"
+                element={
+                  <div>
+                    <AdminMenu
+                      municipality={municipality}
+                      municipalityId={municipalityId}
+                      userName={userName}
+                    />
+                  </div>
+                }
+              />
+            )}
+            {loginCom === 2 && (
+              <Route
+                path="/NewPost"
+                element={
+                  <div>
+                    <NewPost
+                      municipalityId={municipalityId}
+                      municipality={municipality}
+                      userName={userName}
+                    />
+                  </div>
+                }
+              />
+            )}
+            {loginCom === 2 && (
+              <Route
+                path="/OrganizationSetting"
+                element={
+                  <div>
+                    <OrganizationSetting />
+                  </div>
+                }
+              />
+            )}
+            {loginCom === 2 && (
+              <Route
+                path="/AdminAssign"
+                element={
+                  <div>
+                    <AdminAssign />
+                  </div>
+                }
+              />
+            )}
+            {loginCom === 2 && (
+              <Route
+                path="/NewSurveyPost"
+                element={
+                  <div>
+                    <NewSurveyPost />
+                  </div>
+                }
+              />
+            )}
+          </Routes>
+
+// 	const menuStyle =
+// 		"m-4 p-4 h-44 flex items-center justify-center md:h-28 border-solid rounded-3xl border bg-gray-100 hover:bg-gray-200 border-gray-300 shadow-lg md:flex md:flex-row md:justify-start";
+// 	return (
+// 		<div>
+// 			{loginCom === 0 && (
+// 				<Router>
+// 					<Routes>
+// 						<>
+// 							<Route
+// 								path="/"
+// 								element={
+// 									<>
+// 										<Login
+// 											loginCom={loginCom}
+// 											setLoginCom={setLoginCom}
+// 											setUserName={setUserName}
+// 											municipality={municipality}
+// 											setMunicipality={setMunicipality}
+// 											municipalityId={municipalityId}
+// 											setMunicipalityId={setMunicipalityId}
+// 											emailAddress={emailAddress}
+// 											setEmailAddress={setEmailAddress}
+// 											password={password}
+// 											setPassword={setPassword}
+// 										/>
+// 										<cognito />
+// 									</>
+// 								}
+// 							/>
+// 							<Route
+// 								path="/registration"
+// 								element={
+// 									<Registration
+// 										loginCom={loginCom}
+// 										setLoginCom={setLoginCom}
+// 										setUserName={setUserName}
+// 										municipality={municipality}
+// 										setMunicipality={setMunicipality}
+// 										municipalityId={municipalityId}
+// 										setMunicipalityId={setMunicipalityId}
+// 										emailAddress={emailAddress}
+// 										setEmailAddress={setEmailAddress}
+// 										password={password}
+// 										setPassword={setPassword}
+// 									/>
+// 								}
+// 							/>
+// 							<Route path="/newcontract" element={<NewContract />} />
+// 						</>
+// 					</Routes>
+// 				</Router>
+// 			)}
+// 			{loginCom !== 0 && (
+// 				<Router>
+// 					<Header municipality={municipality} userName={userName} />
+// 					{/* <BiDownArrowAlt className="animate-pulse" /> */}
+// 					<Routes>
+// 						<Route
+// 							path="/"
+// 							element={
+// 								<>
+// 									<div className="link-container overflow-y-auto fixed top-24 bottom-12 right-0 left-0">
+// 										<Link to="/articlelist" state={{ user: userName }}>
+// 											<div className={menuStyle}>
+// 												<div className="flex flex-col items-center justify-center md:flex-row">
+// 													<div className="flex items-center justify-center text-6xl md:justify-start">
+// 														<GrCatalog />
+// 													</div>
+// 													<p className="ml-5 mr-5 items-center justify-center text-3xl ">
+// 														回覧板
+// 													</p>
+// 												</div>
+// 											</div>
+// 										</Link>
+// 										<Link to="/">
+// 											<div className={menuStyle}>
+// 												<div className="flex flex-col items-center justify-center md:flex-row">
+// 													<div className="flex items-center justify-center text-6xl md:justify-start">
+// 														<SlBubble />
+// 													</div>
+// 													<p className="ml-5 mr-5 items-center justify-center text-3xl ">
+// 														アンケート回答
+// 													</p>
+// 												</div>
+// 											</div>
+// 										</Link>
+// 										<a className={menuStyle} href={taxiPhoneNumber}>
+// 											<div className="flex flex-col items-center justify-center md:flex-row">
+// 												<div className="flex items-center justify-center text-6xl md:justify-start">
+// 													<PiTaxiLight />
+// 												</div>
+// 												<p className="ml-5 mr-5 items-center justify-center text-3xl ">
+// 													タクシーを呼ぶ
+// 												</p>
+// 											</div>
+// 										</a>
+// 										{loginCom === 2 && (
+// 											<Link to="/AdminMenu">
+// 												<div className={menuStyle}>
+// 													<div className="flex flex-col items-center justify-center md:flex-row">
+// 														<div className="flex items-center justify-center text-6xl md:justify-start">
+// 															<BsGear />
+// 														</div>
+// 														<p className="ml-5 mr-5 text-3xl">管理者メニュー</p>
+// 													</div>
+// 												</div>
+// 											</Link>
+// 										)}
+// 									</div>
+// 								</>
+// 							}
+// 						/>
+// 						<Route
+// 							path="/articlelist"
+// 							element={
+// 								<div>
+// 									<ArticleList
+// 										municipalityId={municipalityId}
+// 										municipality={municipality}
+// 									/>
+// 								</div>
+// 							}
+// 						/>
+// 						<Route
+// 							path="/SingleArticle"
+// 							element={
+// 								<div>
+// 									<SingleArticle />
+// 								</div>
+// 							}
+// 						/>
+// 						{loginCom === 2 && (
+// 							<Route
+// 								path="/AdminMenu"
+// 								element={
+// 									<div>
+// 										<AdminMenu
+// 											municipality={municipality}
+// 											municipalityId={municipalityId}
+// 											userName={userName}
+// 										/>
+// 									</div>
+// 								}
+// 							/>
+// 						)}
+// 						{loginCom === 2 && (
+// 							<Route
+// 								path="/NewPost"
+// 								element={
+// 									<div>
+// 										<NewPost
+// 											municipalityId={municipalityId}
+// 											municipality={municipality}
+// 											userName={userName}
+// 										/>
+// 									</div>
+// 								}
+// 							/>
+// 						)}
+// 						{loginCom === 2 && (
+// 							<Route
+// 								path="/OrganizationSetting"
+// 								element={
+// 									<div>
+// 										<OrganizationSetting />
+// 									</div>
+// 								}
+// 							/>
+// 						)}
+// 						{loginCom === 2 && (
+// 							<Route
+// 								path="/AdminAssign"
+// 								element={
+// 									<div>
+// 										<AdminAssign />
+// 									</div>
+// 								}
+// 							/>
+// 						)}
+// 					</Routes>
+
 
 					<footer className="w-full fixed bottom-0 flex flex-row items-center justify-center bg-blue-800 text-white ">
 						<PageBackButton />
