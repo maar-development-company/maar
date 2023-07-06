@@ -20,6 +20,8 @@ import { Registration } from "./components/Registration";
 import { NewContract } from "./components/NewContract";
 import { PiTaxiLight } from "react-icons/pi";
 import { AdminAssign } from "./components/AdminAssign";
+import { NewSurveyPost } from "./components/NewSurveyPost";
+import { SurveyList } from "./components/SurveyList";
 import { cognito } from "./components/cognito";
 
 const AWS = require("aws-sdk");
@@ -177,7 +179,7 @@ function App() {
                         </div>
                       </div>
                     </Link>
-                    <Link to="/">
+                    <Link to="/SurveyList" state={{ user: userName }}>
                       <div className={menuStyle}>
                         <div className="flex flex-col items-center justify-center md:flex-row">
                           <div className="flex items-center justify-center text-6xl md:justify-start">
@@ -234,6 +236,17 @@ function App() {
                 </div>
               }
             />
+            <Route
+              path="/SurveyList"
+              element={
+                <div>
+                  <SurveyList
+                    municipalityId={municipalityId}
+                    municipality={municipality}
+                  />
+                </div>
+              }
+            />
             {loginCom === 2 && (
               <Route
                 path="/AdminMenu"
@@ -278,6 +291,16 @@ function App() {
                 element={
                   <div>
                     <AdminAssign />
+                  </div>
+                }
+              />
+            )}
+            {loginCom === 2 && (
+              <Route
+                path="/NewSurveyPost"
+                element={
+                  <div>
+                    <NewSurveyPost />
                   </div>
                 }
               />

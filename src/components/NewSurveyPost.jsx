@@ -1,10 +1,9 @@
-import { useLocation } from "react-router-dom";
 import dayjs from "dayjs";
 import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { FileUploader } from "./FileUploader";
-import { TakePicture2 } from "./TakePicture2";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { init, send } from "@emailjs/browser";
+import { isUrl } from "is-url";
 
 // 必要なIDをそれぞれ環境変数から取得
 const userID = process.env.REACT_APP_USER_ID;
@@ -21,7 +20,7 @@ const mailUrl =
     ? "https://main.d3qoybvs7295uz.amplifyapp.com/"
     : "http://localhost:3000";
 
-export const NewPost = (props) => {
+export const NewSurveyPost = (props) => {
   const location = useLocation();
   const { municipality, id, userName } = location.state;
   const [postArticleTitle, setPostArticleTitle] = useState("");
@@ -36,16 +35,31 @@ export const NewPost = (props) => {
     setPostArticleContent(e.target.value);
   };
 
-  async function postArticle() {
-    const formattedTimestamp = dayjs();
+  const checkContent = (content) => {
+    if (content === undefined) {
+      return false;
+    } else if (content === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
+  async function postArticle() {
+    if (!checkContent(postArticleContent)) {
+      return window.alert("コンテンツを入力してください。");
+    }
+    if (!checkContent(postArticleTitle)) {
+      return window.alert("タイトルを入力してください。");
+    }
+    const formattedTimestamp = dayjs();
     try {
       const data = {
         articleTitle: postArticleTitle,
         articleContent: postArticleContent,
         municipalitiesName: municipality,
         articleTimestamp: formattedTimestamp,
-        articleCategory: "安全",
+        articleCategory: "アンケート",
         fileSavePath: DataKey,
       };
       console.log("### data ###: ", data);
@@ -116,11 +130,15 @@ export const NewPost = (props) => {
     setDataKey(e);
   };
 
+  const moveSurvey = () => {
+    window.open("https://www.google.com/intl/ja_jp/forms/about/");
+  };
+
   return (
     <div className="text-center overflow-y-auto fixed top-24 bottom-14 right-0 left-0">
       {/* <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> */}
       <h1 className="sm:text-6xl text-4xl title-font font-medium text-gray-900 mt-4 mb-4">
-        新規お知らせ投稿
+        新規アンケート投稿
       </h1>
       <input
         className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
@@ -135,23 +153,26 @@ export const NewPost = (props) => {
         value={postArticleTitle}
       />
       <br></br>
-      <textarea
+      <input
         className="w-11/12  bg-gray-100 bg-opacity-50 rounded border 
         mt-4 ml-2 mr-2 mb-2
          border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
           focus:ring-indigo-200 h-64 outline-none text-gray-700 text-4xl 
           py-1 px-3 resize-none transition-colors duration-200 ease-in-out leading-relaxed"
-        placeholder="記事内容を&#13;入力してください"
+        placeholder="アンケートの&#13;URLを入力&#13;してください"
         onChange={handleArticleContentChange}
         required
+        type="url"
         value={postArticleContent}
       />
-      <br></br>
-      <FileUploader handleDataKey={handleDataKey} />
-      <TakePicture2 userName={userName} handleDataKey={handleDataKey} />
-      {/* <PictureFileUploader handleDataKey={handleDataKey} /> */}
-      <br></br>
-      <br></br>
+      <div>
+        <button
+          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56 mt-2 text-3xl "
+          onClick={moveSurvey}
+        >
+          Google form作成
+        </button>
+      </div>
       <div>
         <button
           className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56 mt-2 text-3xl "
@@ -162,7 +183,14 @@ export const NewPost = (props) => {
           新規投稿
         </button>
       </div>
+      {/* <link to="https://www.google.com/intl/ja_jp/forms/about/">
+        アンケート
+      </link> */}
       <br></br>
     </div>
   );
 };
+
+// googleformのURL
+// https://docs.google.com/forms/d/e/1FAIpQLSfrPSbvO9cnHFvL9k4yfFJQLXgBgNQtrfYiABUWP7xs7teakw/viewform?usp=sf_link
+// https://forms.gle/AnBZtd3Ur3xUA4LP8

@@ -16,7 +16,7 @@ const URL =
     ? "https://maar-front.onrender.com"
     : "http://localhost:8080";
 
-export const ArticleList = (props) => {
+export const SurveyList = (props) => {
   const { municipalityId, municipality } = props;
   const [ArticleList, setArticleList] = useState([]);
   const [elementsArr, setElementsArr] = useState([]);
@@ -40,6 +40,7 @@ export const ArticleList = (props) => {
 
   const getArticleList = async () => {
     //データベースにGETする処理
+    console.log(municipality);
     const encodedMunicipality = encodeURIComponent(municipality);
     const encodedhouseholdNameID =
       readFromSessionStorage("loginResultInfo").houseHoldNameID;
@@ -107,6 +108,10 @@ export const ArticleList = (props) => {
     }
   };
 
+  const moveSurvey = (url) => {
+    window.open(url);
+  };
+
   return (
     <div className="overflow-y-auto fixed top-24 bottom-12 right-0 left-0">
       <div>
@@ -118,7 +123,7 @@ export const ArticleList = (props) => {
         </button>
       </div>
       {ArticleList.map((ele) => {
-        if (ele.articleCategory !== "アンケート") {
+        if (ele.articleCategory === "アンケート") {
           // console.log("ele : ", ele);
           let contentBeginning;
           const articleId = ele.id;
@@ -131,7 +136,7 @@ export const ArticleList = (props) => {
           }
           const isRead = JSON.parse(ele.userReadInfo)[String(userId)];
           return (
-            <Link to="/SingleArticle" state={{ articleInfo: ele }}>
+            <Link to={ele.articleContent} state={{ articleInfo: ele }}>
               <section
                 onClick={() => {
                   if (
@@ -157,10 +162,13 @@ export const ArticleList = (props) => {
                 </div>
                 <br></br>
                 <div className="w-full text-left">
-                  <h2 className="text-3xl">{ele.articleTitle}</h2>
-                  <p className="text-2xl mt-4 text-gray-700">
-                    {contentBeginning}
-                  </p>
+                  {/* <button
+                    className="text-3xl"
+                    type="button"
+                    onClick={moveSurvey(ele.articleContent)}
+                  > */}
+                  {ele.articleTitle}
+                  {/* </button> */}
                   <p className="mt-4">
                     {dayjs(ele.articleTimestamp).format("YYYY年MM月DD日")}
                   </p>

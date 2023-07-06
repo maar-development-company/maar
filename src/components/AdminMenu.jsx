@@ -39,6 +39,27 @@ export const AdminMenu = (props) => {
         </Link>
       </div>
       <div>
+        <Link
+          to="/NewSurveyPost"
+          state={{
+            municipality: municipality,
+            id: municipalityId,
+            userName: userName,
+          }}
+        >
+          <div className={menuStyle}>
+            <div className="flex flex-col items-center justify-center md:flex-row">
+              <div className="flex items-center justify-center text-6xl md:justify-start">
+                <MdHearing />
+              </div>
+              <p className="ml-5 mr-5 items-center justify-center text-3xl ">
+                アンケート作成投稿
+              </p>
+            </div>
+          </div>
+        </Link>
+      </div>
+      <div>
         <Link to="/AdminAssign" state={{ test: "test" }}>
           <div className={menuStyle}>
             <div className="flex flex-col items-center justify-center md:flex-row">
@@ -47,23 +68,6 @@ export const AdminMenu = (props) => {
               </div>
               <p className="ml-5 mr-5 items-center justify-center text-3xl ">
                 管理者メンバー設定
-              </p>
-            </div>
-          </div>
-        </Link>
-      </div>
-      <div>
-        <Link
-          to="https://www.google.com/intl/ja_jp/forms/about/"
-          state={{ test: "test" }}
-        >
-          <div className={menuStyle}>
-            <div className="flex flex-col items-center justify-center md:flex-row">
-              <div className="flex items-center justify-center text-6xl md:justify-start">
-                <MdHearing />
-              </div>
-              <p className="ml-5 mr-5 items-center justify-center text-3xl ">
-                アンケート作成
               </p>
             </div>
           </div>
