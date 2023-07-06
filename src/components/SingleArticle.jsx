@@ -20,7 +20,9 @@ export const SingleArticle = () => {
               <br />
             </React.Fragment>
           ))}
-          <DisplayImage articleInfo={articleInfo} />
+          {articleInfo.fileSavePath !== "" && (
+            <DisplayImage articleInfo={articleInfo} />
+          )}
         </div>
         <p className="mr-4 text-2xl text-right">
           配信日時：
