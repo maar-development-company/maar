@@ -1,9 +1,10 @@
-
 // PDF表示をreact-pdfに変更
 import React, { useEffect, useState } from 'react';
 import AWS from 'aws-sdk';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import "react-pdf/dist/esm/Page/TextLayer.css";
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -80,7 +81,14 @@ export const DisplayImage = (props) => {
                   error="Error loading PDF"
                 >
                   {Array.from(new Array(numPages), (el, index) => (
-                    <Page key={`page_${index + 1}`} pageNumber={index + 1} width={windowWidth} scale={0.8} />
+                    <Page 
+                    renderTextLayer={false}
+                    renderAnnotationLayer={false}
+                    customTextRenderer={false}
+                    key={`page_${index + 1}`} 
+                    pageNumber={index + 1} 
+                    width={windowWidth} 
+                    scale={0.8} />
                   ))}
                 </Document>
               </div>
