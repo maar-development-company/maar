@@ -48,12 +48,14 @@ export const NewPost = (props) => {
 
     const formattedTimestamp = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
+    const formattedTimestamp2 = dayjs();
+
     try {
       const data = {
         articleTitle: postArticleTitle,
         articleContent: postArticleContent,
         municipalitiesName: municipality,
-        articleTimestamp: formattedTimestamp,
+        articleTimestamp: formattedTimestamp2,
         articleCategory: "安全",
         fileSavePath: DataKey,
       };
