@@ -1,3 +1,4 @@
+
 // PDF表示をreact-pdfに変更
 import React, { useEffect, useState } from "react";
 import AWS from "aws-sdk";
@@ -13,7 +14,7 @@ AWS.config.update({
 });
 
 export const DisplayImage = (props) => {
-	const { articleInfo } = props;
+  const { articleInfo } = props;
 	console.log("これが空だと俺のカード表示", articleInfo);
 	const [imageSource, setImageSource] = useState("");
 	const [isPdf, setIsPdf] = useState(false);
