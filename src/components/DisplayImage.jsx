@@ -1,9 +1,9 @@
-
-// PDF表示をreact-pdfに変更
-import React, { useEffect, useState } from "react";
-import AWS from "aws-sdk";
-import { Document, Page, pdfjs } from "react-pdf";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import React, { useEffect, useState } from 'react';
+import AWS from 'aws-sdk';
+import { Document, Page, pdfjs } from 'react-pdf';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import "react-pdf/dist/esm/Page/TextLayer.css";
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -90,32 +90,36 @@ export const DisplayImage = (props) => {
 				<div id="loading-icon"></div>
 			) : imageSource ? (
 				isPdf ? (
-					<TransformWrapper>
-						<TransformComponent>
-							<div style={{ width: "100%", height: "100%", overflow: "auto" }}>
-								<Document
-									file={imageSource}
-									onLoadSuccess={onDocumentLoadSuccess}
-									loading="Loading PDF..."
-									error="Error loading PDF">
-									{Array.from(new Array(numPages), (el, index) => (
-										<Page
-											key={`page_${index + 1}`}
-											pageNumber={index + 1}
-											width={windowWidth}
-											scale={0.8}
-										/>
-									))}
-								</Document>
-							</div>
-						</TransformComponent>
-					</TransformWrapper>
-				) : (
-					<a href={imageSource} data-lightbox="group">
-						<img src={imageSource} width="300" alt="Uploaded Image" />
-					</a>
-				)
-			) : (
+          <TransformWrapper>
+            <TransformComponent>
+              <div style={{ width: "100%", height: "100%", overflow: "auto" }}>
+                <Document
+                  file={imageSource}
+                  onLoadSuccess={onDocumentLoadSuccess}
+                  loading="Loading PDF..."
+                  error="Error loading PDF"
+                >
+                  {Array.from(new Array(numPages), (el, index) => (
+                    <Page 
+                    renderTextLayer={false}
+                    renderAnnotationLayer={false}
+                    customTextRenderer={false}
+                    key={`page_${index + 1}`} 
+                    pageNumber={index + 1} 
+                    width={windowWidth} 
+                    scale={0.8} 
+                    />
+                  ))}
+                </Document>
+              </div>
+            </TransformComponent>
+          </TransformWrapper>
+        ) : (
+          <a href={imageSource} data-lightbox="group">
+            <img src={imageSource} width="300" alt="Uploaded Image" />
+          </a>
+        )
+      ) : (
 				<div className="">
 					<p className="animate-bounce-top text-gray-700 text-2xl">
 						ファイルが正常に登録されておりません
