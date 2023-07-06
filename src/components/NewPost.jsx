@@ -21,12 +21,25 @@ const mailUrl =
     ? "https://main.d3qoybvs7295uz.amplifyapp.com/"
     : "http://localhost:3000";
 
+//PC or Mobileを判定する。
+const isMobileDevice = () => {
+  const userAgent = navigator.userAgent;
+  console.log(userAgent);
+  const mobileDeviceRegex =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+  return mobileDeviceRegex.test(userAgent);
+};
+
 export const NewPost = (props) => {
   const location = useLocation();
   const { municipality, id, userName } = location.state;
   const [postArticleTitle, setPostArticleTitle] = useState("");
   const [postArticleContent, setPostArticleContent] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const [DataKey, setDataKey] = useState("");
+  const [flag, setFlag] = useState(false);
+  const s3 = new AWS.S3();
+  const bucketName = "article-area";
 
   const handleArticleTitleChange = (e) => {
     setPostArticleTitle(e.target.value);
@@ -37,6 +50,9 @@ export const NewPost = (props) => {
   };
 
   async function postArticle() {
+    if (postArticleTitle === "" || postArticleContent === "") {
+      return;
+    }
     const currentDate = new Date();
 
     const year = currentDate.getFullYear();
@@ -70,12 +86,19 @@ export const NewPost = (props) => {
       });
       const result = await res.text();
       console.log(result);
+      if (result === "新しい記事を追加しました。") {
+        setPostArticleTitle("");
+        setPostArticleContent("");
+      }
     } catch (error) {
       console.error(error);
     }
   }
 
   async function sendMailArticle() {
+    if (postArticleTitle === "" || postArticleContent === "") {
+      return;
+    }
     const loginResultInfo = sessionStorage.getItem("loginResultInfo");
     const municipalitiesName = JSON.parse(loginResultInfo).municipalitiesName;
     const encodedParam = encodeURIComponent(municipalitiesName);
@@ -115,17 +138,75 @@ export const NewPost = (props) => {
     }
   }
 
-  const postAndClearInput = () => {
-    postArticle();
-    sendMailArticle();
-    setPostArticleTitle("");
-    setPostArticleContent("");
+  const handleUpload = () => {
+    console.log("selectedFile:", selectedFile);
+    console.log("selectedFile type:", typeof selectedFile);
+    console.log("selectedFile name:", selectedFile?.name);
+    if (!selectedFile) {
+      console.log("ファイルが選択されていません");
+      handleDataKey("");
+      return;
+    }
+
+    const time = dayjs().format("YYYYMMDDhhmmss");
+    console.log(time);
+    const pictureFileName = userName + time;
+
+    const keyName = selectedFile.name ? selectedFile.name : pictureFileName; // S3上でのファイル名
+    const fileContent = selectedFile;
+    // console.log('selectedFile.type: ', selectedFile.type);
+
+    // ContentTypeを設定
+    let contentType;
+    if (keyName.endsWith(".pdf")) {
+      contentType = "application/pdf";
+    } else if (selectedFile && selectedFile.type) {
+      contentType = selectedFile.type;
+    } else {
+      contentType = "application/octet-stream";
+    }
+
+    const params = {
+      Bucket: bucketName,
+      Key: keyName,
+      Body: fileContent,
+      // ContentType: contentType
+      ContentType: selectedFile.type,
+    };
+
+    s3.upload(params, (err, data) => {
+      if (err) {
+        console.error("S3へのアップロードエラー:", err);
+      } else {
+        console.log("S3へのアップロードが成功しました:", data.key);
+        handleDataKey(data.key);
+        return "S3へのアップロードが成功しました";
+      }
+    });
   };
 
-  const handleDataKey = (e) => {
+  const postAndClearInput = async () => {
+    if (postArticleTitle === "" || postArticleContent === "") {
+      window.alert("記事タイトルと記事が入力されていません");
+      return;
+    }
+    try {
+      await handleUpload();
+    } catch (error) {
+      console.error("アップロードエラー：", error);
+    }
+  };
+
+  const handleDataKey = async (e) => {
     console.log("e: ", e);
     setDataKey(e);
+    setFlag(!flag);
   };
+
+  useEffect(() => {
+    postArticle();
+    sendMailArticle();
+  }, [flag]);
 
   return (
     <div className="text-center overflow-y-auto fixed top-24 bottom-14 right-0 left-0">
@@ -158,8 +239,21 @@ export const NewPost = (props) => {
         value={postArticleContent}
       />
       <br></br>
-      <FileUploader handleDataKey={handleDataKey} />
-      <TakePicture2 userName={userName} handleDataKey={handleDataKey} />
+      <FileUploader
+        selectedFile={selectedFile}
+        setSelectedFile={setSelectedFile}
+        handleUpload={handleUpload}
+        userName={userName}
+        handleDataKey={handleDataKey}
+      />
+      {isMobileDevice() || (
+        <TakePicture2
+          userName={userName}
+          handleDataKey={handleDataKey}
+          isMobileDevice={isMobileDevice}
+          postAndClearInput={postAndClearInput}
+        />
+      )}
       {/* <PictureFileUploader handleDataKey={handleDataKey} /> */}
       <br></br>
       <br></br>
