@@ -1,3 +1,4 @@
+
 // PDF表示をreact-pdfに変更
 import React, { useEffect, useState } from 'react';
 import AWS from 'aws-sdk';
@@ -13,7 +14,6 @@ AWS.config.update({
 });
 
 export const DisplayImage = (props) => {
-
   const { articleInfo } = props;
 	console.log("これが空だと俺のカード表示", articleInfo);
   const [imageSource, setImageSource] = useState("");
@@ -44,16 +44,6 @@ export const DisplayImage = (props) => {
         console.error("S3からの画像取得エラー:", error);
       }
     };
-
-				const imageBlob = new Blob([response.Body], {
-					type: response.ContentType,
-				});
-				const imageUrl = URL.createObjectURL(imageBlob);
-				setImageSource(imageUrl);
-			} catch (error) {
-				console.error("S3からの画像取得エラー:", error);
-			}
-		};
     
 		if (imageUrl) {
 			getImageFromS3();
