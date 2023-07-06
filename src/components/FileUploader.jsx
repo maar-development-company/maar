@@ -9,10 +9,13 @@ AWS.config.update({
 });
 
 export const FileUploader = (props) => {
-  const { handleDataKey } = props;
-  const [selectedFile, setSelectedFile] = useState(null);
-  const s3 = new AWS.S3();
-  const bucketName = "article-area";
+  const {
+    selectedFile,
+    setSelectedFile,
+    handleUpload,
+    userName,
+    handleDataKey,
+  } = props;
 
   const isImageFile = (file) => {
     const allowedExtensions = ["jpg", "jpeg", "png", "gif", "webp"];
@@ -32,46 +35,6 @@ export const FileUploader = (props) => {
       console.log("画像以外が選択された");
       setSelectedFile(file);
     }
-  };
-
-  const handleUpload = () => {
-    console.log("selectedFile:", selectedFile);
-    console.log("selectedFile type:", typeof selectedFile);
-    console.log("selectedFile name:", selectedFile?.name);
-    if (!selectedFile) {
-      console.log("ファイルが選択されていません");
-      return;
-    }
-    const keyName = selectedFile.name ? selectedFile.name : "untitled"; // S3上でのファイル名
-    const fileContent = selectedFile;
-    // console.log('selectedFile.type: ', selectedFile.type);
-
-    // ContentTypeを設定
-    let contentType;
-    if (keyName.endsWith(".pdf")) {
-      contentType = "application/pdf";
-    } else if (selectedFile && selectedFile.type) {
-      contentType = selectedFile.type;
-    } else {
-      contentType = "application/octet-stream";
-    }
-
-    const params = {
-      Bucket: bucketName,
-      Key: keyName,
-      Body: fileContent,
-      // ContentType: contentType
-      ContentType: selectedFile.type,
-    };
-
-    s3.upload(params, (err, data) => {
-      if (err) {
-        console.error("S3へのアップロードエラー:", err);
-      } else {
-        console.log("S3へのアップロードが成功しました:", data.Key);
-        handleDataKey(data.key);
-      }
-    });
   };
 
   //ファイルを選択の中にある「写真またはビデオを撮る」を利用して写真を撮影しリサイズを行ってアップロードする。
@@ -121,12 +84,12 @@ export const FileUploader = (props) => {
     <div>
       <h3 className="text-3xl">ファイルアップロード</h3>
       <input className="text-3xl" type="file" onChange={handleFileSelect} />
-      <button
+      {/* <button
         className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56 mt-2 text-3xl"
         onClick={handleUpload}
       >
         Upload
-      </button>
+      </button> */}
     </div>
   );
 };

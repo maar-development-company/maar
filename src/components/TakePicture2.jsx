@@ -9,7 +9,7 @@ AWS.config.update({
 });
 
 export function TakePicture2(props) {
-  const { onData, userName, handleDataKey } = props;
+  const { onData, userName, handleDataKey, isMobileDevice } = props;
   const [result, setResult] = useState("");
   const [cameraStarted, setCameraStarted] = useState(false);
   const [captureDate, setCaptureDate] = useState("");
@@ -27,15 +27,6 @@ export function TakePicture2(props) {
       }
     };
   }, []);
-
-  //PC or Mobileを判定する。
-  const isMobileDevice = () => {
-    const userAgent = navigator.userAgent;
-    console.log(userAgent);
-    const mobileDeviceRegex =
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-    return mobileDeviceRegex.test(userAgent);
-  };
 
   const startCamera = async () => {
     try {
