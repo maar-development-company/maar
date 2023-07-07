@@ -22,6 +22,7 @@ export const SurveyList = (props) => {
   const [elementsArr, setElementsArr] = useState([]);
   const [ID, setID] = useState(2);
   const [number, setNumber] = useState("");
+  const [surveyUrl, setSurveyUrl] = useState("");
   const location = useLocation();
   const { user } = location.state;
   let userId;
@@ -108,8 +109,8 @@ export const SurveyList = (props) => {
     }
   };
 
-  const moveSurvey = (url) => {
-    window.open(url);
+  const moveSurveyOpen = () => {
+    window.open(e.target.value);
   };
 
   return (
@@ -136,7 +137,7 @@ export const SurveyList = (props) => {
           }
           const isRead = JSON.parse(ele.userReadInfo)[String(userId)];
           return (
-            <Link to={ele.articleContent} state={{ articleInfo: ele }}>
+            <a href={ele.articleContent} target="_blank">
               <section
                 onClick={() => {
                   if (
@@ -161,7 +162,7 @@ export const SurveyList = (props) => {
                   {/* {ele.readFlag === 0 ? "よんでね" : "よんだ"} */}
                 </div>
                 <br></br>
-                <div className="w-full text-left">
+                <div className="w-full text-left text-3xl">
                   {/* <button
                     className="text-3xl"
                     type="button"
@@ -174,7 +175,7 @@ export const SurveyList = (props) => {
                   </p>
                 </div>
               </section>
-            </Link>
+            </a>
           );
         }
       })}
