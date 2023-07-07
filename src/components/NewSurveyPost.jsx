@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { init, send } from "@emailjs/browser";
-import { isUrl } from "is-url";
+// import { isUrl } from "is-url";
 
 // 必要なIDをそれぞれ環境変数から取得
 const userID = process.env.REACT_APP_USER_ID;
