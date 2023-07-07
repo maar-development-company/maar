@@ -23,7 +23,8 @@ export const ArticleList = (props) => {
   const [ID, setID] = useState(2);
   const [number, setNumber] = useState("");
   const location = useLocation();
-  const { user } = location.state;
+  const user = location.state && location.state.user;
+  // const { user } = location.state;
   let userId;
   const [imagePath, setImagePath] = useState("");
   useEffect(() => {
@@ -39,38 +40,28 @@ export const ArticleList = (props) => {
   };
 
   const getArticleList = async () => {
-    //データベースにGETする処理
+    // データベースにGETする処理
     const encodedMunicipality = encodeURIComponent(municipality);
     const encodedhouseholdNameID =
-      readFromSessionStorage("loginResultInfo").houseHoldNameID;
+      readFromSessionStorage("loginResultInfo")?.houseHoldNameID;
 
-    // console.log(
-    //   "ちぇっくしたいやつ",
-    //   readFromSessionStorage("loginResultInfo").houseHoldNameID
-    // );
-    userId = readFromSessionStorage("loginResultInfo").houseHoldNameID;
-    try {
-      const response = await fetch(
-        `${URL}/maar/articlelist?municipalitiesName=${encodedMunicipality}&householdNameID=${encodedhouseholdNameID}`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch.");
+    if (encodedhouseholdNameID) {
+      try {
+        const response = await fetch(
+          `${URL}/maar/articlelist?municipalitiesName=${encodedMunicipality}&householdNameID=${encodedhouseholdNameID}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch.");
+        }
+        const articleObj = await response.json();
+        setNumber(articleObj.length);
+        console.log(articleObj);
+        if (articleObj.length !== ArticleList.length) {
+          setArticleList(articleObj);
+        }
+      } catch (error) {
+        console.error(error);
       }
-      const articleObj = await response.json();
-      setNumber(articleObj.length);
-      console.log(articleObj);
-      // ★householdID = 2のuserの最新記事（配列[0]）の既読日時の取り方
-      // ★articleObjの要素１つ（↓だと[0]）のuseReadInfoプロパティをJSON.parseする
-      // let householdID = 2;
-      // console.log(
-      // 	"articleObj.userReadInfo : ",
-      // 	JSON.parse(articleObj[0].userReadInfo)[String(householdID)]
-      // );
-      if (articleObj.length !== ArticleList.length) {
-        setArticleList(articleObj);
-      }
-    } catch (error) {
-      console.error(error);
     }
   };
   getArticleList();
@@ -108,7 +99,7 @@ export const ArticleList = (props) => {
   };
 
   return (
-    <div className="overflow-y-auto fixed top-24 bottom-12 right-0 left-0">
+    <div className="overflow-y-auto fixed top-36 bottom-12 right-0 left-0">
       <div>
         <button
           onClick={getArticleList}
@@ -141,6 +132,36 @@ export const ArticleList = (props) => {
                   }
                 }}
                 className="shadow-lg m-4 p-4 border-solid rounded-3xl border bg-gray-100 hover:bg-gray-200 border-gray-300 text-center h-fit"
+                // // console.log("ele : ", ele);
+                // let contentBeginning;
+                // const articleId = ele.id;
+                // const textContent = ele.articleContent;
+                // if (textContent.length > 20) {
+                //   // 表示したい字数を決めたら変更する（現在：「20」）
+                //   contentBeginning = `${textContent.substr(0, 20)}...`; // 表示したい字数を決めたら変更する（現在：「20」）
+                // } else {
+                //   contentBeginning = textContent;
+                // }
+                // const isRead = JSON.parse(ele.userReadInfo)[String(userId)];
+                // return (
+                //   <Link to="/SingleArticle" state={{ articleInfo: ele }}>
+                //     <section
+                //       onClick={() => {
+                //         if (
+                //           JSON.parse(ele.userReadInfo)[String(userId)] === undefined
+                //         ) {
+                //           articleOnClickHandler(articleId);
+                //         }
+                //       }}
+                //       className="m-4 p-4 border-solid rounded-3xl border-4 border-gray-300 text-center h-fit"
+                //     >
+                //       <div
+                //         className={
+                //           // ele.readFlag === 0
+                //           JSON.parse(ele.userReadInfo)[String(userId)] !== undefined
+                //             ? "border border-solid border-black h-12 rounded-3xl text-3xl text-center w-40 float-right"
+                //             : "p-1 bg-blue-800 text-gray-100 h-12 rounded-3xl text-3xl text-center w-40 float-right"
+                //         }
               >
                 <div
                   className={

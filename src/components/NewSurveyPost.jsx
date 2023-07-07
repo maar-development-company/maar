@@ -6,6 +6,7 @@ import { FileUploader } from "./FileUploader";
 import { TakePicture2 } from "./TakePicture2";
 import { init, send } from "@emailjs/browser";
 
+
 // 必要なIDをそれぞれ環境変数から取得
 const userID = process.env.REACT_APP_USER_ID;
 const serviceID = process.env.REACT_APP_SERVICE_ID;
