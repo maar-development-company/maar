@@ -241,15 +241,9 @@ export const Login = (props) => {
           onClick={() => (location.href = "/registration")}
           className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
         >
-          改新規登録
+          新規登録
         </button>
-        {/* <button
-					onClick={() => (location.href = "/newcontract")}
-					className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row">
-					新規自治会契約
-				</button> */}
       </div>
-
       <b></b>
     </div>
   );
