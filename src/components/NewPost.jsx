@@ -38,6 +38,7 @@ export const NewPost = (props) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [DataKey, setDataKey] = useState("");
   const [flag, setFlag] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const s3 = new AWS.S3();
   const bucketName = "article-area";
 
@@ -89,6 +90,7 @@ export const NewPost = (props) => {
       if (result === "新しい記事を追加しました。") {
         setPostArticleTitle("");
         setPostArticleContent("");
+        setIsUploading(false);
       }
     } catch (error) {
       console.error(error);
@@ -190,6 +192,7 @@ export const NewPost = (props) => {
       window.alert("記事タイトルと記事が入力されていません");
       return;
     }
+    setIsUploading(true);
     try {
       await handleUpload();
     } catch (error) {
@@ -210,9 +213,8 @@ export const NewPost = (props) => {
 
   return (
     <div className="text-center overflow-y-auto fixed top-24 bottom-14 right-0 left-0">
-      {/* <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> */}
       <h1 className="sm:text-6xl text-4xl title-font font-medium text-gray-900 mt-4 mb-4">
-        新規お知らせ投稿
+        お知らせ新規投稿
       </h1>
       <input
         className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
@@ -257,16 +259,20 @@ export const NewPost = (props) => {
       {/* <PictureFileUploader handleDataKey={handleDataKey} /> */}
       <br></br>
       <br></br>
-      <div>
-        <button
-          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56 mt-2 text-3xl "
-          onClick={postAndClearInput}
-          // onClick={sendMailArticle}
-          value=""
-        >
-          新規投稿
-        </button>
-      </div>
+      {isUploading ? (
+        <div id="uploading-icon"></div>
+      ) : (
+        <div>
+          <button
+            className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-56 mt-2 text-3xl "
+            onClick={postAndClearInput}
+            // onClick={sendMailArticle}
+            value=""
+          >
+            新規投稿
+          </button>
+        </div>
+      )}
       <br></br>
     </div>
   );
