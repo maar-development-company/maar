@@ -63,6 +63,7 @@ function App() {
   // }
 
   // バケット名を指定してオブジェクト一覧を取得します
+
   // listObjects(bucketName);
   //S3ファイル一覧取得ー終ーーーーーーーーーーーーーーー
 
@@ -111,7 +112,6 @@ function App() {
             <p className="text-4xl text-center">まある</p>
             <p className="text-4xl text-center">ログイン画面</p>
           </header>
-
           <Authenticator>
             {({ signOut, user }) => (
               <Authenticator.Provider>

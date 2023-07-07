@@ -1,41 +1,31 @@
-import { useLocation } from "react-router-dom";
 import dayjs from "dayjs";
 import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { FileUploader } from "./FileUploader";
-import { TakePicture2 } from "./TakePicture2";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { init, send } from "@emailjs/browser";
-
+import { isUrl } from "is-url";
 
 // 必要なIDをそれぞれ環境変数から取得
 const userID = process.env.REACT_APP_USER_ID;
 const serviceID = process.env.REACT_APP_SERVICE_ID;
-const templateID = process.env.REACT_APP_TEMPLATE_ID2;
+const templateID = process.env.REACT_APP_TEMPLATE_ID;
 
 const URL =
   process.env.NODE_ENV === "production"
     ? "https://maar-front.onrender.com"
     : "http://localhost:8080";
 
-//PC or Mobileを判定する。
-const isMobileDevice = () => {
-  const userAgent = navigator.userAgent;
-  console.log(userAgent);
-  const mobileDeviceRegex =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-  return mobileDeviceRegex.test(userAgent);
-};
+const mailUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://main.d3qoybvs7295uz.amplifyapp.com/"
+    : "http://localhost:3000";
 
 export const NewSurveyPost = (props) => {
   const location = useLocation();
   const { municipality, id, userName } = location.state;
   const [postArticleTitle, setPostArticleTitle] = useState("");
   const [postArticleContent, setPostArticleContent] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
   const [DataKey, setDataKey] = useState("");
-  const [flag, setFlag] = useState(false);
-  const s3 = new AWS.S3();
-  const bucketName = "article-area";
 
   const handleArticleTitleChange = (e) => {
     setPostArticleTitle(e.target.value);
@@ -45,12 +35,24 @@ export const NewSurveyPost = (props) => {
     setPostArticleContent(e.target.value);
   };
 
-  async function postArticle() {
-    const formattedTimestamp = dayjs();
-    if (postArticleTitle === "" || postArticleContent === "") {
-      return;
+  const checkContent = (content) => {
+    if (content === undefined) {
+      return false;
+    } else if (content === "") {
+      return false;
+    } else {
+      return true;
     }
+  };
 
+  async function postArticle() {
+    if (!checkContent(postArticleContent)) {
+      return window.alert("コンテンツを入力してください。");
+    }
+    if (!checkContent(postArticleTitle)) {
+      return window.alert("タイトルを入力してください。");
+    }
+    const formattedTimestamp = dayjs();
     try {
       const data = {
         articleTitle: postArticleTitle,
@@ -71,19 +73,12 @@ export const NewSurveyPost = (props) => {
       });
       const result = await res.text();
       console.log(result);
-      if (result === "新しい記事を追加しました。") {
-        setPostArticleTitle("");
-        setPostArticleContent("");
-      }
     } catch (error) {
       console.error(error);
     }
   }
 
   async function sendMailArticle() {
-    if (postArticleTitle === "" || postArticleContent === "") {
-      return;
-    }
     const loginResultInfo = sessionStorage.getItem("loginResultInfo");
     const municipalitiesName = JSON.parse(loginResultInfo).municipalitiesName;
     const encodedParam = encodeURIComponent(municipalitiesName);
@@ -99,7 +94,7 @@ export const NewSurveyPost = (props) => {
       });
       emailAddressString = emailAddressString.slice(1);
       // emailAddressString = "tomohiro_kuba@mail.toyota.co.jp";
-      console.log(emailAddressString);
+      // console.log(emailAddressString);
     } catch (error) {
       console.error(error);
     }
@@ -110,7 +105,8 @@ export const NewSurveyPost = (props) => {
         userEmail: emailAddressString,
         municipality: municipalitiesName,
         articleTitle: postArticleTitle,
-        surveyUrl: postArticleContent,
+        articleContent: postArticleContent,
+        url: mailUrl,
       };
       console.log("### params ###: ", params);
 
@@ -122,80 +118,17 @@ export const NewSurveyPost = (props) => {
     }
   }
 
-  const handleUpload = () => {
-    console.log("selectedFile:", selectedFile);
-    console.log("selectedFile type:", typeof selectedFile);
-    console.log("selectedFile name:", selectedFile?.name);
-    if (!selectedFile) {
-      console.log("ファイルが選択されていません");
-      handleDataKey("");
-      return;
-    }
-
-    const time = dayjs().format("YYYYMMDDhhmmss");
-    console.log(time);
-    const pictureFileName = userName + time;
-
-    const keyName = selectedFile.name ? selectedFile.name : pictureFileName; // S3上でのファイル名
-    const fileContent = selectedFile;
-    // console.log('selectedFile.type: ', selectedFile.type);
-
-    // ContentTypeを設定
-    let contentType;
-    if (keyName.endsWith(".pdf")) {
-      contentType = "application/pdf";
-    } else if (selectedFile && selectedFile.type) {
-      contentType = selectedFile.type;
-    } else {
-      contentType = "application/octet-stream";
-    }
-
-    const params = {
-      Bucket: bucketName,
-      Key: keyName,
-      Body: fileContent,
-      // ContentType: contentType
-      ContentType: selectedFile.type,
-    };
-
-    s3.upload(params, (err, data) => {
-      if (err) {
-        console.error("S3へのアップロードエラー:", err);
-      } else {
-        console.log("S3へのアップロードが成功しました:", data.key);
-        handleDataKey(data.key);
-        return "S3へのアップロードが成功しました";
-      }
-    });
-  };
-
-  const postAndClearInput = async () => {
-    if (postArticleTitle === "" || postArticleContent === "") {
-      window.alert("記事タイトルまたはアンケートURLが入力されていません");
-      return;
-    }
-    const urlDetect = postArticleContent.slice(0, 12);
-    if (urlDetect !== "https://form" && urlDetect !== "https://docs") {
-      window.alert("アンケートURLが無効です。");
-      return;
-    }
-    try {
-      await handleUpload();
-    } catch (error) {
-      console.error("アップロードエラー：", error);
-    }
-  };
-
-  const handleDataKey = async (e) => {
-    console.log("e: ", e);
-    setDataKey(e);
-    setFlag(!flag);
-  };
-
-  useEffect(() => {
+  const postAndClearInput = () => {
     postArticle();
     sendMailArticle();
-  }, [flag]);
+    setPostArticleTitle("");
+    setPostArticleContent("");
+  };
+
+  const handleDataKey = (e) => {
+    console.log("e: ", e);
+    setDataKey(e);
+  };
 
   const moveSurvey = () => {
     window.open("https://www.google.com/intl/ja_jp/forms/about/");
@@ -214,22 +147,22 @@ export const NewSurveyPost = (props) => {
           focus:ring-indigo-200 outline-none text-gray-700 text-4xl
            py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         type="text"
-        placeholder="アンケートタイトル"
+        placeholder="記事タイトル"
         onChange={handleArticleTitleChange}
         required
         value={postArticleTitle}
       />
       <br></br>
       <input
-        type="text"
         className="w-11/12  bg-gray-100 bg-opacity-50 rounded border 
         mt-4 ml-2 mr-2 mb-2
          border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
-          focus:ring-indigo-200 h-20 outline-none text-gray-700 text-4xl 
+          focus:ring-indigo-200 h-64 outline-none text-gray-700 text-4xl 
           py-1 px-3 resize-none transition-colors duration-200 ease-in-out leading-relaxed"
-        placeholder="アンケートURL入力"
+        placeholder="アンケートの&#13;URLを入力&#13;してください"
         onChange={handleArticleContentChange}
         required
+        type="url"
         value={postArticleContent}
       />
       <div>
@@ -250,7 +183,14 @@ export const NewSurveyPost = (props) => {
           新規投稿
         </button>
       </div>
+      {/* <link to="https://www.google.com/intl/ja_jp/forms/about/">
+        アンケート
+      </link> */}
       <br></br>
     </div>
   );
 };
+
+// googleformのURL
+// https://docs.google.com/forms/d/e/1FAIpQLSfrPSbvO9cnHFvL9k4yfFJQLXgBgNQtrfYiABUWP7xs7teakw/viewform?usp=sf_link
+// https://forms.gle/AnBZtd3Ur3xUA4LP8
