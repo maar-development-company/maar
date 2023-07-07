@@ -131,47 +131,47 @@ export const RegistrationCog = (props) => {
     // setGroupNumArray(selectedTown.groupNumArray);
   };
 
-  // const login = async () => {
-  //   //バリデーション
-  //   if (emailAddress === "" || password === "" || municipality === "") {
-  //     return window.alert("未入力の項目があります");
-  //   }
-  //   //データベースにPOSTする処理
-  //   console.log("loginボタンが押された");
-  //   try {
-  //     const data = {
-  //       loginCategory: 0,
-  //       mailadress: emailAddress,
-  //       password: password,
-  //       municipalities: municipalities,
-  //     };
-  //     console.log("dataの中身　　", data);
-  //     const res = await fetch(`${URL}/maar/login`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(data),
-  //     });
-  //     const result = await res.json();
-  //     console.log(result);
+  const login = async () => {
+    //バリデーション
+    if (emailAddress === "" || password === "" || municipality === "") {
+      return window.alert("未入力の項目があります");
+    }
+    //データベースにPOSTする処理
+    console.log("loginボタンが押された");
+    try {
+      const data = {
+        loginCategory: 0,
+        mailadress: emailAddress,
+        password: password,
+        municipalities: municipalities,
+      };
+      console.log("dataの中身　　", data);
+      const res = await fetch(`${URL}/maar/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      console.log(result);
 
-  //     writeToSessionStorage("loginInfo", data);
-  //     writeToSessionStorage("loginResultInfo", result);
+      writeToSessionStorage("loginInfo", data);
+      writeToSessionStorage("loginResultInfo", result);
 
-  //     if (result.judge === 0) {
-  //       window.alert("町内会名又はEmailAddress又はpasswordが間違っています");
-  //     } else if (result.judge === 1) {
-  //       setLoginCom(1);
-  //       window.alert(`ようこそ${result.name}さん`);
-  //     } else if (result.judge === 2) {
-  //       setLoginCom(2);
-  //       window.alert(`ようこそ管理者の${result.name}さん`);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+      if (result.judge === 0) {
+        window.alert("町内会名又はEmailAddress又はpasswordが間違っています");
+      } else if (result.judge === 1) {
+        setLoginCom(1);
+        window.alert(`ようこそ${result.name}さん`);
+      } else if (result.judge === 2) {
+        setLoginCom(2);
+        window.alert(`ようこそ管理者の${result.name}さん`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const newLogin = async () => {
     //バリデーション
@@ -324,6 +324,10 @@ export const RegistrationCog = (props) => {
       console.error(error);
     }
   };
+  const handle = async () => {
+    await newLogin1();
+    await login();
+  };
 
   return (
     <div>
@@ -429,8 +433,9 @@ export const RegistrationCog = (props) => {
       <div className="flex flex-row items-center justify-center">
         <Link
           to="/"
-          onClick={() => {
-            newLogin();
+          onClick={async () => {
+            await newLogin();
+            await login();
           }}
           className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
         >
@@ -440,9 +445,7 @@ export const RegistrationCog = (props) => {
       <div className="flex flex-row items-center justify-center">
         <Link
           to="/"
-          onClick={() => {
-            newLogin1();
-          }}
+          onClick={async () => handle()}
           className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
         >
           管理者登録

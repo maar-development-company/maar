@@ -93,6 +93,16 @@ router.post("/maar/login", async (req, res) => {
       // --------------------------------------------------------------------------------------
     } else if (postData.loginCategory === 0) {
       console.log("こっちはログイン");
+
+      const checkmailAdID = async () => {
+        return knex
+          .select("*")
+          .from("householdList")
+          .where("householdMail", postData.mailadress);
+      };
+      const checkmailAdIDResult = await checkmailAdID();
+      console.log("MailAdressIDResult: ", checkmailAdIDResult);
+
       const checkmailAdressID = async () => {
         return knex
           .select("id")
@@ -102,127 +112,152 @@ router.post("/maar/login", async (req, res) => {
       const MailAdressIDResult = await checkmailAdressID();
       console.log("MailAdressIDResult: ", MailAdressIDResult[0].id);
 
+      const checkmuniName = async () => {
+        return knex
+          .select("municipalitiesName")
+          .from("municipalitiesList")
+          .where("id", MailAdressIDResult[0].id);
+      };
+      const checkmuniNameResult = await checkmuniName();
+      console.log("checkmuniNameResult: ", checkmuniNameResult);
+
       // このあたりでハッシュ値をDBから取り出してcompareして比較
-      const getDBPassID = async () => {
+      // const getDBPassID = async () => {
+      //   return knex
+      //     .select("householdPassID")
+      //     .from("householdTable")
+      //     .where("householdNameID", MailAdressIDResult[0].id);
+      // };
+      // const getDBPassIDResult = await getDBPassID();
+      const getDBPassIDResult = 1;
+      console.log("パスnameのID : 1");
+
+      // console.log("パスnameのID : ", getDBPassIDResult[0].householdPassID);
+
+      // const getDBPass = async () => {
+      //   return knex
+      //     .select("householdPass")
+      //     .from("householdPassList")
+      //     .where("id", getDBPassIDResult[0].householdPassID);
+      // };
+      // const getDBPassResult = await getDBPass();
+      const getDBPassResult = 1;
+
+      console.log("ハッシュパス : 1");
+
+      // const hashedPassword = getDBPassResult[0].householdPass;
+
+      // const passwordMatch = await bcrypt.compare(
+      //   postData.password,
+      //   hashedPassword
+      // );
+
+      // if (passwordMatch) {
+      //   // パスワードが一致する場合の処理
+      //   console.log("パスワードが一致しました");
+      //   // ログイン成功の処理を行う
+      // } else {
+      //   // パスワードが一致しない場合の処理
+      //   console.log("パスワードが一致しません");
+      //   // ログイン失敗の処理を行う
+      // }
+
+      // const checkPass = async () => {
+      //   return knex
+      //     .select("householdPass")
+      //     .from("householdPassList")
+      //     .where("id", getDBPassIDResult[0].householdPassID);
+      // };
+      // const checkPassResult = await checkPass();
+      // console.log("Password: ", checkPassResult);
+
+      // const checkLoginInfo = async () => {
+      //   return knex
+      //     .select("id")
+      //     .from("householdTable")
+      //     .where("householdNameID", MailAdressIDResult[0].id)
+      //     .andWhere("householdPassID", getDBPassIDResult[0].householdPassID);
+      // };
+      // const checkLoginResult = await checkLoginInfo();
+      // console.log("checkLoginResult : ", checkLoginResult);
+
+      const checkhID = async () => {
         return knex
-          .select("householdPassID")
-          .from("householdTable")
-          .where("householdNameID", MailAdressIDResult[0].id);
+          .select("roleFlag")
+          .from("householdList")
+          .where("householdMail", postData.mailadress);
       };
-      const getDBPassIDResult = await getDBPassID();
-      console.log("パスnameのID : ", getDBPassIDResult[0].householdPassID);
-
-      const getDBPass = async () => {
-        return knex
-          .select("householdPass")
-          .from("householdPassList")
-          .where("id", getDBPassIDResult[0].householdPassID);
-      };
-      const getDBPassResult = await getDBPass();
-      console.log("ハッシュパス : ", getDBPassResult[0].householdPass);
-
-      const hashedPassword = getDBPassResult[0].householdPass;
-
-      const passwordMatch = await bcrypt.compare(
-        postData.password,
-        hashedPassword
-      );
-
-      if (passwordMatch) {
-        // パスワードが一致する場合の処理
-        console.log("パスワードが一致しました");
-        // ログイン成功の処理を行う
-      } else {
-        // パスワードが一致しない場合の処理
-        console.log("パスワードが一致しません");
-        // ログイン失敗の処理を行う
-      }
-
-      const checkPass = async () => {
-        return knex
-          .select("householdPass")
-          .from("householdPassList")
-          .where("id", getDBPassIDResult[0].householdPassID);
-      };
-      const checkPassResult = await checkPass();
-      console.log("Password: ", checkPassResult);
-
-      const checkLoginInfo = async () => {
-        return knex
-          .select("id")
-          .from("householdTable")
-          .where("householdNameID", MailAdressIDResult[0].id)
-          .andWhere("householdPassID", getDBPassIDResult[0].householdPassID);
-      };
-      const checkLoginResult = await checkLoginInfo();
+      const checkLoginResult = await checkhID();
       console.log("checkLoginResult : ", checkLoginResult);
 
-      if (checkLoginResult.length > 0) {
-        console.log("checkLoginResult[0].id: ", checkLoginResult[0].id);
-        const getRoleFunc = async () => {
-          return knex
-            .select(
-              "householdList.roleFlag",
-              "householdList.householdName",
-              "householdList.householdTel",
-              "householdList.householdMail",
-              "householdList.householdAge",
-              "householdList.municipalitiesID",
-              "householdList.block1",
-              "householdList.block2",
-              "municipalitiesList.municipalitiesName"
-            )
-            .from("householdList")
-            .join(
-              "municipalitiesList",
-              "householdList.municipalitiesID",
-              "municipalitiesList.id"
-            )
-            .where("householdList.id", checkLoginResult[0].id);
-        };
+      // if (checkLoginResult.length > 0) {
+      //   console.log("checkLoginResult[0].id: ", checkLoginResult[0].roleFlag);
+      //   const getRoleFunc = async () => {
+      //     return knex
+      //       .select(
+      //         "householdList.roleFlag",
+      //         "householdList.householdName",
+      //         "householdList.householdTel",
+      //         "householdList.householdMail",
+      //         "householdList.householdAge",
+      //         "householdList.municipalitiesID",
+      //         "householdList.block1",
+      //         "householdList.block2",
+      //         "municipalitiesList.municipalitiesName"
+      //       )
+      //       .from("householdList")
+      //       .join(
+      //         "municipalitiesList",
+      //         "householdList.municipalitiesID",
+      //         "municipalitiesList.id"
+      //       )
+      //       .where("householdList.id", checkLoginResult[0].id);
+      // };
 
-        const roleResult = await getRoleFunc();
-        console.log("roleResult: ", roleResult);
+      const roleResult = checkLoginResult[0].roleFlag;
+      // const roleResult = await getRoleFunc();
+      console.log("roleResult: ", roleResult);
 
-        let role;
-        if (roleResult.length > 0) {
-          if (roleResult[0].roleFlag === "0") {
-            role = 1;
-          } else {
-            role = 2;
-          }
-        } else {
-          role = 0;
-        }
-        // ++++++++最終ログイン日時をDBに登録↓
-        const loginTimestamp = postData.loginTimestamp;
-        // dbにupdateを送って最終ログイン日時を更新
-        const updateLoginTimestamp = () => {
-          console.log(
-            `ユーザーID${checkLoginResult[0].id}の最終ログイン日時を${loginTimestamp}に更新します`
-          );
-          return knex("householdList")
-            .update("lastLoginTimestamp", loginTimestamp)
-            .where("id", checkLoginResult[0].id);
-        };
+      let role = roleResult;
+      // if (roleResult.length > 0) {
+      //   if (roleResult[0].roleFlag === "0") {
+      //     role = 1;
+      //   } else {
+      //     role = 2;
+      //   }
+      // } else {
+      //   role = 0;
+      // }
+      // ++++++++最終ログイン日時をDBに登録↓
+      const loginTimestamp = postData.loginTimestamp;
+      // dbにupdateを送って最終ログイン日時を更新
+      const updateLoginTimestamp = () => {
+        console.log(
+          `ユーザーID${postData.mailadress}の最終ログイン日時を${loginTimestamp}に更新します`
+        );
+        return knex("householdList")
+          .update("lastLoginTimestamp", loginTimestamp)
+          .where("householdMail", postData.mailadress);
+      };
 
-        await updateLoginTimestamp();
-        // ++++++++最終ログイン日時をDBに登録↑
+      await updateLoginTimestamp();
+      // ++++++++最終ログイン日時をDBに登録↑
+      console.log("Obj!!! ", checkmailAdIDResult);
 
-        const resultObj = {
-          judge: role,
-          name: roleResult[0].householdName,
-          houseHoldNameID: checkLoginResult[0].id,
-          tel: roleResult[0].householdTel,
-          mail: roleResult[0].householdMail,
-          age: roleResult[0].householdAge,
-          municipalitiesID: roleResult[0].municipalitiesID,
-          municipalitiesName: roleResult[0].municipalitiesName,
-          blockName: roleResult[0].block1,
-          groupNum: roleResult[0].block2,
-        };
-        return resultObj;
-      }
+      const resultObj = {
+        judge: checkmailAdIDResult[0].roleFlag,
+        name: checkmailAdIDResult[0].householdName,
+        houseHoldNameID: checkmailAdIDResult[0].id,
+        tel: checkmailAdIDResult[0].householdTel,
+        mail: checkmailAdIDResult[0].mailadress,
+        age: checkmailAdIDResult[0].householdAge,
+        municipalitiesID: checkmailAdIDResult[0].municipalitiesID,
+        municipalitiesName: checkmuniNameResult[0].municipalitiesName,
+        blockName: checkmailAdIDResult[0].block1,
+        groupNum: checkmailAdIDResult[0].block2,
+      };
+      console.log("Obj!!!!!!! ", resultObj);
+      return resultObj;
     } else {
       console.log("こっちはメアドチェック");
       const postData = req.body;

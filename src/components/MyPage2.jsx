@@ -46,6 +46,7 @@ const MyPage2 = () => {
     context.authState,
   ]);
   const [Num, setNum] = useState(0);
+  const [Num1, setNum1] = useState(0);
 
   const [loginCom, setLoginCom] = useState(0);
   const [userName, setUserName] = useState("");
@@ -75,9 +76,10 @@ const MyPage2 = () => {
   // listObjects(bucketName);
   //S3ファイル一覧取得ー終ーーーーーーーーーーーーーーー
 
-  const handleNewPost = () => {
-    checkAccountFunc();
-  };
+  useEffect(() => {
+    console.log("ログイン実行");
+    login();
+  }, []);
 
   useEffect(() => {
     console.log("useEffectの中");
@@ -94,9 +96,13 @@ const MyPage2 = () => {
     const judgeNum = JSON.parse(user)?.judge;
     console.log("judgeNum   ", judgeNum);
     if (judgeNum !== null) {
-      judgeNum === 1 ? setLoginCom(1) : setLoginCom(0);
+      judgeNum === 1
+        ? setLoginCom(1)
+        : judgeNum === 2
+        ? setLoginCom(2)
+        : setLoginCom(0);
     }
-
+    console.log("loginCom   ", loginCom);
     // user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
     user ? setUserName(JSON.parse(user).name) : setUserName("");
   }, [Num]);
@@ -228,6 +234,101 @@ const MyPage2 = () => {
     setMunicipalityId(selectedTown.id);
     setMunicipality(selectedTown.municipalitiesName);
     setMunicipalities(selectedTown.municipalitiesName);
+  };
+
+  // const login = async () => {
+  //   //バリデーション
+  //   if (emailAddress === "" || password === "" || municipality === "") {
+  //     return window.alert("未入力の項目があります");
+  //   }
+  //   //データベースにPOSTする処理
+  //   console.log("loginボタンが押された");
+  //   try {
+  //     const data = {
+  //       loginCategory: 0,
+  //       mailadress: emailAddress,
+  //       password: password,
+  //       municipalities: municipalities,
+  //     };
+  //     console.log("dataの中身　　", data);
+  //     const res = await fetch(`${URL}/maar/login`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+  //     const result = await res.json();
+  //     console.log(result);
+
+  //     writeToSessionStorage("loginInfo", data);
+  //     writeToSessionStorage("loginResultInfo", result);
+
+  //     if (result.judge === 0) {
+  //       window.alert("町内会名又はEmailAddress又はpasswordが間違っています");
+  //     } else if (result.judge === 1) {
+  //       setLoginCom(1);
+  //       window.alert(`ようこそ${result.name}さん`);
+  //     } else if (result.judge === 2) {
+  //       setLoginCom(2);
+  //       window.alert(`ようこそ管理者の${result.name}さん`);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const login = async () => {
+    //データベースにPOSTする処理
+    console.log("loginボタンが押された");
+    try {
+      const loginTimestamp = new Date();
+
+      const year = loginTimestamp.getFullYear();
+      const month = String(loginTimestamp.getMonth() + 1).padStart(2, "0");
+      const day = String(loginTimestamp.getDate()).padStart(2, "0");
+      const hour = String(loginTimestamp.getHours()).padStart(2, "0");
+      const minute = String(loginTimestamp.getMinutes()).padStart(2, "0");
+      const second = String(loginTimestamp.getSeconds()).padStart(2, "0");
+
+      const formattedLoginTimestamp = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+
+      const data = {
+        loginCategory: 0,
+        mailadress: emailAddress,
+        password: password,
+        municipalities: municipality,
+        loginTimestamp: formattedLoginTimestamp,
+      };
+      console.log("dataの中身    ", data);
+      const res = await fetch(`${URL}/maar/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      console.log("ログインのトライの中！！！！！！！！");
+      console.log(result);
+
+      writeToSessionStorage("loginInfo", data);
+      writeToSessionStorage("loginResultInfo", result);
+      if (result.judge === "0") {
+      } else if (result.judge === "1") {
+        setLoginCom(1);
+        setUserName(result.name);
+        setMunicipality(result.municipalitiesName);
+      } else if (result.judge === "2") {
+        console.log("!!!!!!!!!!!!");
+        setLoginCom(2);
+        setUserName(result.name);
+        setMunicipality(result.municipalitiesName);
+        console.log(loginCom);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const menuStyle =
