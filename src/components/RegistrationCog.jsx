@@ -23,6 +23,7 @@ export const RegistrationCog = (props) => {
   const [municipalitiesList, setMunicipalitiesList] = useState([]);
   const [municipalitiesID, setMunicipalitiesID] = useState("");
   const [municipalityId, setMunicipalityId] = useState("");
+  const [municipalityIndex, setMunicipalitiyIndex] = useState("");
   const [municipalities, setMunicipalities] = useState("");
   const [householdName, setHouseholdName] = useState("");
   const [householdTel, setHouseholdTel] = useState("");
@@ -63,9 +64,9 @@ export const RegistrationCog = (props) => {
       setIsInitialRender(false);
     } else {
       const blockNamesString =
-        municipalitiesList[municipalitiesID]?.blockNameArray;
+        municipalitiesList[municipalityIndex]?.blockNameArray;
       const groupNumArrayString =
-        municipalitiesList[municipalitiesID]?.groupNumArray;
+        municipalitiesList[municipalityIndex]?.groupNumArray;
 
       if (blockNamesString && groupNumArrayString) {
         try {
@@ -118,11 +119,13 @@ export const RegistrationCog = (props) => {
   };
 
   const handleCategoryTownChange = (e) => {
-    console.log("eの中身を確認: ", e);
-    const selectedId = parseInt(e.target.value);
+    console.log("eの中身を確認: ", e.target.value);
+    const value = JSON.parse(e.target.value);
+    const selectedId = parseInt(value.id);
     const selectedTown = municipalitiesList.find(
       (town) => town.id === selectedId
     );
+    setMunicipalitiyIndex(value.index);
     setMunicipalityId(selectedTown.id);
     setMunicipalitiesID(selectedTown.id);
     console.log(selectedTown.id);
@@ -345,8 +348,11 @@ export const RegistrationCog = (props) => {
         <option value="" disabled>
           町内会名を選択してください
         </option>
-        {municipalitiesList.map((item) => (
-          <option key={item.id} value={item.id}>
+        {municipalitiesList.map((item, index) => (
+          <option
+            key={index}
+            value={JSON.stringify({ id: item.id, index: index })}
+          >
             {item.municipalitiesName}
           </option>
         ))}
