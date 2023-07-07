@@ -212,6 +212,45 @@ export const RegistrationCog = (props) => {
     }
   };
 
+  const newLogin1 = async () => {
+    //バリデーション
+    if (emailAddress === null || password === null || municipality === null) {
+      return window.alert("未入力の項目があります");
+    }
+    //データベースにPOSTする処理
+    console.log("新規登録ボタンが押された");
+    try {
+      const data = await hashFunc1();
+      console.log("dataの中身  ", data);
+      const res = await fetch(`${URL}/maar/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      console.log(result);
+
+      writeToSessionStorage("loginInfo", data);
+      writeToSessionStorage("loginResultInfo", result);
+
+      const judgeNum = result.judge;
+      console.log("judgeNum   ", judgeNum);
+      judgeNum === 1
+        ? setLoginCom(1)
+        : judgeNum === 2
+        ? setLoginCom(1)
+        : setLoginCom(0);
+      // setLoginCom(1);
+      // setUserName(result.name);
+      // setMunicipality(data.municipalities);
+    } catch (error) {
+      window.alert(`登録に失敗しました。最初からやり直してください。`);
+      console.error(error);
+    }
+  };
+
   const hashFunc = async () => {
     const plainPassword = password;
     const saltRounds = 10;
@@ -237,6 +276,43 @@ export const RegistrationCog = (props) => {
         householdAge: householdAge,
         familySize: familySize,
         roleFlag: "0",
+        block1: block1,
+        block2: block2,
+        block3: block3,
+        municipalitiesID: municipalitiesID,
+        lastLoginTimestamp: formattedLoginTimestamp,
+        password: hashedPassword,
+      };
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const hashFunc1 = async () => {
+    const plainPassword = password;
+    const saltRounds = 10;
+
+    const loginTimestamp = new Date();
+    const year = loginTimestamp.getFullYear();
+    const month = String(loginTimestamp.getMonth() + 1).padStart(2, "0");
+    const day = String(loginTimestamp.getDate()).padStart(2, "0");
+    const hour = String(loginTimestamp.getHours()).padStart(2, "0");
+    const minute = String(loginTimestamp.getMinutes()).padStart(2, "0");
+    const second = String(loginTimestamp.getSeconds()).padStart(2, "0");
+    const formattedLoginTimestamp = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+
+    try {
+      const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
+      console.log("元のパスワード:", password);
+      console.log("ハッシュ化されたパスワード:", hashedPassword);
+      return {
+        loginCategory: 1,
+        householdName: householdName,
+        householdTel: householdTel,
+        householdMail: emailAddress,
+        householdAge: householdAge,
+        familySize: familySize,
+        roleFlag: "1",
         block1: block1,
         block2: block2,
         block3: block3,
@@ -359,6 +435,17 @@ export const RegistrationCog = (props) => {
           className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
         >
           新規登録
+        </Link>
+      </div>
+      <div className="flex flex-row items-center justify-center">
+        <Link
+          to="/"
+          onClick={() => {
+            newLogin1();
+          }}
+          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
+        >
+          管理者登録
         </Link>
       </div>
       <b></b>

@@ -3,35 +3,35 @@
     "articleTitleID": 1,
     "selectAnswerNo": 0,
     "answerComment": "業務都合の為、欠席します",
-    "householdNameID1" : 1,
-    "userNameID" : 1
+    "householdNameID1": 1,
+    "userNameID": 1
   },
   {
     "articleTitleID": 2,
     "selectAnswerNo": 3,
     "answerComment": "フェンスのボルトが外れてぐらついています",
-    "householdNameID1" :2 ,
-    "userNameID" : 2
+    "householdNameID1": 2,
+    "userNameID": 2
   },
   {
     "articleTitleID": 3,
     "selectAnswerNo": 1,
     "answerComment": "子供(２歳)の同伴はできますか？",
-    "householdNameID1" : 3,
-    "userNameID" : 3
+    "householdNameID1": 3,
+    "userNameID": 3
   },
   {
     "articleTitleID": 4,
     "selectAnswerNo": 1,
     "answerComment": "参加します。",
-    "householdNameID1" :1 ,
-    "userNameID" : 1
+    "householdNameID1": 1,
+    "userNameID": 1
   },
   {
     "articleTitleID": 5,
     "selectAnswerNo": 1,
     "answerComment": "防犯灯が球切れしているので交換できませんか？",
-    "householdNameID1" :2 ,
-    "userNameID" : 2
+    "householdNameID1": 2,
+    "userNameID": 2
   }
 ]
