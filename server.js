@@ -25,11 +25,10 @@ app.use(express.json());
 app.use(cors());
 
 // ミドルウェア関数をロード
-app.use("/upload", uploadRouter);
-app.use("/muni", muniRouter);
-app.use("/mailaddress", mailaddressRouter);
-app.use(loginRouter);
 app.use(uploadRouter);
+app.use(muniRouter);
+app.use(mailaddressRouter);
+app.use(loginRouter);
 app.use(articleRouter);
 app.use(householdRouter);
 app.use(adminRouter);
