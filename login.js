@@ -218,16 +218,8 @@ router.post("/maar/login", async (req, res) => {
       // const roleResult = await getRoleFunc();
       console.log("roleResult: ", roleResult);
 
-      let role = roleResult;
-      // if (roleResult.length > 0) {
-      //   if (roleResult[0].roleFlag === "0") {
-      //     role = 1;
-      //   } else {
-      //     role = 2;
-      //   }
-      // } else {
-      //   role = 0;
-      // }
+      let role = roleResult !== undefined ? parseInt(roleResult) + 1 : 0;
+
       // ++++++++最終ログイン日時をDBに登録↓
       const loginTimestamp = postData.loginTimestamp;
       // dbにupdateを送って最終ログイン日時を更新
@@ -245,7 +237,7 @@ router.post("/maar/login", async (req, res) => {
       console.log("Obj!!! ", checkmailAdIDResult);
 
       const resultObj = {
-        judge: checkmailAdIDResult[0].roleFlag,
+        judge: role,
         name: checkmailAdIDResult[0].householdName,
         houseHoldNameID: checkmailAdIDResult[0].id,
         tel: checkmailAdIDResult[0].householdTel,

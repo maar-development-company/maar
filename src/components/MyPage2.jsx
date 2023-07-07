@@ -319,12 +319,12 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
 
       writeToSessionStorage("loginInfo", data);
       writeToSessionStorage("loginResultInfo", result);
-      if (result.judge === "0") {
-      } else if (result.judge === "1") {
+      if (result.judge === 0) {
+      } else if (result.judge === 1) {
         setLoginCom(1);
         setUserName(result.name);
         setMunicipality(result.municipalitiesName);
-      } else if (result.judge === "2") {
+      } else if (result.judge === 2) {
         console.log("!!!!!!!!!!!!");
         setLoginCom(2);
         setUserName(result.name);
