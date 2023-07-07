@@ -51,7 +51,7 @@ const MyPage2 = () => {
   const [userName, setUserName] = useState("");
   const [municipality, setMunicipality] = useState("");
   const [municipalityId, setMunicipalityId] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
+  const [emailAddress, setEmailAddress] = useState(user.attributes.email);
   const [password, setPassword] = useState("");
   const [history, setHistory] = useState("");
   const [municipalitiesList, setMunicipalitiesList] = useState([]);
