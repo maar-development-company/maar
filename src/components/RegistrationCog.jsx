@@ -345,8 +345,8 @@ export const RegistrationCog = (props) => {
         <option value="" disabled>
           町内会名を選択してください
         </option>
-        {municipalitiesList.map((item) => (
-          <option key={item.id} value={item.id}>
+        {municipalitiesList.map((item, index) => (
+          <option key={item.id} value={index}>
             {item.municipalitiesName}
           </option>
         ))}
