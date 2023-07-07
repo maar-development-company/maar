@@ -6,31 +6,23 @@ import React, { useState, useEffect, useRef } from "react";
 import bcrypt from "bcryptjs";
 import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Authenticator } from "@aws-amplify/ui-react";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 
 const URL =
   process.env.NODE_ENV === "production"
     ? "https://maar-front.onrender.com"
     : "http://localhost:8080";
 
-export const Registration = (props) => {
-  const {
-    loginCom,
-    setLoginCom,
-    municipality,
-    setMunicipality,
-    municipalityId,
-    setMunicipalityId,
-    emailAddress,
-    setEmailAddress,
-    password,
-    setPassword,
-    setUserName,
-  } = props;
-  console.log(process.env);
+export const RegistrationCog = (props) => {
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
+  // console.log(process.env);
+  const { loginCom, setLoginCom, setUserName, user1, signOut1 } = props;
 
+  const [municipality, setMunicipality] = useState("");
   const [municipalitiesList, setMunicipalitiesList] = useState([]);
   const [municipalitiesID, setMunicipalitiesID] = useState("");
-
+  const [municipalityId, setMunicipalityId] = useState("");
   const [municipalities, setMunicipalities] = useState("");
   const [householdName, setHouseholdName] = useState("");
   const [householdTel, setHouseholdTel] = useState("");
@@ -43,6 +35,9 @@ export const Registration = (props) => {
   const [isInitialRender, setIsInitialRender] = useState(true);
   const [groupNumArray, setGroupNumArray] = useState([]);
   const [blockNameIndex, setBlockNameIndex] = useState("");
+  const [emailAddress, setEmailAddress] = useState(user.attributes.email);
+  // user.username
+  const [password, setPassword] = useState("");
 
   const handleEmailAddressChange = (e) => setEmailAddress(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -62,28 +57,6 @@ export const Registration = (props) => {
     console.log(URL);
     getMunicipalitiesFunc();
   }, []);
-
-  // useEffect(() => {
-  //   if (isInitialRender) {
-  //     setIsInitialRender(false);
-  //   } else {
-  //     const blockNamesString =
-  //       municipalitiesList[municipalitiesID]?.blockNameArray;
-  //     if (blockNamesString) {
-  //       const blockNames = JSON.parse(blockNamesString);
-  //       setBlockNameArray(blockNames);
-  //       console.log("kokokokokokokoko");
-  //       console.log(blockNames);
-  //     } else {
-  //       setBlockNameArray([]);
-  //       console.error(
-  //         "Invalid municipalitiesID or uninitialized municipalitiesList:",
-  //         municipalitiesID,
-  //         municipalitiesList
-  //       );
-  //     }
-  //   }
-  // }, [municipalitiesID, isInitialRender, municipalitiesList]);
 
   useEffect(() => {
     if (isInitialRender) {
@@ -223,9 +196,16 @@ export const Registration = (props) => {
       writeToSessionStorage("loginInfo", data);
       writeToSessionStorage("loginResultInfo", result);
 
-      setLoginCom(1);
-      setUserName(result.name);
-      setMunicipality(data.municipalities);
+      const judgeNum = result.judge;
+      console.log("judgeNum   ", judgeNum);
+      judgeNum === 1
+        ? setLoginCom(1)
+        : judgeNum === 2
+        ? setLoginCom(1)
+        : setLoginCom(0);
+      // setLoginCom(1);
+      // setUserName(result.name);
+      // setMunicipality(data.municipalities);
     } catch (error) {
       window.alert(`登録に失敗しました。最初からやり直してください。`);
       console.error(error);

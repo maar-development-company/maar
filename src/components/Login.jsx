@@ -8,6 +8,18 @@ import { Registration } from "./Registration";
 import { Link } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import { Amplify } from "aws-amplify";
+import { Authenticator } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+import MyPage from "./MyPage";
+
+Amplify.configure({
+  aws_project_region: process.env.REACT_APP_AWS_PROJECT_REGION,
+  aws_cognito_region: process.env.REACT_APP_AWS_COGNITO_REGION,
+  aws_user_pools_id: process.env.REACT_APP_AWS_USER_POOLS_ID,
+  aws_user_pools_web_client_id: process.env.REACT_APP_AWS_USER_POOLS_CLIENT_ID,
+});
+
 const URL =
   process.env.NODE_ENV === "production"
     ? "https://maar-front.onrender.com"
@@ -231,11 +243,6 @@ export const Login = (props) => {
         >
           新規登録
         </button>
-        {/* <button
-					onClick={() => (location.href = "/newcontract")}
-					className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row">
-					新規自治会契約
-				</button> */}
       </div>
       <b></b>
     </div>
