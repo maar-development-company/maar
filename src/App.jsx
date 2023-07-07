@@ -70,37 +70,37 @@ function App() {
   // console.log(process.env);
   //loginCom = 0 ログインしてない　1:普通ユーザー　2:管理者
   const [loginCom, setLoginCom] = useState(0);
-  const [userName, setUserName] = useState("");
-  const [municipality, setMunicipality] = useState("");
-  const [municipalityId, setMunicipalityId] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
-  const [taxiPhoneNumber, setTaxiPhoneNumber] = useState("");
-  const [history, setHistory] = useState("");
-  console.log("loginCom : ", loginCom);
+  // const [userName, setUserName] = useState("");
+  // const [municipality, setMunicipality] = useState("");
+  // const [municipalityId, setMunicipalityId] = useState("");
+  // const [emailAddress, setEmailAddress] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [taxiPhoneNumber, setTaxiPhoneNumber] = useState("");
+  // const [history, setHistory] = useState("");
+  // console.log("loginCom : ", loginCom);
 
   // ログイン状態を確認する。
-  useEffect(() => {
-    const data = sessionStorage.getItem("loginInfo");
-    const user = sessionStorage.getItem("loginResultInfo");
-    // console.log(data);
-    // console.log(user);
-    user
-      ? setMunicipality(JSON.parse(user).municipalitiesName)
-      : setMunicipality("");
-    user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
-    user ? setUserName(JSON.parse(user).name) : setUserName("");
-    user
-      ? setTaxiPhoneNumber(JSON.parse(user).taxiNumber)
-      : setTaxiPhoneNumber("");
-  }, []);
+  // useEffect(() => {
+  //   const data = sessionStorage.getItem("loginInfo");
+  //   const user = sessionStorage.getItem("loginResultInfo");
+  //   // console.log(data);
+  //   // console.log(user);
+  //   user
+  //     ? setMunicipality(JSON.parse(user).municipalitiesName)
+  //     : setMunicipality("");
+  //   user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
+  //   user ? setUserName(JSON.parse(user).name) : setUserName("");
+  //   user
+  //     ? setTaxiPhoneNumber(JSON.parse(user).taxiNumber)
+  //     : setTaxiPhoneNumber("");
+  // }, []);
 
-  const logout = () => {
-    sessionStorage.removeItem("loginInfo");
-    sessionStorage.removeItem("loginResultInfo");
-    setLoginCom(0);
-    location.href = "/";
-  };
+  // const logout = () => {
+  //   sessionStorage.removeItem("loginInfo");
+  //   sessionStorage.removeItem("loginResultInfo");
+  //   setLoginCom(0);
+  //   location.href = "/";
+  // };
 
   const menuStyle =
     "m-4 p-4 h-44 flex items-center justify-center md:h-28 border-solid rounded-3xl border bg-gray-100 hover:bg-gray-200 border-gray-300 shadow-lg md:flex md:flex-row md:justify-start";
@@ -108,14 +108,16 @@ function App() {
     <>
       <Router>
         <div>
-          <header className="p-2 bg-gradient-to-b from-blue-500 to-blue-200 sticky top-0 z-50">
-            <p className="text-4xl text-center">まある</p>
-            <p className="text-4xl text-center">ログイン画面</p>
-          </header>
+          {loginCom === 0 && (
+            <header className="h-24 p-2 bg-blue-800 text-white sticky top-0 z-0">
+              <p className="text-4xl text-center">まある</p>
+              <p className="text-4xl text-center">ログイン画面</p>
+            </header>
+          )}
           <Authenticator>
             {({ signOut, user }) => (
               <Authenticator.Provider>
-                <MyPage2 />
+                <MyPage2 loginCom={loginCom} setLoginCom={setLoginCom} />
               </Authenticator.Provider>
             )}
           </Authenticator>

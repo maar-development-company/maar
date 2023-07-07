@@ -39,7 +39,7 @@ AWS.config.update({
   region: "us-east-1",
 });
 
-const MyPage2 = () => {
+const MyPage2 = ({ loginCom, setLoginCom }) => {
   const { user, signOut, authState } = useAuthenticator((context) => [
     context.user,
     context.signOut,
@@ -48,12 +48,12 @@ const MyPage2 = () => {
   const [Num, setNum] = useState(0);
   const [Num1, setNum1] = useState(0);
 
-  const [loginCom, setLoginCom] = useState(0);
   const [userName, setUserName] = useState("");
   const [municipality, setMunicipality] = useState("");
   const [municipalityId, setMunicipalityId] = useState("");
   const [emailAddress, setEmailAddress] = useState(user.attributes.email);
   const [password, setPassword] = useState("");
+  const [taxiPhoneNumber, setTaxiPhoneNumber] = useState("");
   const [history, setHistory] = useState("");
   const [municipalitiesList, setMunicipalitiesList] = useState([]);
   const [municipalities, setMunicipalities] = useState("");
@@ -105,6 +105,10 @@ const MyPage2 = () => {
     console.log("loginCom   ", loginCom);
     // user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
     user ? setUserName(JSON.parse(user).name) : setUserName("");
+
+    user
+      ? setTaxiPhoneNumber(JSON.parse(user).taxiNumber)
+      : setTaxiPhoneNumber("");
   }, [Num]);
 
   useEffect(() => {
@@ -201,9 +205,10 @@ const MyPage2 = () => {
     console.log("ログアウト！");
     sessionStorage.removeItem("loginInfo");
     sessionStorage.removeItem("loginResultInfo");
-    setLoginCom(0);
-    location.href = "/";
     signOut();
+    setTimeout(() => {
+      setLoginCom(0);
+    }, 300);
   };
 
   const handleLogout = () => {
@@ -332,15 +337,14 @@ const MyPage2 = () => {
   };
 
   const menuStyle =
-    "m-4 p-4 h-44 flex items-center justify-center md:h-28 border-solid rounded-3xl border-4 border-gray-300 md:flex md:flex-row md:justify-start";
+    "m-4 p-4 h-44 flex items-center justify-center md:h-28 border-solid rounded-3xl border bg-gray-100 hover:bg-gray-200 border-gray-300 shadow-lg md:flex md:flex-row md:justify-start";
   return (
     <main>
       {loginCom === 0 ? (
         <RegistrationCog setLoginCom={setLoginCom} loginCom={loginCom} />
       ) : (
         <>
-          <header className="h-36 p-2 bg-gradient-to-b from-blue-500 to-blue-200 sticky top-0 z-0">
-            <p className="text-4xl text-center">まある</p>
+          <header className="h-24 p-2 bg-blue-800 text-white sticky top-0 z-0">
             <p className="text-4xl text-left">{municipality}</p>
             <p className="text-4xl text-left">{userName}さん</p>
           </header>
@@ -349,7 +353,7 @@ const MyPage2 = () => {
               path="/"
               element={
                 <>
-                  <div className="link-container">
+                  <div className="link-container overflow-y-auto fixed top-24 bottom-12 right-0 left-0">
                     <Link to="/articlelist" state={{ user: userName }}>
                       <div className={menuStyle}>
                         <div className="flex flex-col items-center justify-center md:flex-row">
@@ -374,7 +378,7 @@ const MyPage2 = () => {
                         </div>
                       </div>
                     </Link>
-                    <a className={menuStyle} href="tel:000-1234-5678">
+                    <a className={menuStyle} href={taxiPhoneNumber}>
                       <div className="flex flex-col items-center justify-center md:flex-row">
                         <div className="flex items-center justify-center text-6xl md:justify-start">
                           <PiTaxiLight />
@@ -469,7 +473,7 @@ const MyPage2 = () => {
             )}
           </Routes>
 
-          <footer className="w-full fixed bottom-0 flex flex-row items-center justify-center bg-gradient-to-b from-blue-200 to-blue-500 ">
+          <footer className="w-full fixed bottom-0 flex flex-row items-center justify-center bg-blue-800 text-white ">
             <PageBackButton />
             <button
               onClick={() => (location.href = "/")}
