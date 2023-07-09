@@ -221,7 +221,7 @@ router.post("/maar/login", async (req, res) => {
       let role = roleResult !== undefined ? parseInt(roleResult) + 1 : 0;
 
       // ++++++++最終ログイン日時をDBに登録↓
-      const loginTimestamp = postData.loginTimestamp;
+      const loginTimestamp = "2023-07-10 00:38:05";
       // dbにupdateを送って最終ログイン日時を更新
       const updateLoginTimestamp = () => {
         console.log(
