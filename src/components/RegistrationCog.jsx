@@ -334,9 +334,8 @@ export const RegistrationCog = (props) => {
 
   return (
     <div>
-      <header className="h-24 p-2 bg-blue-800 text-white sticky top-0 z-0">
-        <p className="text-4xl text-center">まある</p>
-        <p className="text-4xl text-center">新規登録画面</p>
+      <header className="h-14 p-2 bg-blue-800 text-white sticky top-0 z-0">
+        <p className="text-4xl text-center">ユーザー情報を登録してください。</p>
       </header>
       <select
         className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
