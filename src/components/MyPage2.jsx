@@ -82,7 +82,17 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
     console.log("ログイン実行");
     // setTaxiPhoneNumber("tel:000-1034-5678");
     login();
-  }, []);
+    const data = sessionStorage.getItem("loginInfo");
+    const user = sessionStorage.getItem("loginResultInfo");
+    user
+      ? setMunicipality(JSON.parse(user).municipalitiesName)
+      : setMunicipality("");
+    const judgeNum = JSON.parse(user)?.judge;
+    user ? setUserName(JSON.parse(user).name) : setUserName("");
+    user
+      ? setTaxiPhoneNumber(JSON.parse(user).taxiNumber)
+      : setTaxiPhoneNumber("");
+  }, [userName, municipality]);
 
   useEffect(() => {
     console.log("useEffectの中");

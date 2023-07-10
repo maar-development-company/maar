@@ -101,7 +101,7 @@ router.post("/maar/login", async (req, res) => {
           .where("householdMail", postData.mailadress);
       };
       const checkmailAdIDResult = await checkmailAdID();
-      console.log("MailAdressIDResult1: ", checkmailAdIDResult);
+      console.log("メアドの持ち主のObj: ", checkmailAdIDResult);
 
       const checkmailAdressID = async () => {
         return knex
@@ -110,16 +110,16 @@ router.post("/maar/login", async (req, res) => {
           .where("householdMail", postData.mailadress);
       };
       const MailAdressIDResult = await checkmailAdressID();
-      console.log("MailAdressIDResult2:", MailAdressIDResult[0]);
+      console.log("メアドの持ち主のid: ", MailAdressIDResult[0].id);
+      console.log("地区id: ", checkmailAdIDResult[0]["municipalitiesID"]);
 
       const checkmuniName = async () => {
-        return knex
+        return knex("municipalitiesList")
           .select("municipalitiesName")
-          .from("municipalitiesList")
-          .where("id", MailAdressIDResult[0].id);
+          .where("id", checkmailAdIDResult[0]["municipalitiesID"]);
       };
       const checkmuniNameResult = await checkmuniName();
-      console.log("checkmuniNameResult: ", checkmuniNameResult);
+      console.log("メアドの持ち主の地区名: ", checkmuniNameResult);
 
       // このあたりでハッシュ値をDBから取り出してcompareして比較
       // const getDBPassID = async () => {
