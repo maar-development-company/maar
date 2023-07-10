@@ -442,7 +442,7 @@ export const RegistrationCog = (props) => {
             await newLogin();
             await login();
           }}
-          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
+          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-44 mt-2 text-3xl flex flex-row"
         >
           新規登録
         </Link>
@@ -451,7 +451,7 @@ export const RegistrationCog = (props) => {
         <Link
           to="/"
           onClick={async () => handle()}
-          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-40 mt-2 text-3xl flex flex-row"
+          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-44 mt-2 text-3xl flex flex-row"
         >
           管理者登録
         </Link>
