@@ -487,10 +487,10 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
           </footer>
         </>
       )}
-      {/* <button onClick={signOut}>Sign out</button>
+      <button onClick={signOut}>Sign out</button>
       <p>
         <Link to="/user_edit">ユーザー情報変更</Link>
-      </p> */}
+      </p>
     </main>
   );
 };
