@@ -25,6 +25,8 @@ import { TakePicture2 } from "./TakePicture2";
 import { AdminAssign } from "./AdminAssign";
 import { Auth } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
+import { SurveyList } from "./SurveyList";
+import { NewSurveyPost } from "./NewSurveyPost";
 
 const AWS = require("aws-sdk");
 
@@ -78,6 +80,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
 
   useEffect(() => {
     console.log("ログイン実行");
+    // setTaxiPhoneNumber("tel:000-1034-5678");
     login();
   }, []);
 
@@ -359,7 +362,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
                         </div>
                       </div>
                     </Link>
-                    <Link to="/">
+                    <Link to="/surveyList" state={{ user: userName }}>
                       <div className={menuStyle}>
                         <div className="flex flex-col items-center justify-center md:flex-row">
                           <div className="flex items-center justify-center text-6xl md:justify-start">
@@ -395,6 +398,17 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
                     )}
                   </div>
                 </>
+              }
+            />
+            <Route
+              path="/surveyList"
+              element={
+                <div>
+                  <SurveyList
+                    municipalityId={municipalityId}
+                    municipality={municipality}
+                  />
+                </div>
               }
             />
             <Route
@@ -436,6 +450,20 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
                 element={
                   <div>
                     <NewPost
+                      municipalityId={municipalityId}
+                      municipality={municipality}
+                      userName={userName}
+                    />
+                  </div>
+                }
+              />
+            )}
+            {loginCom === 2 && (
+              <Route
+                path="/NewSurveyPost"
+                element={
+                  <div>
+                    <NewSurveyPost
                       municipalityId={municipalityId}
                       municipality={municipality}
                       userName={userName}
