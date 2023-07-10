@@ -241,7 +241,7 @@ router.post("/maar/login", async (req, res) => {
         name: checkmailAdIDResult[0].householdName,
         houseHoldNameID: checkmailAdIDResult[0].id,
         tel: checkmailAdIDResult[0].householdTel,
-        mail: checkmailAdIDResult[0].mailadress,
+        mail: checkmailAdIDResult[0].householdMail,
         age: checkmailAdIDResult[0].householdAge,
         municipalitiesID: checkmailAdIDResult[0].municipalitiesID,
         municipalitiesName: checkmuniNameResult[0].municipalitiesName,
