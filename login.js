@@ -109,8 +109,8 @@ router.post("/maar/login", async (req, res) => {
           .from("householdList")
           .where("householdMail", postData.mailadress);
       };
-      const MailAdressIDResult = await checkmailAdressID();
-      console.log("メアドの持ち主のid: ", MailAdressIDResult[0].id);
+      // const MailAdressIDResult = await checkmailAdressID();
+      // console.log("メアドの持ち主のid: ", MailAdressIDResult[0].id);
       console.log("地区id: ", checkmailAdIDResult[0]["municipalitiesID"]);
 
       const checkmuniName = async () => {
