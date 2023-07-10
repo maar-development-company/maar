@@ -202,7 +202,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
   };
 
   const logout = () => {
-    console.log("ログアウト！");
+    console.log("ログアウト！!");
     sessionStorage.removeItem("loginInfo");
     sessionStorage.removeItem("loginResultInfo");
     signOut();
