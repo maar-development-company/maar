@@ -101,7 +101,7 @@ router.post("/maar/login", async (req, res) => {
           .where("householdMail", postData.mailadress);
       };
       const checkmailAdIDResult = await checkmailAdID();
-      console.log("MailAdressIDResult: ", checkmailAdIDResult);
+      console.log("MailAdressIDResult1: ", checkmailAdIDResult);
 
       const checkmailAdressID = async () => {
         return knex
@@ -110,7 +110,7 @@ router.post("/maar/login", async (req, res) => {
           .where("householdMail", postData.mailadress);
       };
       const MailAdressIDResult = await checkmailAdressID();
-      console.log("MailAdressIDResult: ", MailAdressIDResult[0].id);
+      console.log("MailAdressIDResult2:", MailAdressIDResult[0]);
 
       const checkmuniName = async () => {
         return knex

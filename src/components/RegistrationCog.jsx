@@ -146,7 +146,7 @@ export const RegistrationCog = (props) => {
         loginCategory: 0,
         mailadress: emailAddress,
         password: password,
-        municipalities: municipalities,
+        municipalities: municipality,
       };
       console.log("dataの中身　　", data);
       const res = await fetch(`${URL}/maar/login`, {
@@ -166,10 +166,14 @@ export const RegistrationCog = (props) => {
         window.alert("町内会名又はEmailAddress又はpasswordが間違っています");
       } else if (result.judge === 1) {
         setLoginCom(1);
-        window.alert(`ようこそ${result.name}さん`);
+        setUserName(result.name);
+        setMunicipality(result.municipalitiesName);
       } else if (result.judge === 2) {
+        console.log("!!!!!!!!!!!!");
         setLoginCom(2);
-        window.alert(`ようこそ管理者の${result.name}さん`);
+        setUserName(result.name);
+        setMunicipality(result.municipalitiesName);
+        console.log(loginCom);
       }
     } catch (error) {
       console.error(error);
