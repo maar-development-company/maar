@@ -25,7 +25,8 @@ export const ArticleList = (props) => {
   const location = useLocation();
   const user = location.state && location.state.user;
   // const { user } = location.state;
-  let userId;
+  const userInfo = sessionStorage.getItem("loginResultInfo");
+  let userId = JSON.parse(userInfo).houseHoldNameID;
   const [imagePath, setImagePath] = useState("");
   useEffect(() => {
     getArticleList();
@@ -91,7 +92,7 @@ export const ArticleList = (props) => {
 
       // userIdを変数に格納
       // console.log(result.userId);
-      userId = result.userId;
+      // userId = result.userId;
       // console.log("userId : ", userId, typeof userId);
     } catch (error) {
       console.error(error);
@@ -121,6 +122,8 @@ export const ArticleList = (props) => {
             contentBeginning = textContent;
           }
           const isRead = JSON.parse(ele.userReadInfo)[String(userId)];
+          console.log("userId:", userId);
+          console.log("isRead:", isRead);
           return (
             <Link to="/SingleArticle" state={{ articleInfo: ele }}>
               <section
@@ -128,7 +131,10 @@ export const ArticleList = (props) => {
                   if (
                     JSON.parse(ele.userReadInfo)[String(userId)] === undefined
                   ) {
+                    console.log("未読");
                     articleOnClickHandler(articleId);
+                  } else {
+                    console.log("既読");
                   }
                 }}
                 className="shadow-lg m-4 p-4 border-solid rounded-3xl border bg-gray-100 hover:bg-gray-200 border-gray-300 text-center h-fit"
