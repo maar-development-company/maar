@@ -39,13 +39,13 @@ export const Login = (props) => {
     password,
     setPassword,
   } = props;
-  console.log(process.env);
+  // console.log(process.env);
   const [municipalitiesList, setMunicipalitiesList] = useState([]);
   const [municipalities, setMunicipalities] = useState("");
 
   useEffect(() => {
     console.log("useEffectの中");
-    console.log(URL);
+    // console.log(URL);
     getMunicipalitiesFunc();
   }, []);
 
@@ -64,7 +64,7 @@ export const Login = (props) => {
         throw new Error("Failed to fetch.");
       }
       const municipalitiesObj = await response.json();
-      console.log(municipalitiesObj);
+      // console.log(municipalitiesObj);
       if (municipalitiesObj.length !== municipalitiesList.length) {
         setMunicipalitiesList(municipalitiesObj);
       }
@@ -121,7 +121,7 @@ export const Login = (props) => {
         municipalities: municipalities,
         loginTimestamp: formattedLoginTimestamp,
       };
-      console.log("dataの中身    ", data);
+      // console.log("dataの中身    ", data);
       const res = await fetch(`${URL}/maar/login`, {
         method: "POST",
         headers: {
@@ -130,7 +130,7 @@ export const Login = (props) => {
         body: JSON.stringify(data),
       });
       const result = await res.json();
-      console.log(result);
+      // console.log(result);
 
       writeToSessionStorage("loginInfo", data);
       writeToSessionStorage("loginResultInfo", result);

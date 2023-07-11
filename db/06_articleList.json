@@ -1,25 +1,16 @@
 [
   {
-    "articleTitle": "プール開き",
-    "articleContent": "区のプールが営業を開始します!/n/n小さなお子様はお父さんお母さんと、/nぜひ来てくださいね！",
-    "articleTimestamp": "2023-06-21 10:30:00",
+    "articleTitle": "燃えるゴミ用、ゴミ袋の購入案内",
+    "articleContent": "燃えるゴミ用のゴミ袋を、\n市からお安く購入することができます。\n希望者は以下リンクから申し込みお願いします。\n\nhttps://main.d2o6vsbd35dbsx.amplifyapp.com/NewPost",
+    "articleTimestamp": "2023-06-21 10:35:00",
     "municipalitiesID2": 1,
-    "articleCategory": "お知らせ",
-    "fileSavePath": "",
-    "userReadInfo": "{}"
-  },
-  {
-    "articleTitle": "熱中症に注意！！",
-    "articleContent": "7月に入り気温が上昇しております。/n熱中症の危険が高まっていますので、/nこまめな水分補給を心がけるようお願い致します。",
-    "articleTimestamp": "2023-06-21 10:30:30",
-    "municipalitiesID2": 1,
-    "articleCategory": "会議",
+    "articleCategory": "報告",
     "fileSavePath": "",
     "userReadInfo": "{}"
   },
   {
     "articleTitle": "お祭りの案内",
-    "articleContent": "夏祭りを実施します。/n場所：公民館/n日時：8月12日 17時",
+    "articleContent": "夏祭りを実施します。\n場所：公民館\n日時：8月12日 17時",
     "articleTimestamp": "2023-06-21 10:30:50",
     "municipalitiesID2": 1,
     "articleCategory": "健康",
@@ -27,11 +18,20 @@
     "userReadInfo": "{}"
   },
   {
-    "articleTitle": "燃えるゴミ用、ゴミ袋の購入案内",
-    "articleContent": "燃えるゴミ用のゴミ袋を、/n市からお安く購入することができます。/n希望者は以下リンクから申し込みお願いします。/n/nhttps://main.d2o6vsbd35dbsx.amplifyapp.com/NewPost",
-    "articleTimestamp": "2023-06-21 10:35:00",
+    "articleTitle": "熱中症に注意！！",
+    "articleContent": "7月に入り気温が上昇しております。\n熱中症の危険が高まっていますので、\nこまめな水分補給を心がけるようお願い致します。",
+    "articleTimestamp": "2023-06-21 10:30:30",
     "municipalitiesID2": 1,
-    "articleCategory": "報告",
+    "articleCategory": "会議",
+    "fileSavePath": "",
+    "userReadInfo": "{}"
+  },
+  {
+    "articleTitle": "プール開き",
+    "articleContent": "区のプールが営業を開始します!\n\n小さなお子様はお父さんお母さんと、\nぜひ来てくださいね！",
+    "articleTimestamp": "2023-06-21 10:30:00",
+    "municipalitiesID2": 1,
+    "articleCategory": "お知らせ",
     "fileSavePath": "",
     "userReadInfo": "{}"
   }

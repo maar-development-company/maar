@@ -9,7 +9,7 @@ router.post("/maar/login", async (req, res) => {
   console.log("ログイン情報をPOST受信");
 
   const postData = req.body;
-  console.log("ログインのbodyチェック", postData);
+  // console.log("ログインのbodyチェック", postData);
 
   //ログイン情報の確認
   const postDataCheckFunc = async () => {
@@ -26,7 +26,7 @@ router.post("/maar/login", async (req, res) => {
           .returning("id")
           .then((insertedIds) => {
             const insertedId = insertedIds[0].id;
-            console.log("挿入されたレコードのID1:", insertedId);
+            // console.log("挿入されたレコードのID1:", insertedId);
             return insertedId;
           })
           .catch((error) => {
@@ -34,7 +34,7 @@ router.post("/maar/login", async (req, res) => {
           });
       };
       const insertHouseHoldResult = await insertHouseHoldList();
-      console.log("登録ID1", insertHouseHoldResult);
+      // console.log("登録ID1", insertHouseHoldResult);
 
       const insertHouseHoldPassList = async () => {
         return knex("householdPassList")
@@ -44,7 +44,7 @@ router.post("/maar/login", async (req, res) => {
           .returning("id")
           .then((insertedIds) => {
             const insertedPassId = insertedIds[0].id;
-            console.log("挿入されたレコードのID2:", insertedPassId);
+            // console.log("挿入されたレコードのID2:", insertedPassId);
             return insertedPassId;
           })
           .catch((error) => {
@@ -52,7 +52,7 @@ router.post("/maar/login", async (req, res) => {
           });
       };
       const insertHouseHoldPassResult = await insertHouseHoldPassList();
-      console.log("登録PassID", insertHouseHoldPassResult);
+      // console.log("登録PassID", insertHouseHoldPassResult);
 
       const insertHouseHoldTable = async (
         insertHouseHoldResult,
@@ -67,7 +67,7 @@ router.post("/maar/login", async (req, res) => {
         insertHouseHoldResult,
         insertHouseHoldPassResult
       );
-      console.log("登録ID3", insertHouseHoldTableResult);
+      // console.log("登録ID3", insertHouseHoldTableResult);
 
       const checkMName = async () => {
         return knex("municipalitiesList")
@@ -75,9 +75,9 @@ router.post("/maar/login", async (req, res) => {
           .where("id", postData.municipalitiesID);
       };
       const checkMNameResult = await checkMName();
-      console.log("name", checkMNameResult);
+      // console.log("name", checkMNameResult);
       const aaa = checkMNameResult[0].municipalitiesName;
-      console.log("qqqqq", checkMNameResult[0].municipalitiesName);
+      // console.log("qqqqq", checkMNameResult[0].municipalitiesName);
       return (resultObj = {
         judge: 1,
         name: postData.householdName,
@@ -101,7 +101,7 @@ router.post("/maar/login", async (req, res) => {
           .where("householdMail", postData.mailadress);
       };
       const checkmailAdIDResult = await checkmailAdID();
-      console.log("メアドの持ち主のObj: ", checkmailAdIDResult);
+      // console.log("メアドの持ち主のObj: ", checkmailAdIDResult);
 
       const checkmailAdressID = async () => {
         return knex
@@ -111,7 +111,7 @@ router.post("/maar/login", async (req, res) => {
       };
       // const MailAdressIDResult = await checkmailAdressID();
       // console.log("メアドの持ち主のid: ", MailAdressIDResult[0].id);
-      console.log("地区id: ", checkmailAdIDResult[0]["municipalitiesID"]);
+      // console.log("地区id: ", checkmailAdIDResult[0]["municipalitiesID"]);
 
       const checkmuniName = async () => {
         return knex("municipalitiesList")
@@ -119,7 +119,7 @@ router.post("/maar/login", async (req, res) => {
           .where("id", checkmailAdIDResult[0]["municipalitiesID"]);
       };
       const checkmuniNameResult = await checkmuniName();
-      console.log("メアドの持ち主の地区名: ", checkmuniNameResult);
+      // console.log("メアドの持ち主の地区名: ", checkmuniNameResult);
 
       // このあたりでハッシュ値をDBから取り出してcompareして比較
       // const getDBPassID = async () => {
@@ -188,7 +188,7 @@ router.post("/maar/login", async (req, res) => {
           .where("householdMail", postData.mailadress);
       };
       const checkLoginResult = await checkhID();
-      console.log("checkLoginResult : ", checkLoginResult);
+      // console.log("checkLoginResult : ", checkLoginResult);
 
       // if (checkLoginResult.length > 0) {
       //   console.log("checkLoginResult[0].id: ", checkLoginResult[0].roleFlag);
@@ -216,7 +216,7 @@ router.post("/maar/login", async (req, res) => {
 
       const roleResult = checkLoginResult[0].roleFlag;
       // const roleResult = await getRoleFunc();
-      console.log("roleResult: ", roleResult);
+      // console.log("roleResult: ", roleResult);
 
       let role = roleResult !== undefined ? parseInt(roleResult) + 1 : 0;
 
@@ -234,7 +234,7 @@ router.post("/maar/login", async (req, res) => {
 
       await updateLoginTimestamp();
       // ++++++++最終ログイン日時をDBに登録↑
-      console.log("Obj!!! ", checkmailAdIDResult);
+      // console.log("Obj!!! ", checkmailAdIDResult);
 
       const resultObj = {
         judge: role,
@@ -248,19 +248,19 @@ router.post("/maar/login", async (req, res) => {
         blockName: checkmailAdIDResult[0].block1,
         groupNum: checkmailAdIDResult[0].block2,
       };
-      console.log("Obj!!!!!!! ", resultObj);
+      // console.log("Obj!!!!!!! ", resultObj);
       return resultObj;
     } else {
       console.log("こっちはメアドチェック");
       const postData = req.body;
-      console.log("ログインのbodyチェック", postData.mailadress);
+      // console.log("ログインのbodyチェック", postData.mailadress);
       const checkAccountFuncBack = async () => {
         return knex("householdList")
           .select("id")
           .where("householdMail", postData.mailadress);
       };
       const result = await checkAccountFuncBack();
-      console.log(result);
+      // console.log(result);
       const resultObj = {
         judge: result.length === 1 ? 1 : 0,
         name: "",
@@ -278,7 +278,7 @@ router.post("/maar/login", async (req, res) => {
   };
 
   const postDataCheckResult = await postDataCheckFunc();
-  console.log(postDataCheckResult);
+  // console.log(postDataCheckResult);
 
   res.status(200).json(postDataCheckResult);
 });

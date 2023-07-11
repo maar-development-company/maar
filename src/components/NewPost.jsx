@@ -24,7 +24,7 @@ const mailUrl =
 //PC or Mobileを判定する。
 const isMobileDevice = () => {
   const userAgent = navigator.userAgent;
-  console.log(userAgent);
+  // console.log(userAgent);
   const mobileDeviceRegex =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
   return mobileDeviceRegex.test(userAgent);
@@ -56,7 +56,6 @@ export const NewPost = (props) => {
       return;
     }
 
-
     try {
       const data = {
         articleTitle: postArticleTitle,
@@ -66,7 +65,7 @@ export const NewPost = (props) => {
         articleCategory: "安全",
         fileSavePath: DataKey,
       };
-      console.log("### data ###: ", data);
+      // console.log("### data ###: ", data);
 
       const res = await fetch(`${URL}/maar/articlelist`, {
         method: "POST",
@@ -76,7 +75,7 @@ export const NewPost = (props) => {
         body: JSON.stringify(data),
       });
       const result = await res.text();
-      console.log(result);
+      // console.log(result);
       if (result === "新しい記事を追加しました。") {
         setPostArticleTitle("");
         setPostArticleContent("");
@@ -110,7 +109,7 @@ export const NewPost = (props) => {
     } catch (error) {
       console.error(error);
     }
-    console.log(municipalitiesName);
+    // console.log(municipalitiesName);
     try {
       init("5NfbwG0M_nIl2or7_");
       const params = {
@@ -120,7 +119,7 @@ export const NewPost = (props) => {
         articleContent: postArticleContent,
         url: mailUrl,
       };
-      console.log("### params ###: ", params);
+      // console.log("### params ###: ", params);
 
       await send(serviceID, templateID, params);
       console.log("投稿通知送信成功");
@@ -131,9 +130,9 @@ export const NewPost = (props) => {
   }
 
   const handleUpload = () => {
-    console.log("selectedFile:", selectedFile);
-    console.log("selectedFile type:", typeof selectedFile);
-    console.log("selectedFile name:", selectedFile?.name);
+    // console.log("selectedFile:", selectedFile);
+    // console.log("selectedFile type:", typeof selectedFile);
+    // console.log("selectedFile name:", selectedFile?.name);
     if (!selectedFile) {
       console.log("ファイルが選択されていません");
       handleDataKey("");

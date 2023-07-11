@@ -56,7 +56,7 @@ export const ArticleList = (props) => {
         }
         const articleObj = await response.json();
         setNumber(articleObj.length);
-        console.log(articleObj);
+        // console.log(articleObj);
         if (articleObj.length !== ArticleList.length) {
           setArticleList(articleObj);
         }
@@ -78,7 +78,7 @@ export const ArticleList = (props) => {
         readTimestamp,
         articleId,
       };
-      console.log(data);
+      // console.log(data);
 
       const res = await fetch(`${URL}/maar/articlelist`, {
         method: "PATCH",
@@ -122,8 +122,8 @@ export const ArticleList = (props) => {
             contentBeginning = textContent;
           }
           const isRead = JSON.parse(ele.userReadInfo)[String(userId)];
-          console.log("userId:", userId);
-          console.log("isRead:", isRead);
+          // console.log("userId:", userId);
+          // console.log("isRead:", isRead);
           return (
             <Link to="/SingleArticle" state={{ articleInfo: ele }}>
               <section

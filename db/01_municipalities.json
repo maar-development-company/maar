@@ -1,13 +1,13 @@
 [
   {
-    "municipalitiesName": "1-DIG町内会",
+    "municipalitiesName": "DIG町内会",
     "numberOfHouse": "200",
     "blockNameArray": "['A', 'B', 'C', 'D']",
     "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]",
     "taxiNumber": "tel:000-1034-5678"
   },
   {
-    "municipalitiesName": "2-BTC町内会",
+    "municipalitiesName": "BTC町内会",
     "numberOfHouse": "200",
     "blockNameArray": "['A', 'B', 'C', 'D']",
     "groupNumArray": "[[1,2,3,4,5],[1,2,3],[1,2,3,4,5,6,7],[1,2,3,4]]",

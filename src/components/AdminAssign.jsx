@@ -34,11 +34,11 @@ export const AdminAssign = () => {
         throw new Error("Failed to fetch.");
       }
       const resArray = await response.json();
-      console.log(resArray);
+      // console.log(resArray);
       const householdArray = resArray[0];
-      console.log(householdArray);
+      // console.log(householdArray);
       const municipalityObj = resArray[1][0];
-      console.log(municipalityObj);
+      // console.log(municipalityObj);
 
       setHouseholdList(householdArray);
       setBlockNameArr(JSON.parse(municipalityObj.blockNameArray));
@@ -54,7 +54,7 @@ export const AdminAssign = () => {
   const renderingAdmin = () => {
     const user = sessionStorage.getItem("loginResultInfo");
     const myID = JSON.parse(user).houseHoldNameID;
-    console.log("myID : ", myID);
+    // console.log("myID : ", myID);
     return householdList.map((el, index) => {
       if (el.roleFlag === "1") {
         return (
@@ -105,7 +105,7 @@ export const AdminAssign = () => {
         }
       } else if (blockNameInd !== undefined && groupNumInd === "") {
         console.log("ブロックだけが指定されました");
-        console.log("ブロック", blockNameArr[Number(blockNameInd)]);
+        // console.log("ブロック", blockNameArr[Number(blockNameInd)]);
         if (
           el.roleFlag === "0" &&
           el.block1 === blockNameArr[Number(blockNameInd)]
@@ -131,11 +131,11 @@ export const AdminAssign = () => {
         }
       } else if (blockNameInd !== undefined && groupNumInd !== undefined) {
         console.log("ブロックと組が指定されました");
-        console.log("ブロック", blockNameArr[Number(blockNameInd)]);
-        console.log(
-          "組",
-          groupNumArr[Number(blockNameInd)][Number(groupNumInd)]
-        );
+        // console.log("ブロック", blockNameArr[Number(blockNameInd)]);
+        // console.log(
+        //   "組",
+        //   groupNumArr[Number(blockNameInd)][Number(groupNumInd)]
+        // );
         if (
           el.roleFlag === "0" &&
           el.block1 === blockNameArr[Number(blockNameInd)] &&
@@ -168,7 +168,7 @@ export const AdminAssign = () => {
   const dismissal = (index) => {
     const currentHouseholdList = householdList;
     currentHouseholdList[index].roleFlag = "0";
-    console.log("解任後 : ", currentHouseholdList);
+    // console.log("解任後 : ", currentHouseholdList);
     setHouseholdList(currentHouseholdList);
     setFlag(!flag);
   };
@@ -176,7 +176,7 @@ export const AdminAssign = () => {
   const assign = (index) => {
     const currentHouseholdList = householdList;
     currentHouseholdList[index].roleFlag = "1";
-    console.log("任命後 : ", currentHouseholdList);
+    // console.log("任命後 : ", currentHouseholdList);
     setHouseholdList(currentHouseholdList);
     setFlag(!flag);
   };
@@ -215,7 +215,7 @@ export const AdminAssign = () => {
   const adminRegistration = async () => {
     try {
       const data = householdList;
-      console.log("data : ", data);
+      // console.log("data : ", data);
 
       const res = await fetch(`${URL}/maar/admin_assign`, {
         method: "PATCH",

@@ -6,7 +6,6 @@ import { FileUploader } from "./FileUploader";
 import { TakePicture2 } from "./TakePicture2";
 import { init, send } from "@emailjs/browser";
 
-
 // 必要なIDをそれぞれ環境変数から取得
 const userID = process.env.REACT_APP_USER_ID;
 const serviceID = process.env.REACT_APP_SERVICE_ID;
@@ -20,7 +19,7 @@ const URL =
 //PC or Mobileを判定する。
 const isMobileDevice = () => {
   const userAgent = navigator.userAgent;
-  console.log(userAgent);
+  // console.log(userAgent);
   const mobileDeviceRegex =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
   return mobileDeviceRegex.test(userAgent);
@@ -60,7 +59,7 @@ export const NewSurveyPost = (props) => {
         articleCategory: "アンケート",
         fileSavePath: DataKey,
       };
-      console.log("### data ###: ", data);
+      // console.log("### data ###: ", data);
 
       const res = await fetch(`${URL}/maar/articlelist`, {
         method: "POST",
@@ -70,7 +69,7 @@ export const NewSurveyPost = (props) => {
         body: JSON.stringify(data),
       });
       const result = await res.text();
-      console.log(result);
+      // console.log(result);
       if (result === "新しい記事を追加しました。") {
         setPostArticleTitle("");
         setPostArticleContent("");
@@ -99,11 +98,11 @@ export const NewSurveyPost = (props) => {
       });
       emailAddressString = emailAddressString.slice(1);
       // emailAddressString = "tomohiro_kuba@mail.toyota.co.jp";
-      console.log(emailAddressString);
+      // console.log(emailAddressString);
     } catch (error) {
       console.error(error);
     }
-    console.log(municipalitiesName);
+    // console.log(municipalitiesName);
     try {
       init("5NfbwG0M_nIl2or7_");
       const params = {
@@ -112,7 +111,7 @@ export const NewSurveyPost = (props) => {
         articleTitle: postArticleTitle,
         surveyUrl: postArticleContent,
       };
-      console.log("### params ###: ", params);
+      // console.log("### params ###: ", params);
 
       await send(serviceID, templateID, params);
       console.log("投稿通知送信成功");
@@ -123,9 +122,9 @@ export const NewSurveyPost = (props) => {
   }
 
   const handleUpload = () => {
-    console.log("selectedFile:", selectedFile);
-    console.log("selectedFile type:", typeof selectedFile);
-    console.log("selectedFile name:", selectedFile?.name);
+    // console.log("selectedFile:", selectedFile);
+    // console.log("selectedFile type:", typeof selectedFile);
+    // console.log("selectedFile name:", selectedFile?.name);
     if (!selectedFile) {
       console.log("ファイルが選択されていません");
       handleDataKey("");
@@ -133,7 +132,7 @@ export const NewSurveyPost = (props) => {
     }
 
     const time = dayjs().format("YYYYMMDDhhmmss");
-    console.log(time);
+    // console.log(time);
     const pictureFileName = userName + time;
 
     const keyName = selectedFile.name ? selectedFile.name : pictureFileName; // S3上でのファイル名

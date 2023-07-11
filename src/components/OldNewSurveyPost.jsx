@@ -62,7 +62,7 @@ export const NewSurveyPost = (props) => {
         articleCategory: "アンケート",
         fileSavePath: DataKey,
       };
-      console.log("### data ###: ", data);
+      // console.log("### data ###: ", data);
 
       const res = await fetch(`${URL}/maar/articlelist`, {
         method: "POST",
@@ -72,7 +72,7 @@ export const NewSurveyPost = (props) => {
         body: JSON.stringify(data),
       });
       const result = await res.text();
-      console.log(result);
+      // console.log(result);
     } catch (error) {
       console.error(error);
     }
@@ -98,7 +98,7 @@ export const NewSurveyPost = (props) => {
     } catch (error) {
       console.error(error);
     }
-    console.log(municipalitiesName);
+    // console.log(municipalitiesName);
     try {
       init("5NfbwG0M_nIl2or7_");
       const params = {
@@ -108,7 +108,7 @@ export const NewSurveyPost = (props) => {
         articleContent: postArticleContent,
         url: mailUrl,
       };
-      console.log("### params ###: ", params);
+      // console.log("### params ###: ", params);
 
       await send(serviceID, templateID, params);
       console.log("投稿通知送信成功");

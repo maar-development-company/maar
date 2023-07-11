@@ -6,7 +6,7 @@ import { DisplayImage } from "./DisplayImage";
 export const SingleArticle = () => {
   const location = useLocation();
   const { articleInfo } = location.state;
-  console.log("articleInfoの中身", articleInfo);
+  // console.log("articleInfoの中身", articleInfo);
   return (
     <div className="overflow-y-auto fixed top-24 bottom-12 right-0 left-0">
       <div className="m-4 p-1 h-fit shadow-lg border bg-gray-100 border-gray-300  md:h-fit rounded-3xl text-3xl md:flex md:flex-col">

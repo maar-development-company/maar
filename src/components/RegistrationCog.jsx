@@ -55,7 +55,7 @@ export const RegistrationCog = (props) => {
   const handleBlock3Change = (e) => setBlock3(e.target.value);
   useEffect(() => {
     console.log("useEffectの中");
-    console.log(URL);
+    // console.log(URL);
     getMunicipalitiesFunc();
   }, []);
 
@@ -74,8 +74,8 @@ export const RegistrationCog = (props) => {
           const groupNumArray = JSON.parse(groupNumArrayString);
           setBlockNameArray(blockNames);
           setGroupNumArray(groupNumArray);
-          console.log("blockNames", blockNames);
-          console.log("groupNumArray", groupNumArray);
+          // console.log("blockNames", blockNames);
+          // console.log("groupNumArray", groupNumArray);
         } catch (error) {
           console.error("Error parsing JSON:", error);
           setBlockNameArray([]);
@@ -108,10 +108,10 @@ export const RegistrationCog = (props) => {
         throw new Error("Failed to fetch.");
       }
       const municipalitiesObj = await response.json();
-      console.log(municipalitiesObj);
+      // console.log(municipalitiesObj);
       if (municipalitiesObj.length !== municipalitiesList.length) {
         setMunicipalitiesList(municipalitiesObj);
-        console.log(municipalitiesObj);
+        // console.log(municipalitiesObj);
       }
     } catch (error) {
       console.error(error);
@@ -119,7 +119,7 @@ export const RegistrationCog = (props) => {
   };
 
   const handleCategoryTownChange = (e) => {
-    console.log("eの中身を確認: ", e.target.value);
+    // console.log("eの中身を確認: ", e.target.value);
     const value = JSON.parse(e.target.value);
     const selectedId = parseInt(value.id);
     const selectedTown = municipalitiesList.find(
@@ -128,7 +128,7 @@ export const RegistrationCog = (props) => {
     setMunicipalitiyIndex(value.index);
     setMunicipalityId(selectedTown.id);
     setMunicipalitiesID(selectedTown.id);
-    console.log(selectedTown.id);
+    // console.log(selectedTown.id);
     setMunicipality(selectedTown.municipalitiesName);
     // setMunicipalities(selectedTown.municipalitiesName);
     // setGroupNumArray(selectedTown.groupNumArray);
@@ -148,7 +148,7 @@ export const RegistrationCog = (props) => {
         password: password,
         municipalities: municipality,
       };
-      console.log("dataの中身　　", data);
+      // console.log("dataの中身　　", data);
       const res = await fetch(`${URL}/maar/login`, {
         method: "POST",
         headers: {
@@ -157,7 +157,7 @@ export const RegistrationCog = (props) => {
         body: JSON.stringify(data),
       });
       const result = await res.json();
-      console.log(result);
+      // console.log(result);
 
       writeToSessionStorage("loginInfo", data);
       writeToSessionStorage("loginResultInfo", result);
@@ -173,7 +173,7 @@ export const RegistrationCog = (props) => {
         setLoginCom(2);
         setUserName(result.name);
         setMunicipality(result.municipalitiesName);
-        console.log(loginCom);
+        // console.log(loginCom);
       }
     } catch (error) {
       console.error(error);
@@ -189,7 +189,7 @@ export const RegistrationCog = (props) => {
     console.log("新規登録ボタンが押された");
     try {
       const data = await hashFunc();
-      console.log("dataの中身  ", data);
+      // console.log("dataの中身  ", data);
       const res = await fetch(`${URL}/maar/login`, {
         method: "POST",
         headers: {
@@ -198,13 +198,13 @@ export const RegistrationCog = (props) => {
         body: JSON.stringify(data),
       });
       const result = await res.json();
-      console.log(result);
+      // console.log(result);
 
       writeToSessionStorage("loginInfo", data);
       writeToSessionStorage("loginResultInfo", result);
 
       const judgeNum = result.judge;
-      console.log("judgeNum   ", judgeNum);
+      // console.log("judgeNum   ", judgeNum);
       judgeNum === 1
         ? setLoginCom(1)
         : judgeNum === 2
@@ -228,7 +228,7 @@ export const RegistrationCog = (props) => {
     console.log("新規登録ボタンが押された");
     try {
       const data = await hashFunc1();
-      console.log("dataの中身  ", data);
+      // console.log("dataの中身  ", data);
       const res = await fetch(`${URL}/maar/login`, {
         method: "POST",
         headers: {
@@ -237,13 +237,13 @@ export const RegistrationCog = (props) => {
         body: JSON.stringify(data),
       });
       const result = await res.json();
-      console.log(result);
+      // console.log(result);
 
       writeToSessionStorage("loginInfo", data);
       writeToSessionStorage("loginResultInfo", result);
 
       const judgeNum = result.judge;
-      console.log("judgeNum   ", judgeNum);
+      // console.log("judgeNum   ", judgeNum);
       judgeNum === 1
         ? setLoginCom(1)
         : judgeNum === 2
@@ -273,8 +273,8 @@ export const RegistrationCog = (props) => {
 
     try {
       const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
-      console.log("元のパスワード:", password);
-      console.log("ハッシュ化されたパスワード:", hashedPassword);
+      // console.log("元のパスワード:", password);
+      // console.log("ハッシュ化されたパスワード:", hashedPassword);
       return {
         loginCategory: 1,
         householdName: householdName,
@@ -310,8 +310,8 @@ export const RegistrationCog = (props) => {
 
     try {
       const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
-      console.log("元のパスワード:", password);
-      console.log("ハッシュ化されたパスワード:", hashedPassword);
+      // console.log("元のパスワード:", password);
+      // console.log("ハッシュ化されたパスワード:", hashedPassword);
       return {
         loginCategory: 1,
         householdName: householdName,
@@ -338,129 +338,131 @@ export const RegistrationCog = (props) => {
 
   return (
     <div>
-      <header className="h-14 p-2 bg-blue-800 text-white sticky top-0 z-0">
-        <p className="text-4xl text-center">ユーザー情報を登録してください。</p>
+      <header className="h-14 w-full text-center p-2 bg-blue-800 text-white fixed top-12 z-0">
+        <p className="text-4xl text-center mb-1">ユーザー情報登録</p>
       </header>
-      <select
-        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        variant="standard"
-        label="町内会名を選択してください"
-        onChange={handleCategoryTownChange}
-        defaultValue=""
-      >
-        <option value="" disabled>
-          町内会名を選択してください
-        </option>
-        {municipalitiesList.map((item, index) => (
-          <option
-            key={index}
-            value={JSON.stringify({ id: item.id, index: index })}
-          >
-            {item.municipalitiesName}
+      <div className="container mx-auto px-8 overflow-y-auto fixed top-28 bottom-0 right-0 left-0">
+        <select
+          className="w-full h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          variant="standard"
+          label="町内会名を選択してください"
+          onChange={handleCategoryTownChange}
+          defaultValue=""
+        >
+          <option value="" disabled>
+            町内会名を選択してください
           </option>
-        ))}
-      </select>
-      <select
-        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        value={blockNameIndex}
-        onChange={handleBlock1Change}
-      >
-        <option value="" disabled>
-          丁目やブロックを選択してください
-        </option>
-        {blockNameArray.map((item, index) => (
-          <option key={index} value={index}>
-            {item}
+          {municipalitiesList.map((item, index) => (
+            <option
+              key={index}
+              value={JSON.stringify({ id: item.id, index: index })}
+            >
+              {item.municipalitiesName}
+            </option>
+          ))}
+        </select>
+        <select
+          className="w-full h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          value={blockNameIndex}
+          onChange={handleBlock1Change}
+        >
+          <option value="" disabled>
+            丁目やブロックを選択してください
           </option>
-        ))}
-      </select>
-      <select
-        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        value={block2}
-        onChange={handleBlock2Change}
-      >
-        <option value="" disabled>
-          組を選択してください
-        </option>
-        {blockNameIndex !== "" &&
-          groupNumArray[Number(blockNameIndex)].map((item, index) => (
-            <option key={index} value={item}>
+          {blockNameArray.map((item, index) => (
+            <option key={index} value={index}>
               {item}
             </option>
           ))}
-      </select>
-      <input
-        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        type="text"
-        placeholder="氏名"
-        value={householdName}
-        onChange={handleHouseholdNameChange}
-      />
-      <input
-        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
-        mt-4 ml-2 mr-2
+        </select>
+        <select
+          className="w-full h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          value={block2}
+          onChange={handleBlock2Change}
+        >
+          <option value="" disabled>
+            組を選択してください
+          </option>
+          {blockNameIndex !== "" &&
+            groupNumArray[Number(blockNameIndex)].map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
+        </select>
+        <input
+          className="w-full h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          type="text"
+          placeholder="氏名"
+          value={householdName}
+          onChange={handleHouseholdNameChange}
+        />
+        <input
+          className="w-full h-20 bg-gray-100 bg-opacity-50 rounded border
+        mt-4
          border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
           focus:ring-indigo-200 outline-none text-gray-700 text-4xl
            py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        type="text"
-        placeholder="メールアドレス"
-        value={emailAddress}
-        onChange={handleEmailAddressChange}
-      />
-      <input
-        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border
-        mt-4 ml-2 mr-2
+          type="text"
+          placeholder="メールアドレス"
+          value={emailAddress}
+          onChange={handleEmailAddressChange}
+        />
+        <input
+          className="w-full h-20 bg-gray-100 bg-opacity-50 rounded border
+        mt-4
          border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
           focus:ring-indigo-200 outline-none text-gray-700 text-4xl
            py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        type="password"
-        placeholder="パスワード"
-        value={password}
-        onChange={handlePasswordChange}
-      />
-      <input
-        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        type="text"
-        placeholder="電話番号"
-        value={householdTel}
-        onChange={handleHouseholdTelChange}
-      />
-      <input
-        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        type="text"
-        placeholder="年齢"
-        value={householdAge}
-        onChange={handleHouseholdAgeChange}
-      />
-      <input
-        className="w-11/12 h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 ml-2 mr-2 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-        type="text"
-        placeholder="家族人数"
-        value={familySize}
-        onChange={handleFamilySizeChange}
-      />
-      <div className="flex flex-row items-center justify-center">
-        <Link
-          to="/"
-          onClick={async () => {
-            await newLogin();
-            await login();
-          }}
-          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-44 mt-2 text-3xl flex flex-row"
-        >
-          新規登録
-        </Link>
+          type="password"
+          placeholder="パスワード"
+          value={password}
+          onChange={handlePasswordChange}
+        />
+        <input
+          className="w-full h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          type="text"
+          placeholder="電話番号"
+          value={householdTel}
+          onChange={handleHouseholdTelChange}
+        />
+        <input
+          className="w-full h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          type="text"
+          placeholder="年齢"
+          value={householdAge}
+          onChange={handleHouseholdAgeChange}
+        />
+        <input
+          className="w-full h-20 bg-gray-100 bg-opacity-50 rounded border mt-4 border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 outline-none text-gray-700 text-4xl py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          type="text"
+          placeholder="家族人数"
+          value={familySize}
+          onChange={handleFamilySizeChange}
+        />
+        <div className="flex flex-row items-center justify-center">
+          <Link
+            to="/"
+            onClick={async () => {
+              await newLogin();
+              await login();
+            }}
+            className="bg-blue-800 hover:bg-blue-700 text-white rounded px-6 py-2 w-fit mt-4 text-3xl flex flex-row"
+          >
+            新規登録
+          </Link>
+        </div>
+        <div className="flex flex-row items-center justify-center">
+          <Link
+            to="/"
+            onClick={async () => handle()}
+            className="bg-white hover:bg-gray-50 text-white rounded px-4 py-2 w-fit mt-2 text-3xl flex flex-row"
+          >
+            管理者登録
+          </Link>
+        </div>
+        <b></b>
       </div>
-      <div className="flex flex-row items-center justify-center">
-        <Link
-          to="/"
-          onClick={async () => handle()}
-          className="bg-blue-800 hover:bg-blue-700 text-white rounded px-4 py-2 w-44 mt-2 text-3xl flex flex-row"
-        >
-          管理者登録
-        </Link>
-      </div>
-      <b></b>
     </div>
   );
 };

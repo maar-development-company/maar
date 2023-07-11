@@ -41,7 +41,7 @@ export const SurveyList = (props) => {
 
   const getArticleList = async () => {
     //データベースにGETする処理
-    console.log(municipality);
+    // console.log(municipality);
     const encodedMunicipality = encodeURIComponent(municipality);
     const encodedhouseholdNameID =
       readFromSessionStorage("loginResultInfo").houseHoldNameID;
@@ -60,7 +60,7 @@ export const SurveyList = (props) => {
       }
       const articleObj = await response.json();
       setNumber(articleObj.length);
-      console.log(articleObj);
+      // console.log(articleObj);
       // ★householdID = 2のuserの最新記事（配列[0]）の既読日時の取り方
       // ★articleObjの要素１つ（↓だと[0]）のuseReadInfoプロパティをJSON.parseする
       // let householdID = 2;
@@ -88,7 +88,7 @@ export const SurveyList = (props) => {
         readTimestamp,
         articleId,
       };
-      console.log(data);
+      // console.log(data);
 
       const res = await fetch(`${URL}/maar/articlelist`, {
         method: "PATCH",

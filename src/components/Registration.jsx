@@ -26,7 +26,7 @@ export const Registration = (props) => {
     setPassword,
     setUserName,
   } = props;
-  console.log(process.env);
+  // console.log(process.env);
 
   const [municipalitiesList, setMunicipalitiesList] = useState([]);
   const [municipalitiesID, setMunicipalitiesID] = useState("");
@@ -59,7 +59,7 @@ export const Registration = (props) => {
   const handleBlock3Change = (e) => setBlock3(e.target.value);
   useEffect(() => {
     console.log("useEffectの中");
-    console.log(URL);
+    // console.log(URL);
     getMunicipalitiesFunc();
   }, []);
 
@@ -100,8 +100,8 @@ export const Registration = (props) => {
           const groupNumArray = JSON.parse(groupNumArrayString);
           setBlockNameArray(blockNames);
           setGroupNumArray(groupNumArray);
-          console.log("blockNames", blockNames);
-          console.log("groupNumArray", groupNumArray);
+          // console.log("blockNames", blockNames);
+          // console.log("groupNumArray", groupNumArray);
         } catch (error) {
           console.error("Error parsing JSON:", error);
           setBlockNameArray([]);
@@ -134,10 +134,10 @@ export const Registration = (props) => {
         throw new Error("Failed to fetch.");
       }
       const municipalitiesObj = await response.json();
-      console.log(municipalitiesObj);
+      // console.log(municipalitiesObj);
       if (municipalitiesObj.length !== municipalitiesList.length) {
         setMunicipalitiesList(municipalitiesObj);
-        console.log(municipalitiesObj);
+        // console.log(municipalitiesObj);
       }
     } catch (error) {
       console.error(error);
@@ -145,14 +145,14 @@ export const Registration = (props) => {
   };
 
   const handleCategoryTownChange = (e) => {
-    console.log("eの中身を確認: ", e);
+    // console.log("eの中身を確認: ", e);
     const selectedId = parseInt(e.target.value);
     const selectedTown = municipalitiesList.find(
       (town) => town.id === selectedId
     );
     setMunicipalityId(selectedTown.id);
     setMunicipalitiesID(selectedTown.id);
-    console.log(selectedTown.id);
+    // console.log(selectedTown.id);
     setMunicipality(selectedTown.municipalitiesName);
     // setMunicipalities(selectedTown.municipalitiesName);
     // setGroupNumArray(selectedTown.groupNumArray);
@@ -209,7 +209,7 @@ export const Registration = (props) => {
     console.log("新規登録ボタンが押された");
     try {
       const data = await hashFunc();
-      console.log("dataの中身  ", data);
+      // console.log("dataの中身  ", data);
       const res = await fetch(`${URL}/maar/login`, {
         method: "POST",
         headers: {
@@ -218,7 +218,7 @@ export const Registration = (props) => {
         body: JSON.stringify(data),
       });
       const result = await res.json();
-      console.log(result);
+      // console.log(result);
 
       writeToSessionStorage("loginInfo", data);
       writeToSessionStorage("loginResultInfo", result);
@@ -247,8 +247,8 @@ export const Registration = (props) => {
 
     try {
       const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
-      console.log("元のパスワード:", password);
-      console.log("ハッシュ化されたパスワード:", hashedPassword);
+      // console.log("元のパスワード:", password);
+      // console.log("ハッシュ化されたパスワード:", hashedPassword);
       return {
         loginCategory: 1,
         householdName: householdName,

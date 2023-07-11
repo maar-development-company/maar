@@ -8,6 +8,7 @@ import { BiDownArrowAlt } from "react-icons/bi";
 import { SlBubble } from "react-icons/sl";
 import { AiOutlineHome } from "react-icons/ai";
 import { IoReturnDownBackOutline } from "react-icons/io5";
+import { PiTaxiLight } from "react-icons/pi";
 import { Login } from "./components/Login";
 import { ArticleList } from "./components/Articlelist";
 import { SingleArticle } from "./components/SingleArticle";
@@ -15,19 +16,18 @@ import { AdminMenu } from "./components/AdminMenu";
 import { NewPost } from "./components/NewPost";
 import { OrganizationSetting } from "./components/OrganizationSetting";
 import { PageBackButton } from "./components/PageBackButton";
-import dayjs from "dayjs";
 import { Registration } from "./components/Registration";
 import { NewContract } from "./components/NewContract";
-import { PiTaxiLight } from "react-icons/pi";
 import { AdminAssign } from "./components/AdminAssign";
 import { NewSurveyPost } from "./components/NewSurveyPost";
 import { SurveyList } from "./components/SurveyList";
+import MyPage2 from "./components/MyPage2";
 import { cognito } from "./components/cognito";
 import { Header } from "./components/Header";
+import dayjs from "dayjs";
 import { Amplify } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import MyPage2 from "./components/MyPage2";
 
 Amplify.configure({
   aws_project_region: process.env.REACT_APP_AWS_PROJECT_REGION,
@@ -109,7 +109,7 @@ function App() {
       <Router>
         <div>
           {loginCom === 0 && (
-            <header className="h-24 p-2 bg-blue-800 text-white sticky top-0 z-0">
+            <header className="h-24 w-full text-center p-2 bg-blue-800 text-white sticky top-0 z-0">
               <p className="text-4xl text-center">まある</p>
               <p className="text-4xl text-center">ログイン画面</p>
             </header>

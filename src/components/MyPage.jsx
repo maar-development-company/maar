@@ -52,7 +52,7 @@ const MyPage = (props) => {
   const [municipalitiesList, setMunicipalitiesList] = useState([]);
   const [municipalities, setMunicipalities] = useState("");
 
-  console.log("loginCom : ", loginCom);
+  // console.log("loginCom : ", loginCom);
   // useState-終-----
 
   const { user, signOut } = useAuthenticator((context) => [context.user]);
@@ -80,7 +80,7 @@ const MyPage = (props) => {
   // ログイン状態を確認する。
   useEffect(() => {
     console.log("useEffectの中");
-    console.log(URL);
+    // console.log(URL);
     checkAccountFunc();
     getMunicipalitiesFunc();
     const data = sessionStorage.getItem("loginInfo");
@@ -114,7 +114,7 @@ const MyPage = (props) => {
     const second = String(loginTimestamp.getSeconds()).padStart(2, "0");
     const formattedLoginTimestamp = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
-    console.log("aaaaaaaaaaaaa   ", user.attributes.email);
+    // console.log("aaaaaaaaaaaaa   ", user.attributes.email);
     const data = {
       loginCategory: 7,
       mailadress: emailAddress,
@@ -131,7 +131,7 @@ const MyPage = (props) => {
     });
     const result = await res.json();
     console.log("result");
-    console.log(result);
+    // console.log(result);
 
     writeToSessionStorage("loginInfo", data);
     writeToSessionStorage("loginResultInfo", result);
@@ -166,7 +166,7 @@ const MyPage = (props) => {
         throw new Error("Failed to fetch.");
       }
       const municipalitiesObj = await response.json();
-      console.log(municipalitiesObj);
+      // console.log(municipalitiesObj);
       if (municipalitiesObj.length !== municipalitiesList.length) {
         setMunicipalitiesList(municipalitiesObj);
       }

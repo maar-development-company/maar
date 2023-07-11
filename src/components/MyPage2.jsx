@@ -27,6 +27,7 @@ import { Auth } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
 import { SurveyList } from "./SurveyList";
 import { NewSurveyPost } from "./NewSurveyPost";
+import { Header } from "./Header";
 
 const AWS = require("aws-sdk");
 
@@ -59,7 +60,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
   const [history, setHistory] = useState("");
   const [municipalitiesList, setMunicipalitiesList] = useState([]);
   const [municipalities, setMunicipalities] = useState("");
-  console.log("loginCom : ", loginCom);
+  // console.log("loginCom : ", loginCom);
 
   //S3ファイル一覧取得ー始ーーーーーーーーーーーーーーー
   const s3 = new AWS.S3();
@@ -96,10 +97,10 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
 
   useEffect(() => {
     console.log("useEffectの中");
-    console.log(URL);
+    // console.log(URL);
     // checkAccountFunc();
     getMunicipalitiesFunc();
-    console.log(loginCom);
+    // console.log(loginCom);
     const data = sessionStorage.getItem("loginInfo");
     const user = sessionStorage.getItem("loginResultInfo");
     user
@@ -107,7 +108,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
       : setMunicipality("");
 
     const judgeNum = JSON.parse(user)?.judge;
-    console.log("judgeNum   ", judgeNum);
+    // console.log("judgeNum   ", judgeNum);
     if (judgeNum !== null) {
       judgeNum === 1
         ? setLoginCom(1)
@@ -115,7 +116,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
         ? setLoginCom(2)
         : setLoginCom(0);
     }
-    console.log("loginCom   ", loginCom);
+    // console.log("loginCom   ", loginCom);
     // user ? setLoginCom(JSON.parse(user).judge) : setLoginCom(0);
     user ? setUserName(JSON.parse(user).name) : setUserName("");
 
@@ -139,7 +140,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
         const second = String(loginTimestamp.getSeconds()).padStart(2, "0");
         const formattedLoginTimestamp = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
-        console.log("aaaaaaaaaaaaa   ", user.attributes.email);
+        // console.log("aaaaaaaaaaaaa   ", user.attributes.email);
         const data = {
           loginCategory: 7,
           mailadress: emailAddress,
@@ -156,7 +157,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
         });
         const result = await res.json();
         console.log("result");
-        console.log(result);
+        // console.log(result);
 
         if (result.judge === 0) {
           setLoginCom(0);
@@ -198,7 +199,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
         } else {
           setLoginCom(1);
           setNum(1);
-          console.log("Num ", Num);
+          // console.log("Num ", Num);
           const data = sessionStorage.getItem("loginInfo");
           const user = sessionStorage.getItem("loginResultInfo");
         }
@@ -228,7 +229,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
         throw new Error("Failed to fetch.");
       }
       const municipalitiesObj = await response.json();
-      console.log(municipalitiesObj);
+      // console.log(municipalitiesObj);
       if (municipalitiesObj.length !== municipalitiesList.length) {
         setMunicipalitiesList(municipalitiesObj);
       }
@@ -311,7 +312,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
         municipalities: municipality,
         loginTimestamp: formattedLoginTimestamp,
       };
-      console.log("dataの中身    ", data);
+      // console.log("dataの中身    ", data);
       const res = await fetch(`${URL}/maar/login`, {
         method: "POST",
         headers: {
@@ -321,7 +322,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
       });
       const result = await res.json();
       console.log("ログインのトライの中！！！！！！！！");
-      console.log(result);
+      // console.log(result);
 
       writeToSessionStorage("loginInfo", data);
       writeToSessionStorage("loginResultInfo", result);
@@ -335,7 +336,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
         setLoginCom(2);
         setUserName(result.name);
         setMunicipality(result.municipalitiesName);
-        console.log(loginCom);
+        // console.log(loginCom);
       }
     } catch (error) {
       console.error(error);
@@ -350,10 +351,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
         <RegistrationCog setLoginCom={setLoginCom} loginCom={loginCom} />
       ) : (
         <>
-          <header className="h-24 p-2 bg-blue-800 text-white sticky top-0 z-0">
-            <p className="text-4xl text-left">{municipality}</p>
-            <p className="text-4xl text-left">{userName}さん</p>
-          </header>
+          <Header municipality={municipality} userName={userName} />
           <Routes>
             <Route
               path="/"
@@ -508,16 +506,16 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
             <PageBackButton />
             <button
               onClick={() => (location.href = "/")}
-              className="bg-blue-800 hover:bg-blue-700 text-white border-2 border-white rounded px-4 py-2 w-30 mt-2 mr-3 text-xl flex flex-row"
+              className="bg-blue-800 hover:bg-blue-700 text-white border-2 border-white rounded px-4 py-2 w-30 mt-2 mr-3 mb-4 text-xl flex flex-row"
             >
               <div
-                className="flex items-center justify-center md:justify-start"
-                onClick={() => console.log(loginCom)}
+                className="flex items-center justify-center md:justify-start mb-4"
+                onClick={() => console.log()}
               ></div>
               <span>ホーム</span>
             </button>
             <button
-              className="bg-blue-800 hover:bg-blue-700 text-white border-2 border-white rounded px-4 py-2 w-fit mt-2 text-xl flex flex-row"
+              className="bg-blue-800 hover:bg-blue-700 text-white border-2 border-white rounded px-4 py-2 w-fit mt-2 mb-4 text-xl flex flex-row"
               onClick={logout}
             >
               <span>ログアウト</span>
@@ -525,10 +523,10 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
           </footer>
         </>
       )}
-      <button onClick={signOut}>Sign out</button>
+      {/* <button onClick={signOut}>Sign out</button>
       <p>
         <Link to="/user_edit">ユーザー情報変更</Link>
-      </p>
+      </p> */}
     </main>
   );
 };

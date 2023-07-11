@@ -12,7 +12,7 @@ export const OrganizationSetting = () => {
   const [groupNumArr, setGroupNumArr] = useState([]);
 
   const handleBlockNumChange = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const value = e.target.value.replace(/\D/g, "");
     setBlockNum(value);
   };
@@ -31,7 +31,7 @@ export const OrganizationSetting = () => {
 
   const handleBlockNameChange = (index, e) => {
     const { value } = e.target;
-    console.log(blockNameArr);
+    // console.log(blockNameArr);
     setBlockNameArr((prevArr) => {
       const updatedArr = [...prevArr];
       updatedArr[index] = value;
@@ -41,7 +41,7 @@ export const OrganizationSetting = () => {
 
   const handleGroupNumChange = (index, e) => {
     const value = e.target.value.replace(/\D/g, "");
-    console.log(groupNumArr);
+    // console.log(groupNumArr);
     setGroupNumArr((prevArr) => {
       const updatedArr = [...prevArr];
       updatedArr[index] = value;
@@ -70,7 +70,7 @@ export const OrganizationSetting = () => {
         blockNameArray: blockNameArr,
         groupNumArray: groupNumArr,
       };
-      console.log("dataの中身　　", data);
+      // console.log("dataの中身　　", data);
       const res = await fetch(`${URL}/muni`, {
         method: "POST",
         headers: {
@@ -79,7 +79,7 @@ export const OrganizationSetting = () => {
         body: JSON.stringify(data),
       });
       const result = await res.text();
-      console.log(result);
+      // console.log(result);
       if (result === "組織情報登録完了") {
         setBlockNameArr([]);
         setGroupNumArr([]);

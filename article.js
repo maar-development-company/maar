@@ -9,11 +9,11 @@ router.get("/maar/articlelist", async (req, res) => {
   // クエリから市町村を取得
   const householdNameID = req.query.householdNameID;
   const municipalitiesName = decodeURIComponent(req.query.municipalitiesName);
-  console.log(municipalitiesName);
+  // console.log(municipalitiesName);
   // 市区町村データがあるか確認
   if (municipalitiesName) {
-    console.log(`Municipalities ID: ${householdNameID}`);
-    console.log("municipalitiesName: ", municipalitiesName);
+    // console.log(`Municipalities ID: ${householdNameID}`);
+    // console.log("municipalitiesName: ", municipalitiesName);
 
     // 特定の市町村の記事を取得する関数
     const getArticles = async (municipalitiesName, householdNameID) => {
@@ -24,7 +24,7 @@ router.get("/maar/articlelist", async (req, res) => {
           .where("municipalitiesName", municipalitiesName);
       };
       const getMunicipalitiesIDResultObj = await getMunicipalitiesIDFunc();
-      console.log(getMunicipalitiesIDResultObj[0].id);
+      // console.log(getMunicipalitiesIDResultObj[0].id);
       console.log("1つ目のget");
       return knex
         .select("*")
@@ -40,7 +40,7 @@ router.get("/maar/articlelist", async (req, res) => {
 
     // 記事を取得して応答として送信する
     const articles = await getArticles(municipalitiesName, householdNameID);
-    console.log("articles: ", articles);
+    // console.log("articles: ", articles);
     console.log("記事一覧の取得が完了しました。");
     res.status(200).json(articles);
   } else {
@@ -55,7 +55,7 @@ router.post("/maar/articlelist", async (req, res) => {
 
   // ボディから記事データを取得
   const article = req.body;
-  console.log(article);
+  // console.log(article);
   // リクエスト形式をチェック
 
   if (
@@ -67,13 +67,13 @@ router.post("/maar/articlelist", async (req, res) => {
     article.hasOwnProperty("fileSavePath")
   ) {
     console.log("if分の中");
-    console.log(JSON.stringify(article.municipalitiesName));
+    // console.log(JSON.stringify(article.municipalitiesName));
     const checkPOSTMunicipalitiesID = async () => {
       const result = await knex
         .select("id")
         .from("municipalitiesList")
         .where("municipalitiesName", article.municipalitiesName);
-      console.log(result);
+      // console.log(result);
       return result[0].id;
     };
 
@@ -88,7 +88,7 @@ router.post("/maar/articlelist", async (req, res) => {
 
     // 既読情報列に空のobj{}を入れる
     article.userReadInfo = "{}";
-    console.log("article: ", article);
+    // console.log("article: ", article);
 
     // 新しい記事を追加する関数
     const addArticle = (article) => {
@@ -110,22 +110,22 @@ router.post("/maar/articlelist", async (req, res) => {
 // 既読情報の投稿
 router.patch("/maar/articlelist", async (req, res) => {
   console.log("ユーザーの 既読PATCHリクエスト 受信");
-  console.log(req.body);
+  // console.log(req.body);
 
   // reqから既読日時データを取得
   const readTimestamp = req.body.readTimestamp;
   // データをチェック
-  console.log("readTimestamp : ", readTimestamp);
+  // console.log("readTimestamp : ", readTimestamp);
 
   // reqからユーザー名を取得
   const userName = req.body.user;
   // データをチェック
-  console.log(userName);
+  // console.log(userName);
 
   // reqから記事IDを取得
   const articleId = req.body.articleId;
   // データをチェック
-  console.log(articleId);
+  // console.log(articleId);
 
   if (userName && readTimestamp && articleId) {
     // console.log("if分の中");
@@ -135,12 +135,12 @@ router.patch("/maar/articlelist", async (req, res) => {
         .select("id")
         .from("householdList")
         .where("householdName", userName);
-      console.log("checkPATCHUserId result : ", result);
+      // console.log("checkPATCHUserId result : ", result);
       return result[0].id;
     };
 
     const readUserId = await checkPATCHUserId();
-    console.log("readUserId: ", readUserId);
+    // console.log("readUserId: ", readUserId);
 
     // articleListのテーブルにある既読管理列のオブジェクトを取得"userReadInfo"
     const getUserReadInfoOfTheArticle = async () => {
@@ -148,17 +148,17 @@ router.patch("/maar/articlelist", async (req, res) => {
         .select("userReadInfo")
         .from("articleList")
         .where("id", articleId);
-      console.log(result);
+      // console.log(result);
       return result[0].userReadInfo;
     };
 
     const readInfo = await getUserReadInfoOfTheArticle();
     const readInfoObj = JSON.parse(readInfo);
-    console.log("readInfoObj : ", Number(readInfoObj));
+    // console.log("readInfoObj : ", Number(readInfoObj));
 
     // userReadInfoのObjにキー：userId、バリュー：既読の日時のプロパティを追加
     readInfoObj[readUserId] = readTimestamp;
-    console.log("Updated readInfoObj : ", readInfoObj);
+    // console.log("Updated readInfoObj : ", readInfoObj);
 
     // 既読情報を追加したObjをDBに反映
     const updateReadInfo = () => {
