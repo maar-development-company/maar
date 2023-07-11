@@ -25,9 +25,44 @@ import MyPage2 from "./components/MyPage2";
 import { cognito } from "./components/cognito";
 import { Header } from "./components/Header";
 import dayjs from "dayjs";
-import { Amplify } from "aws-amplify";
-import { Authenticator } from "@aws-amplify/ui-react";
+import { Amplify, I18n } from "aws-amplify";
+import { Authenticator, translations } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
+
+I18n.putVocabularies(translations);
+I18n.setLanguage("ja");
+
+I18n.putVocabularies({
+  ja: {
+    "Sign in": "ログインする",
+    "Sign In": "ログイン",
+    "Sign Up": "会員登録する",
+    "Create Account": "新規登録",
+    Email: "メールアドレス",
+    "Enter your Email": "メールアドレスを入力してください",
+    "Enter your Password": "パスワードを入力してください",
+    Password: "パスワード",
+    "Please confirm your Password": "確認用パスワードを入力してください",
+    Username: "メールアドレス",
+    "Enter your Username": "メールアドレスを入力してください",
+    "Your passwords must match": "パスワードを合致させてください",
+    "Invalid verification code provided, please try again.":
+      "確認コードに誤りがあるため、再度お試しください",
+    "Back to Sign In": "ログイン画面に戻る",
+    "Incorrect username or password.": "メールアドレスかパスワードが無効です。",
+    "Cannot reset password for the user as there is no registered/verified email or phone_number":
+      "会員登録されていないためパスワードリセットできません",
+    "Username should be an email.": "メールアドレスを入力してください",
+    "Password did not conform with policy: Password not long enough":
+      "パスワードポリシーに反しています。大文字小文字数字記号を含む８文字以上で設定しなさい",
+    "Password did not conform with policy: Password must have numeric characters":
+      "パスワードポリシーに反しています。大文字小文字数字記号を含む８文字以上で設定しなさい",
+    "Password did not conform with policy: Password must have lowercase characters":
+      "パスワードポリシーに反しています。大文字小文字数字記号を含む８文字以上で設定しなさい",
+    "Password did not conform with policy:":
+      "パスワードポリシーに反しています。大文字小文字数字記号を含む８文字以上で設定しなさい",
+  },
+});
 
 Amplify.configure({
   aws_project_region: process.env.REACT_APP_AWS_PROJECT_REGION,
