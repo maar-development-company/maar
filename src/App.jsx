@@ -142,14 +142,14 @@ function App() {
   return (
     <>
       <Router>
-        <div>
+        <div className="flex justify-center">
           {loginCom === 0 && (
-            <header className="h-24 w-full text-center p-2 bg-blue-800 text-white fixed top-0 z-0">
+            <header className="h-24 p-2 bg-blue-800 text-white fixed w-full top-0 z-0">
               <p className="text-4xl text-center">まある</p>
               <p className="text-4xl text-center">ログイン画面</p>
             </header>
           )}
-          <Authenticator>
+          <Authenticator className="fixed top-28">
             {({ signOut, user }) => (
               <Authenticator.Provider>
                 <MyPage2 loginCom={loginCom} setLoginCom={setLoginCom} />
