@@ -144,7 +144,7 @@ function App() {
       <Router>
         <div>
           {loginCom === 0 && (
-            <header className="h-24 w-full text-center p-2 bg-blue-800 text-white sticky top-0 z-0">
+            <header className="h-24 w-full text-center p-2 bg-blue-800 text-white fixed top-0 z-0">
               <p className="text-4xl text-center">まある</p>
               <p className="text-4xl text-center">ログイン画面</p>
             </header>

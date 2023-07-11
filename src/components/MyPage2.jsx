@@ -523,10 +523,12 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
           </footer>
         </>
       )}
-      <button onClick={signOut}>Sign out</button>
-      <p>
+      {/* <button className="text-white" onClick={signOut}>
+        Sign out
+      </button>
+      <p className="text-white">
         <Link to="/user_edit">ユーザー情報変更</Link>
-      </p>
+      </p> */}
     </main>
   );
 };
