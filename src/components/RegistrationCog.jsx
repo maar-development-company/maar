@@ -338,7 +338,7 @@ export const RegistrationCog = (props) => {
 
   return (
     <div>
-      <header className="h-14 w-full text-center p-2 bg-blue-800 text-white fixed top-12 z-0">
+      <header className="h-14 w-full left-0 p-2 bg-blue-800 text-white fixed top-12 z-0">
         <p className="text-4xl text-center mb-1">ユーザー情報登録</p>
       </header>
       <div className="container mx-auto px-8 overflow-y-auto fixed top-28 bottom-0 right-0 left-0">

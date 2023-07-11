@@ -502,7 +502,7 @@ const MyPage2 = ({ loginCom, setLoginCom }) => {
             )}
           </Routes>
 
-          <footer className="w-full fixed bottom-0 flex flex-row items-center justify-center bg-blue-800 text-white ">
+          <footer className="w-full fixed bottom-0 flex flex-row items-center justify-center bg-blue-800 text-white left-0">
             <PageBackButton />
             <button
               onClick={() => (location.href = "/")}
